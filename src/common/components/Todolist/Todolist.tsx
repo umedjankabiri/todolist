@@ -14,7 +14,10 @@ export const Todolist: FC<TodolistProps> = (props) => {
             </li>
         )
     })
-
+    
+    const onClickAllButton = ()=> props.changeFilter("All")
+    const onClickActiveButton = ()=> props.changeFilter("Active")
+    const onClickCompletedButton = ()=> props.changeFilter("Completed")
 
     return (
         <div>
@@ -27,9 +30,9 @@ export const Todolist: FC<TodolistProps> = (props) => {
                 { props.tasks.length > 0 ? mappedTasks : <span>No tasks</span> }
             </ul>
             <div>
-                <Button title={"All"}/>
-                <Button title={"Active"}/>
-                <Button title={"Completed"}/>
+                <Button title={"All"} onClick={onClickAllButton}/>
+                <Button title={"Active"} onClick={onClickActiveButton}/>
+                <Button title={"Completed"} onClick={onClickCompletedButton}/>
             </div>
         </div>
     );
