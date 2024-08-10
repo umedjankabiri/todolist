@@ -5,6 +5,6 @@ export const Button: FC<ButtonProps> = (props) => {
     const onClickHandler = ()=> props.onClick
 
     return (
-        <button onClick={onClickHandler}>{props.title}</button>
+        <button className={props.className} onClick={onClickHandler}>{props.title}</button>
     );
 };
