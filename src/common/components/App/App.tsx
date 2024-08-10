@@ -19,7 +19,7 @@ function App() {
     filteredTasks === "Active" && (tasksForTodolist = tasks.filter(task => !task.isDone))
     filteredTasks === "Completed" && (tasksForTodolist = tasks.filter(task => task.isDone))
 
-
+    const removeTask = (taskID: number) => setTasks(tasks.filter(task => task.id !== taskID));
 
     return (
       <div className="App">
