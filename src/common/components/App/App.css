@@ -3,3 +3,15 @@
     gap: 50px;
     margin: 100px;
 }
+.error {
+    border: 1px solid red;
+}
+.errorMessage {
+    color: red;
+}
+.activeFilter {
+    background-color: lightgreen;
+}
+.isDone {
+    opacity: 0.5;
+}
