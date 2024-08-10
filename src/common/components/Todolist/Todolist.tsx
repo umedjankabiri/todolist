@@ -8,7 +8,7 @@ export const Todolist: FC<TodolistProps> = (props) => {
 
     const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) =>
         setTaskTitle(event.currentTarget.value)
-    const AddTaskHandler = () => {
+    const addTaskHandler = () => {
         taskTitle.trim() !== ''
             ? (props.addTask(taskTitle.trim()), setTaskTitle(""))
             : setError("Title is required");
@@ -42,7 +42,7 @@ export const Todolist: FC<TodolistProps> = (props) => {
             <h3>{props.title}</h3>
             <div>
                 <input value={taskTitle} onChange={onChangeHandler} onKeyUp={addTaskOnKeyUpHandler}/>
-                <Button title={"+"} onClick={AddTaskHandler}/>
+                <Button title={"+"} onClick={addTaskHandler}/>
             </div>
             <ul>
                 {props.tasks.length > 0 ? mappedTasks : <span>No tasks</span>}
