@@ -4,6 +4,6 @@ import {FilterValueProps} from "common/types/Tasks/FilterValueProps.ts";
 export type TodolistProps = {
     title: string
     tasks: TaskProps[]
-    removeTask: (taskID: number) => void
+    removeTask: (taskID: string) => void
     changeFilter: (filtered: FilterValueProps) => void
 }
