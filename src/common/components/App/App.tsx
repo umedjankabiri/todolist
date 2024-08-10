@@ -27,6 +27,8 @@ function App() {
         <Todolist
             title="what to leand"
             tasks={tasksForTodolist}
+            removeTask={removeTask}
+            changeFilter={changedFilter}
         />
       </div>
   );
