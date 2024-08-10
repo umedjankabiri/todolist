@@ -2,7 +2,7 @@ import 'common/components/App/App.css'
 import { Todolist } from 'common/components/Todolist/Todolist.tsx';
 import {TaskProps} from "common/types/Tasks/TaskProps.ts";
 import {useState} from "react";
-import {FilterValuesProps} from "common/types/Todolist/FilterValuesProps.ts";
+import {FilterValuesProps} from "common/types/Tasks/FilterValuesProps.ts";
 
 // Business Logic Layer (BLL)
 const initialState: TaskProps[] = [
