@@ -1,0 +1,1 @@
+export type FilterValuesProps = "All" | "Active" | "Completed"
