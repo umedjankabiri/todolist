@@ -4,26 +4,35 @@ import {ChangeEvent, KeyboardEvent, FC, useState} from "react";
 
 export const Todolist: FC<TodolistProps> = (props) => {
     const [taskTitle, setTaskTitle] = useState("")
+    const [error, setError] = useState<string | null>(null)
+
     const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) =>
         setTaskTitle(event.currentTarget.value)
     const AddTaskHandler = () => {
-        props.addTask(taskTitle);
-        setTaskTitle("")
+        taskTitle.trim() !== ''
+            ? (props.addTask(taskTitle.trim()), setTaskTitle(""))
+            : setError("Title is required");
     }
-    const addTaskOnKeyUpHandler = (event: KeyboardEvent<HTMLInputElement>) =>
-        (event.ctrlKey && event.key === "Enter") ?? addTaskHandler();
+    const addTaskOnKeyUpHandler = (event: KeyboardEvent<HTMLInputElement>) => {
+        taskTitle.trim() !== '' && setError(null);
+        (event.ctrlKey && event.key === "Enter") && addTaskHandler()
+    }
     const onClickAllHandler = () => props.changeFilter("All")
     const onClickActiveHandler = () => props.changeFilter("Active")
     const onClickCompletedHandler = () => props.changeFilter("Completed")
 
     const mappedTasks = props.tasks.map(task => {
-        const onClickRemoveTask = () => props.removeTask(task.id)
+        const onClickRemoveTaskHandler = () => props.removeTask(task.id)
+        const changeTaskStatusHandler = (event: ChangeEvent<HTMLInputElement>) =>
+            props.changeTaskStatus(task.id, event.currentTarget.checked)
 
         return (
-            <li key={task.id}>
-                <input type="checkbox" checked={task.isDone}/>
+            <li className={task.isDone ? 'isDone' : ''} key={task.id}>
+                <input className={error ? 'error' : ''}
+                       type="checkbox" checked={task.isDone}
+                       onChange={changeTaskStatusHandler}/>
                 <span>{task.title}</span>
-                <Button title={"x"} onClick={onClickRemoveTask}/>
+                <Button title='x' onClick={onClickRemoveTaskHandler}/>
             </li>
         )
     })
