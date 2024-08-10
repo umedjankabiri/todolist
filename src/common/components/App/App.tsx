@@ -3,12 +3,13 @@ import { Todolist } from 'common/components/Todolist/Todolist.tsx';
 import {TaskProps} from "common/types/Tasks/TaskProps.ts";
 import {useState} from "react";
 import {FilterValueProps} from "common/types/Tasks/FilterValueProps.ts";
+import {v1} from "uuid";
 
 // Business Logic Layer (BLL)
 const initialState: TaskProps[] = [
-    {id: 1, title: 'HTML&CSS', isDone: true},
-    {id: 2, title: 'JS', isDone: true},
-    {id: 3, title: 'ReactJS', isDone: false},
+    {id: v1(), title: 'HTML&CSS', isDone: true},
+    {id: v1(), title: 'JS', isDone: true},
+    {id: v1(), title: 'ReactJS', isDone: false},
 ]
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
     filteredTasks === "Active" && (tasksForTodolist = tasks.filter(task => !task.isDone))
     filteredTasks === "Completed" && (tasksForTodolist = tasks.filter(task => task.isDone))
 
-    const removeTask = (taskID: number) => setTasks(tasks.filter(task => task.id !== taskID));
+    const removeTask = (taskID: string) => setTasks(tasks.filter(task => task.id !== taskID));
     const changedFilter = (filter: FilterValueProps) => setFilteredTasks(filter)
 
     return (
