@@ -1,8 +1,20 @@
 import {TodolistProps} from "common/types/Todolist/TodolistProps.ts";
 import {Button} from "common/components/Button/Button.tsx";
-import {FC} from "react";
+import {ChangeEvent, FC, useState} from "react";
 
 export const Todolist: FC<TodolistProps> = (props) => {
+    const [taskTitle, setTaskTitle] = useState("")
+    const onChangeHandler = (event: ChangeEvent<HTMLInputElement>)=> {
+        setTaskTitle(event.currentTarget.value)
+    }
+    const AddTaskHandler = ()=> {
+        props.addTask(taskTitle);
+        setTaskTitle("")
+    }
+    const onClickAllHandler = ()=> props.changeFilter("All")
+    const onClickActiveHandler = ()=> props.changeFilter("Active")
+    const onClickCompletedHandler = ()=> props.changeFilter("Completed")
+
     const mappedTasks = props.tasks.map(task => {
         const onClickRemoveTask = () => props.removeTask(task.id)
 
@@ -14,25 +26,21 @@ export const Todolist: FC<TodolistProps> = (props) => {
             </li>
         )
     })
-    
-    const onClickAllButton = ()=> props.changeFilter("All")
-    const onClickActiveButton = ()=> props.changeFilter("Active")
-    const onClickCompletedButton = ()=> props.changeFilter("Completed")
 
     return (
         <div>
             <h3>{props.title}</h3>
             <div>
-                <input/>
-                <Button title={"+"}/>
+                <input value={taskTitle} onChange={onChangeHandler}/>
+                <Button title={"+"} onClick={AddTaskHandler}/>
             </div>
             <ul>
                 { props.tasks.length > 0 ? mappedTasks : <span>No tasks</span> }
             </ul>
             <div>
-                <Button title={"All"} onClick={onClickAllButton}/>
-                <Button title={"Active"} onClick={onClickActiveButton}/>
-                <Button title={"Completed"} onClick={onClickCompletedButton}/>
+                <Button title={"All"} onClick={onClickAllHandler}/>
+                <Button title={"Active"} onClick={onClickActiveHandler}/>
+                <Button title={"Completed"} onClick={onClickCompletedHandler}/>
             </div>
         </div>
     );
