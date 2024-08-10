@@ -26,6 +26,8 @@ function App() {
         const newTask = {id: v1(), title: title, isDone: false}
         setTasks([newTask, ...tasks])
     }
+    const changedTaskStatus = (taskID: string, taskStatus: boolean) =>
+        setTasks(tasks.map(task => task.id === taskID ? {...task, isDone: taskStatus} : task));
 
     return (
       <div className="App">
@@ -35,6 +37,8 @@ function App() {
             removeTask={removedTask}
             changeFilter={changedFilter}
             addTask={addedTask}
+            changeTaskStatus={changedTaskStatus}
+            filter={filteredTasks}
         />
       </div>
   );
