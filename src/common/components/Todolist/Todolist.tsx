@@ -1,7 +1,9 @@
-export const Todolist = () => {
+import {TodolistProps} from "common/types/Todolist/TodolistProps.ts";
+
+export const Todolist = (props: TodolistProps) => {
     return (
         <div>
-            <h3>What to learn</h3>
+            <h3>{props.title}</h3>
             <div>
                 <input/>
                 <button>+</button>
