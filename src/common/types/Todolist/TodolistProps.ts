@@ -5,5 +5,5 @@ export type TodolistProps = {
     title: string
     tasks: TaskProps[]
     removeTask: (taskID: number) => void
-    changedFilter: (filtered: FilterValuesProps) => void
+    changeFilter: (filtered: FilterValuesProps) => void
 }
