@@ -43,6 +43,7 @@ export const Todolist: FC<TodolistProps> = (props) => {
             <div>
                 <input value={taskTitle} onChange={onChangeHandler} onKeyUp={addTaskOnKeyUpHandler}/>
                 <Button title={"+"} onClick={addTaskHandler}/>
+                {error && <div className={'errorMessage'}>{error}</div>}
             </div>
             <ul>
                 {props.tasks.length > 0 ? mappedTasks : <span>No tasks</span>}
