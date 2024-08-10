@@ -15,6 +15,12 @@ function App() {
     const [tasks, setTasks] = useState<TaskProps[]>(initialState);
     const [filteredTasks, setFilteredTasks] = useState<FilterValuesProps>("All");
 
+    let tasksForTodolist = tasks
+    filteredTasks === "Active" && (tasksForTodolist = tasks.filter(task => !task.isDone))
+    filteredTasks === "Completed" && (tasksForTodolist = tasks.filter(task => task.isDone))
+
+
+
     return (
       <div className="App">
         <Todolist
