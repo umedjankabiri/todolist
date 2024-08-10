@@ -20,16 +20,21 @@ function App() {
     filteredTasks === "Active" && (tasksForTodolist = tasks.filter(task => !task.isDone))
     filteredTasks === "Completed" && (tasksForTodolist = tasks.filter(task => task.isDone))
 
-    const removeTask = (taskID: string) => setTasks(tasks.filter(task => task.id !== taskID));
+    const removedTask = (taskID: string) => setTasks(tasks.filter(task => task.id !== taskID));
     const changedFilter = (filter: FilterValueProps) => setFilteredTasks(filter)
+    const addedTask = (title: string) => {
+        const newTask = {id: v1(), title: title, isDone: false}
+        setTasks([newTask, ...tasks])
+    }
 
     return (
       <div className="App">
         <Todolist
-            title="what to leand"
+            title="what to lean"
             tasks={tasksForTodolist}
-            removeTask={removeTask}
+            removeTask={removedTask}
             changeFilter={changedFilter}
+            addTask={addedTask}
         />
       </div>
   );
