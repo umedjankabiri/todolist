@@ -49,9 +49,21 @@ export const Todolist: FC<TodolistProps> = (props) => {
                 {props.tasks.length > 0 ? mappedTasks : <span>No tasks</span>}
             </ul>
             <div>
-                <Button title={"All"} onClick={onClickAllHandler}/>
-                <Button title={"Active"} onClick={onClickActiveHandler}/>
-                <Button title={"Completed"} onClick={onClickCompletedHandler}/>
+                <Button
+                    className={props.filter === "All" ? "activeFilter" : ""}
+                    title={"All"}
+                    onClick={onClickAllHandler}
+                />
+                <Button
+                    className={props.filter === "Active" ? "activeFilter" : ""}
+                    title={"Active"}
+                    onClick={onClickActiveHandler}
+                />
+                <Button
+                    className={props.filter === "Completed" ? "activeFilter" : ""}
+                    title={"Completed"}
+                    onClick={onClickCompletedHandler}
+                />
             </div>
         </div>
     );
