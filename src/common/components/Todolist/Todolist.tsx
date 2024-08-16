@@ -1,6 +1,6 @@
 import {TodolistProps} from "common/types/Todolist/TodolistProps.ts";
 import {Button} from "common/components/Button/Button.tsx";
-import {ChangeEvent, KeyboardEvent, FC, useState} from "react";
+import {ChangeEvent, FC, KeyboardEvent, useState} from "react";
 
 export const Todolist: FC<TodolistProps> = (props) => {
     const [taskTitle, setTaskTitle] = useState("")
@@ -17,9 +17,9 @@ export const Todolist: FC<TodolistProps> = (props) => {
         taskTitle.trim() !== '' && setError(null);
         (event.ctrlKey && event.key === "Enter") && addTaskHandler()
     }
-    const onClickAllHandler = () => props.changeFilter("All")
-    const onClickActiveHandler = () => props.changeFilter("Active")
-    const onClickCompletedHandler = () => props.changeFilter("Completed")
+    const onClickAllHandler = () => props.changeFilter(props.todolistID, "All")
+    const onClickActiveHandler = () => props.changeFilter(props.todolistID, "Active")
+    const onClickCompletedHandler = () => props.changeFilter(props.todolistID, "Completed")
 
     const mappedTasks = props.tasks.map(task => {
         const onClickRemoveTaskHandler = () => props.removeTask(task.id)
