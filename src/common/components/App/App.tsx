@@ -23,22 +23,27 @@ function App() {
     const [tasks, setTasks] = useState<TaskProps[]>(initialState);
     const [todolists, setTodolists] = useState<TodolistsProps[]>(todolistsInitialState)
 
-    let tasksForTodolist = tasks
-    // filteredTasks === "Active" && (tasksForTodolist = tasks.filter(task => !task.isDone))
-    // filteredTasks === "Completed" && (tasksForTodolist = tasks.filter(task => task.isDone))
-
     const removedTask = (taskID: string) => setTasks(tasks.filter(task => task.id !== taskID));
-    const changedFilter = (filter: FilterValueProps) => setFilteredTasks(filter)
     const addedTask = (title: string) => {
         const newTask = {id: v1(), title: title, isDone: false}
         setTasks([newTask, ...tasks])
     }
     const changedTaskStatus = (taskID: string, taskStatus: boolean) =>
         setTasks(tasks.map(task => task.id === taskID ? {...task, isDone: taskStatus} : task));
+    const changedFilter = (todolistID: string, filterValue: FilterValueProps) =>
+        setTodolists(todolists.map(todolist =>
+            todolist.todolistID === todolistID ? {...todolist, filter: filterValue} : todolist))
+
     const filteredTodolists = todolists.map(todolist => {
+        let tasksForTodolist = tasks
+        todolist.filter === "Active" && (tasksForTodolist = tasks.filter(task => !task.isDone))
+        todolist.filter === "Completed" && (tasksForTodolist = tasks.filter(task => task.isDone))
+
         return (
             <Todolist
-                title="what to lean"
+                key={todolist.todolistID}
+                todolistID={todolist.todolistID}
+                title= {todolist.title}
                 tasks={tasksForTodolist}
                 removeTask={removedTask}
                 changeFilter={changedFilter}
