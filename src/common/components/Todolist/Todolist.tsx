@@ -10,21 +10,22 @@ export const Todolist: FC<TodolistProps> = (props) => {
         setTaskTitle(event.currentTarget.value)
     const addTaskHandler = () => {
         taskTitle.trim() !== ''
-            ? (props.addTask(taskTitle.trim()), setTaskTitle(""))
+            ? (props.addTask(props.todolistID, taskTitle.trim()), setTaskTitle(""))
             : setError("Title is required");
     }
     const addTaskOnKeyUpHandler = (event: KeyboardEvent<HTMLInputElement>) => {
         taskTitle.trim() !== '' && setError(null);
         (event.ctrlKey && event.key === "Enter") && addTaskHandler()
     }
+    const onClickRemoveTodolist = () => props.removeTodolist(props.todolistID)
     const onClickAllHandler = () => props.changeFilter(props.todolistID, "All")
     const onClickActiveHandler = () => props.changeFilter(props.todolistID, "Active")
     const onClickCompletedHandler = () => props.changeFilter(props.todolistID, "Completed")
 
     const mappedTasks = props.tasks.map(task => {
-        const onClickRemoveTaskHandler = () => props.removeTask(task.id)
+        const onClickRemoveTaskHandler = () => props.removeTask(props.todolistID, task.id)
         const changeTaskStatusHandler = (event: ChangeEvent<HTMLInputElement>) =>
-            props.changeTaskStatus(task.id, event.currentTarget.checked)
+            props.changeTaskStatus(props.todolistID, task.id, event.currentTarget.checked)
 
         return (
             <li className={task.isDone ? 'isDone' : ''} key={task.id}>
@@ -39,7 +40,10 @@ export const Todolist: FC<TodolistProps> = (props) => {
 
     return (
         <div>
-            <h3>{props.title}</h3>
+            <div className={"todolist-title-container"}>
+                <h3>{props.title}</h3>
+                <Button title={"x"} onClick={onClickRemoveTodolist}/>
+            </div>
             <div>
                 <input value={taskTitle} onChange={onChangeHandler} onKeyUp={addTaskOnKeyUpHandler}/>
                 <Button title={"+"} onClick={addTaskHandler}/>
