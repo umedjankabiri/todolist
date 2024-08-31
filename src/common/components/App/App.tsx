@@ -5,6 +5,7 @@ import {FilterValueProps} from "common/types/Tasks/FilterValueProps.ts";
 import {v1} from "uuid";
 import {TodolistsProps} from "common/components/Todolist/TodolistsProps.ts";
 import {TasksStateProps} from "common/types/Tasks/TasksStateProps.ts";
+import {AddItemForm} from "common/components/AddItemForm/AddItemForm.tsx";
 
 // Business Logic Layer (BLL)
 let todolistID1 = v1()
@@ -46,6 +47,11 @@ function App() {
         setTodolists(todolists.filter(todolist => todolist.todolistID !== todolistID))
         delete tasks[todolistID];
     }
+    const AddTodolist = (title: string) => {
+        const newTodolistID = v1()
+        setTodolists([{todolistID: newTodolistID, title: title, filter: "All"}, ...todolists]);
+        setTasks({...tasks, [newTodolistID]: []})
+    }
 
     const filteredTodolists = todolists.map(todolist => {
         let filteredTasks = tasks[todolist.todolistID]
@@ -70,6 +76,7 @@ function App() {
 
     return (
         <div className="App">
+            <AddItemForm addItem={AddTodolist} />
             {filteredTodolists}
         </div>
     );
