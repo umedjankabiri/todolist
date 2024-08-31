@@ -76,7 +76,11 @@ function App() {
 
     return (
         <div className="App">
-            <AddItemForm addItem={AddTodolist} />
+            <div className="newTodolist">
+                <h3>Create new todolist</h3>
+                <AddItemForm addItem={AddTodolist} />
+            </div>
+
             {filteredTodolists}
         </div>
     );
