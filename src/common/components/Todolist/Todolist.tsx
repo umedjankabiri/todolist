@@ -35,7 +35,9 @@ export const Todolist: FC<TodolistProps> = (props) => {
     return (
         <div>
             <div className={"todolist-title-container"}>
-                <EditableSpan title={props.title} onChangeTitle={changeTodolistHandler}/>
+                <h3>
+                    <EditableSpan title={props.title} onChangeTitle={changeTodolistHandler}/>
+                </h3>
                 <Button title={"x"} onClick={onClickRemoveTodolist}/>
             </div>
             <AddItemForm addItem={addTaskHandler}/>
