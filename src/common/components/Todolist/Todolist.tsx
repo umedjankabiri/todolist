@@ -2,6 +2,7 @@ import {TodolistProps} from "common/types/Todolist/TodolistProps.ts";
 import {Button} from "common/components/Button/Button.tsx";
 import {ChangeEvent, FC} from "react";
 import {AddItemForm} from "common/components/AddItemForm/AddItemForm.tsx";
+import {EditableSpan} from "common/components/EditableSpan/EditableSpan.tsx";
 
 export const Todolist: FC<TodolistProps> = (props) => {
     const addTaskHandler = (title: string) => {
@@ -31,7 +32,7 @@ export const Todolist: FC<TodolistProps> = (props) => {
     return (
         <div>
             <div className={"todolist-title-container"}>
-                <h3>{props.title}</h3>
+                <EditableSpan title={props.title}/>
                 <Button title={"x"} onClick={onClickRemoveTodolist}/>
             </div>
             <AddItemForm addItem={addTaskHandler}/>
