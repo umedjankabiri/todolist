@@ -5,13 +5,15 @@ import {AddItemForm} from "common/components/AddItemForm/AddItemForm.tsx";
 import {EditableSpan} from "common/components/EditableSpan/EditableSpan.tsx";
 
 export const Todolist: FC<TodolistProps> = (props) => {
-    const addTaskHandler = (title: string) => {
+    const addTaskHandler = (title: string) =>
         props.addTask(props.todolistID, title)
-    }
+
     const onClickRemoveTodolist = () => props.removeTodolist(props.todolistID)
     const onClickAllHandler = () => props.changeFilter(props.todolistID, "All")
     const onClickActiveHandler = () => props.changeFilter(props.todolistID, "Active")
     const onClickCompletedHandler = () => props.changeFilter(props.todolistID, "Completed")
+    const changeTaskTitleHandler = (taskID: string, title: string) => props.changeTaskTitle(props.todolistID, taskID, title)
+    const changeTodolistHandler = (title: string) => props.changeTodolistTitle(props.todolistID, title)
 
     const mappedTasks = props.tasks.map(task => {
         const onClickRemoveTaskHandler = () => props.removeTask(props.todolistID, task.id)
@@ -20,10 +22,11 @@ export const Todolist: FC<TodolistProps> = (props) => {
 
         return (
             <li className={task.isDone ? 'isDone' : ''} key={task.id}>
-                <input type="checkbox" checked={task.isDone}
+                <input type="checkbox"
+                       checked={task.isDone}
                        onChange={changeTaskStatusHandler}
                 />
-                <span>{task.title}</span>
+                <EditableSpan title={task.title} onChangeTitle={(newTitle) => changeTaskTitleHandler(task.id, newTitle)} />
                 <Button title='x' onClick={onClickRemoveTaskHandler}/>
             </li>
         )
@@ -32,7 +35,7 @@ export const Todolist: FC<TodolistProps> = (props) => {
     return (
         <div>
             <div className={"todolist-title-container"}>
-                <EditableSpan title={props.title}/>
+                <EditableSpan title={props.title} onChangeTitle={changeTodolistHandler}/>
                 <Button title={"x"} onClick={onClickRemoveTodolist}/>
             </div>
             <AddItemForm addItem={addTaskHandler}/>
