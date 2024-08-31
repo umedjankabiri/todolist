@@ -10,5 +10,7 @@ export type TodolistProps = {
     changeFilter: (todolistID: string, filtered: FilterValueProps) => void
     addTask: (todolistID: string, title: string) => void
     changeTaskStatus: (todolistID: string, taskID: string, taskStatus: boolean) => void
+    changeTaskTitle: (todolistID: string, taskID: string, title: string) => void
+    changeTodolistTitle: (todolistID: string, title: string) => void
     filter: string
 }
