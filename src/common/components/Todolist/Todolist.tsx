@@ -6,6 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Button from "@mui/material/Button";
 import {Box, Checkbox, List, ListItem} from "@mui/material";
+import {filterButtonsContainerSX} from "common/types/Todolist/Todolist.styles.ts";
 
 export const Todolist: FC<TodolistProps> = (props) => {
     const addTaskHandler = (title: string) =>
@@ -52,7 +53,7 @@ export const Todolist: FC<TodolistProps> = (props) => {
             <List>
                 {props.tasks.length > 0 ? mappedTasks : <span>No tasks</span>}
             </List>
-            <Box sx={{display: "flex", justifyContent: "space-between"}}>
+            <Box sx={filterButtonsContainerSX}>
                 <Button
                     variant={props.filter === "All" ? "outlined" : "text"}
                     color={"inherit"}
