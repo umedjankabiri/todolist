@@ -7,6 +7,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Button from "@mui/material/Button";
 import {Box, Checkbox, List, ListItem} from "@mui/material";
 import {filterButtonsContainerSX} from "common/types/Todolist/Todolist.styles.ts";
+import {getListItemSx} from "common/components/EditableSpan/EditableSpan.styles.ts";
 
 export const Todolist: FC<TodolistProps> = (props) => {
     const addTaskHandler = (title: string) =>
@@ -25,7 +26,7 @@ export const Todolist: FC<TodolistProps> = (props) => {
             props.changeTaskStatus(props.todolistID, task.id, event.currentTarget.checked)
 
         return (
-            <ListItem sx={{padding: 0, justifyContent: "space-between", opacity: task.isDone ? 0.5 : 1}} key={task.id}>
+            <ListItem key={task.id} sx={getListItemSx(task.isDone)}>
                 <div>
                 <Checkbox checked={task.isDone} onChange={changeTaskStatusHandler}/>
                 <EditableSpan title={task.title}
