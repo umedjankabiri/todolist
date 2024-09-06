@@ -6,11 +6,22 @@ import {v1} from "uuid";
 import {TodolistsProps} from "common/types/Todolists/TodolistsProps.ts";
 import {TasksStateProps} from "common/types/Tasks/TasksStateProps.ts";
 import {AddItemForm} from "common/components/AddItemForm/AddItemForm.tsx";
-import {AppBar, Container, Paper, Toolbar, Typography} from "@mui/material";
+import {
+    AppBar,
+    Container,
+    createTheme,
+    CssBaseline,
+    Paper,
+    Switch,
+    ThemeProvider,
+    Toolbar,
+    Typography
+} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
-import Button from "@mui/material/Button";
 import MenuIcon from "@mui/icons-material/Menu"
 import Grid from '@mui/material/Grid2'
+import {MenuButton} from "common/components/MenuButtons/MenuButton.tsx";
+import {ThemeMode} from "common/types/ThemeMode/ThemeModeProps.ts";
 
 // Business Logic Layer (BLL)
 let todolistID1 = v1()
@@ -37,7 +48,18 @@ const initialState: TasksStateProps = {
 function App() {
     const [todolists, setTodolists] = useState(todolistsInitialState)
     const [tasks, setTasks] = useState(initialState);
+    const [themeMode, setThemeMode] = useState<ThemeMode>("light")
 
+    const theme = createTheme({
+        palette: {
+            mode: themeMode === "light" ? "light" : "dark",
+            primary: {
+                main: "#087EA4"
+            }
+        }
+    })
+
+    const changeThemeMode = ()=> setThemeMode(themeMode === "light" ? "dark" : "light")
     const removedTask = (todolistID: string, taskID: string) =>
         setTasks({...tasks, [todolistID]: tasks[todolistID].filter(task => task.id !== taskID)});
     const addedTask = (todolistID: string, title: string) =>
@@ -74,7 +96,7 @@ function App() {
         todolist.filter === "Completed" && (filteredTasks = filteredTasks.filter(task => task.isDone))
 
         return (
-            <Grid >
+            <Grid>
                 <Paper sx={{p: "0 20px 20px 20px"}}>
                     <Todolist
                         key={todolist.todolistID}
@@ -97,28 +119,34 @@ function App() {
 
     return (
         <div className={"App"}>
-            <AppBar position={"static"} sx={{mb: "30px"}}>
-                <Toolbar>
-                    <IconButton color="inherit">
-                        <MenuIcon/>
-                    </IconButton>
-                    <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
-                        Todolist App
-                    </Typography>
-                    <Button color="inherit">Login</Button>
-                </Toolbar>
-            </AppBar>
-            <Container fixed>
-                <Grid container sx={{marginBottom: "30px"}}>
-                    <div className="newTodolist">
-                        <h3>Create new todolist</h3>
-                        <AddItemForm addItem={AddTodolist}/>
-                    </div>
-                </Grid>
-                <Grid container spacing={4}>
-                    {filteredTodolists}
-                </Grid>
-            </Container>
+            <ThemeProvider theme={theme}>
+                <CssBaseline/>
+                <AppBar position={"static"} sx={{mb: "30px"}}>
+                    <Toolbar>
+                        <IconButton color="inherit">
+                            <MenuIcon/>
+                        </IconButton>
+                        <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
+                            Todolist App
+                        </Typography>
+                        <MenuButton>login</MenuButton>
+                        <MenuButton>logout</MenuButton>
+                        <MenuButton background={theme.palette.primary.dark}>faq</MenuButton>
+                        <Switch color={"default"} onChange={changeThemeMode} />
+                    </Toolbar>
+                </AppBar>
+                <Container fixed>
+                    <Grid container sx={{marginBottom: "30px"}}>
+                        <div className="newTodolist">
+                            <h3>Create new todolist</h3>
+                            <AddItemForm addItem={AddTodolist}/>
+                        </div>
+                    </Grid>
+                    <Grid container spacing={4}>
+                        {filteredTodolists}
+                    </Grid>
+                </Container>
+            </ThemeProvider>
         </div>
     );
 }
