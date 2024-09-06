@@ -1,6 +1,8 @@
 import {ChangeEvent, FC, KeyboardEvent, useState} from "react";
 import {AddItemFormProps} from "common/types/AddItemForm/AddItemFormProps.ts";
-import {Button} from "common/components/Button/Button.tsx";
+import TextField from "@mui/material/TextField";
+import IconButton from "@mui/material/IconButton";
+import AddBoxIcon from "@mui/icons-material/AddBox";
 
 export const AddItemForm: FC<AddItemFormProps> = (props) => {
     const [taskTitle, setTaskTitle] = useState("")
@@ -20,13 +22,19 @@ export const AddItemForm: FC<AddItemFormProps> = (props) => {
 
     return (
         <div>
-            <input className={error ? "error" : ""}
-                   value={taskTitle}
-                   onChange={onChangeItemHandler}
-                   onKeyUp={addItemOnKeyUpHandler}
+            <TextField label={!!error ? error : "Enter a title"}
+                       variant={"outlined"}
+                       className={error ? "error" : ""}
+                       value={taskTitle}
+                       size={"small"}
+                       error={!!error}
+                       onChange={onChangeItemHandler}
+                       onKeyUp={addItemOnKeyUpHandler}
             />
-            <Button title={"+"} onClick={addItemHandler}/>
-            {error && <div className={'errorMessage'}>{error}</div>}
+            {/*<Button variant={"contained"} onClick={addItemHandler}>+</Button>*/}
+            <IconButton onClick={addItemHandler} color={"primary"}>
+                <AddBoxIcon/>
+            </IconButton>
         </div>
     );
 };
