@@ -1,8 +1,11 @@
 import {TodolistProps} from "common/types/Todolist/TodolistProps.ts";
-import {Button} from "common/components/Button/Button.tsx";
 import {ChangeEvent, FC} from "react";
 import {AddItemForm} from "common/components/AddItemForm/AddItemForm.tsx";
 import {EditableSpan} from "common/components/EditableSpan/EditableSpan.tsx";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
+import Button from "@mui/material/Button";
+import {Box, Checkbox, List, ListItem} from "@mui/material";
 
 export const Todolist: FC<TodolistProps> = (props) => {
     const addTaskHandler = (title: string) =>
@@ -21,14 +24,17 @@ export const Todolist: FC<TodolistProps> = (props) => {
             props.changeTaskStatus(props.todolistID, task.id, event.currentTarget.checked)
 
         return (
-            <li className={task.isDone ? 'isDone' : ''} key={task.id}>
-                <input type="checkbox"
-                       checked={task.isDone}
-                       onChange={changeTaskStatusHandler}
+            <ListItem sx={{padding: 0, justifyContent: "space-between", opacity: task.isDone ? 0.5 : 1}} key={task.id}>
+                <div>
+                <Checkbox checked={task.isDone} onChange={changeTaskStatusHandler}/>
+                <EditableSpan title={task.title}
+                              onChangeTitle={(newTitle) => changeTaskTitleHandler(task.id, newTitle)}
                 />
-                <EditableSpan title={task.title} onChangeTitle={(newTitle) => changeTaskTitleHandler(task.id, newTitle)} />
-                <Button title='x' onClick={onClickRemoveTaskHandler}/>
-            </li>
+                </div>
+                <IconButton onClick={onClickRemoveTaskHandler}>
+                    <DeleteIcon/>
+                </IconButton>
+            </ListItem>
         )
     })
 
@@ -38,29 +44,31 @@ export const Todolist: FC<TodolistProps> = (props) => {
                 <h3>
                     <EditableSpan title={props.title} onChangeTitle={changeTodolistHandler}/>
                 </h3>
-                <Button title={"x"} onClick={onClickRemoveTodolist}/>
+                <IconButton onClick={onClickRemoveTodolist}>
+                    <DeleteIcon/>
+                </IconButton>
             </div>
             <AddItemForm addItem={addTaskHandler}/>
-            <ul>
+            <List>
                 {props.tasks.length > 0 ? mappedTasks : <span>No tasks</span>}
-            </ul>
-            <div>
+            </List>
+            <Box sx={{display: "flex", justifyContent: "space-between"}}>
                 <Button
-                    className={props.filter === "All" ? "activeFilter" : ""}
-                    title={"All"}
+                    variant={props.filter === "All" ? "outlined" : "text"}
+                    color={"inherit"}
                     onClick={onClickAllHandler}
-                />
+                >All</Button>
                 <Button
-                    className={props.filter === "Active" ? "activeFilter" : ""}
-                    title={"Active"}
+                    className={props.filter === "Active" ? "outlined" : "text"}
+                    color={"inherit"}
                     onClick={onClickActiveHandler}
-                />
+                >Active</Button>
                 <Button
-                    className={props.filter === "Completed" ? "activeFilter" : ""}
-                    title={"Completed"}
+                    className={props.filter === "Completed" ? "outlined" : "text"}
+                    color={"inherit"}
                     onClick={onClickCompletedHandler}
-                />
-            </div>
+                >Completed</Button>
+            </Box>
         </div>
     );
 };
