@@ -9,14 +9,13 @@ import {AddItemForm} from "common/components/AddItemForm/AddItemForm.tsx";
 import {
     AppBar,
     Container,
-    createTheme,
     CssBaseline,
     Paper,
     Switch,
-    ThemeProvider,
     Toolbar,
     Typography
 } from "@mui/material";
+import {createTheme, ThemeProvider} from "@mui/material/styles"
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu"
 import Grid from '@mui/material/Grid2'
@@ -54,7 +53,9 @@ function App() {
         palette: {
             mode: themeMode === "light" ? "light" : "dark",
             primary: {
-                main: "#087EA4"
+                main: "#087EA4",
+                light: "#0993cb",
+                dark: "#033844",
             }
         }
     })
@@ -90,6 +91,8 @@ function App() {
         setTodolists(todolists.map(todolist =>
             todolist.todolistID === todolistID ? {...todolist, title: title} : todolist))
 
+    const buttonsBackgroundColor = themeMode === "light" ? theme.palette.primary.light : theme.palette.primary.dark
+
     const filteredTodolists = todolists.map(todolist => {
         let filteredTasks = tasks[todolist.todolistID]
         todolist.filter === "Active" && (filteredTasks = filteredTasks.filter(task => !task.isDone))
@@ -97,7 +100,7 @@ function App() {
 
         return (
             <Grid>
-                <Paper sx={{p: "0 20px 20px 20px"}}>
+                <Paper sx={{p: "0 20px 20px 20px", boxShadow: `4px 4px 10px 0.5px ${"#504e4e"}`}}>
                     <Todolist
                         key={todolist.todolistID}
                         todolistID={todolist.todolistID}
@@ -118,36 +121,37 @@ function App() {
     })
 
     return (
-        <div className={"App"}>
             <ThemeProvider theme={theme}>
                 <CssBaseline/>
                 <AppBar position={"static"} sx={{mb: "30px"}}>
                     <Toolbar>
                         <IconButton color="inherit">
-                            <MenuIcon/>
+                            <MenuIcon />
                         </IconButton>
-                        <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
+                        <Typography variant="h6" component="span" sx={{flexGrow: 1, marginLeft: "10px"}}>
                             Todolist App
                         </Typography>
-                        <MenuButton>login</MenuButton>
-                        <MenuButton>logout</MenuButton>
-                        <MenuButton background={theme.palette.primary.dark}>faq</MenuButton>
-                        <Switch color={"default"} onChange={changeThemeMode} />
+                        <Typography variant={"h6"}>
+                            {themeMode === "light" ? "to dark: " : "to light: "}
+                        </Typography>
+                        <Switch color={"default"} onChange={changeThemeMode}/>
+                        <MenuButton background={buttonsBackgroundColor}>login</MenuButton>
+                        <MenuButton background={buttonsBackgroundColor}>logout</MenuButton>
+                        <MenuButton background={buttonsBackgroundColor}>faq</MenuButton>
                     </Toolbar>
                 </AppBar>
                 <Container fixed>
                     <Grid container sx={{marginBottom: "30px"}}>
-                        <div className="newTodolist">
+                        <Paper sx={{p: "0 20px 20px 20px", boxShadow: `4px 4px 10px 0.5px ${"#504e4e"}`}}>
                             <h3>Create new todolist</h3>
                             <AddItemForm addItem={AddTodolist}/>
-                        </div>
+                        </Paper>
                     </Grid>
                     <Grid container spacing={4}>
                         {filteredTodolists}
                     </Grid>
                 </Container>
             </ThemeProvider>
-        </div>
     );
 }
 
