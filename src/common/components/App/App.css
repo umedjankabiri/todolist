@@ -5,7 +5,3 @@
     display: flex;
     align-items: center;
 }
-.newTodolist {
-    display: flex;
-    flex-direction: column;
-}
