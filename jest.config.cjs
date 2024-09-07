@@ -10,7 +10,8 @@ module.exports = {
         ]
     },
     moduleNameMapper: {
-        '^common/(.*)$': '<rootDir>/src/common/$1'
+        '^common/(.*)$': '<rootDir>/src/common/$1',
+        '^model/(.*)$': '<rootDir>/src/model/$1',
     },
     setupFilesAfterEnv: ['./src/setupTests.ts']
 }
