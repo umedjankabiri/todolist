@@ -61,12 +61,12 @@ export const Todolist: FC<TodolistProps> = (props) => {
                     onClick={onClickAllHandler}
                 >All</Button>
                 <Button
-                    className={props.filter === "Active" ? "outlined" : "text"}
+                    variant={props.filter === "Active" ? "outlined" : "text"}
                     color={"inherit"}
                     onClick={onClickActiveHandler}
                 >Active</Button>
                 <Button
-                    className={props.filter === "Completed" ? "outlined" : "text"}
+                    variant={props.filter === "Completed" ? "outlined" : "text"}
                     color={"inherit"}
                     onClick={onClickCompletedHandler}
                 >Completed</Button>
