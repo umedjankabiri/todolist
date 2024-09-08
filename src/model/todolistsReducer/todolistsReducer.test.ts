@@ -1,7 +1,7 @@
 import {v1} from "uuid";
 import {TodolistsProps} from "common/types/Todolists/TodolistsProps.ts";
 import {
-    AddTodolistAC,
+    AddTodolistAC, ChangeTodolistFilterAC,
     ChangeTodolistTitleAC,
     removeTodolistAC,
     todolistsReducer
@@ -55,15 +55,8 @@ test("Correct filter of todolist should be changed", ()=> {
         {todolistID: todolistID2, title: "What to buy", filter: "All"},
     ]
 
-    const action = {
-        type: "CHANGE-TODOLIST-FILTER",
-        payload: {
-            todolistID: todolistID2,
-            filter: "Completed",
-        }
-    } as const
-    const endState: TodolistsProps[] = todolistsReducer(initialState, action);
+    const endState: TodolistsProps[] = todolistsReducer(initialState, ChangeTodolistFilterAC(todolistID2, "Completed"));
 
     expect(endState[0].filter).toBe("All");
-    expect(endState[1].filter).toBe(action.payload.filter);
+    expect(endState[1].filter).toBe("Completed");
 })
