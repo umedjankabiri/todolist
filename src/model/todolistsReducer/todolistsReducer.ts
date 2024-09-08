@@ -2,6 +2,7 @@ import {v1} from "uuid";
 import {TodolistsProps} from "common/types/Todolists/TodolistsProps.ts";
 import {
     AddTodolistActionProps,
+    ChangeTodolistTitleActionProps,
     RemoveTodolistActionProps,
     TodolistsActionsProps
 } from "model/reducersTypes/TodolistsReducer/TodolistsActionsProps.ts";
@@ -45,3 +46,5 @@ export const removeTodolistAC = (todolistID: string): RemoveTodolistActionProps 
     ({type: "REMOVE-TODOLIST", payload: {todolistID: todolistID}}) as const
 export const AddTodolistAC = (title: string): AddTodolistActionProps =>
     ({type: "ADD-TODOLIST", payload: {title: title}}) as const
+export const ChangeTodolistTitleAC = (todolistID: string, title: string): ChangeTodolistTitleActionProps =>
+    ({type: "CHANGE-TODOLIST-TITLE", payload: {todolistID: todolistID, title: title}}) as const
