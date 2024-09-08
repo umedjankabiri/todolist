@@ -21,4 +21,22 @@ test("Correct todolist should be removed", ()=> {
     expect(endState.length).toBe(1);
     expect(endState[0].todolistID).toBe(todolistID2);
 })
+test("Correct todolist should be added", ()=> {
+    let todolistID1 = v1()
+    let todolistID2 = v1()
+    const initialState: TodolistsProps[] = [
+        {todolistID: todolistID1, title: "What to read", filter: "All"},
+        {todolistID: todolistID2, title: "What to buy", filter: "All"},
+    ]
 
+    const action = {
+        type: "ADD-TODOLIST",
+        payload: {
+            title: "What to learn",
+        }
+    } as const
+    const endState: TodolistsProps[] = todolistsReducer(initialState, action);
+
+    expect(endState.length).toBe(3);
+    expect(endState[0].title).toBe(action.payload.title);
+})
