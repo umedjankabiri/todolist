@@ -1,6 +1,6 @@
 import {v1} from "uuid";
 import {TodolistsProps} from "common/types/Todolists/TodolistsProps.ts";
-import {todolistsReducer} from "model/todolistsReducer/todolistsReducer.ts";
+import {removeTodolistAC, todolistsReducer} from "model/todolistsReducer/todolistsReducer.ts";
 
 test("Correct todolist should be removed", ()=> {
     let todolistID1 = v1()
@@ -10,13 +10,8 @@ test("Correct todolist should be removed", ()=> {
         {todolistID: todolistID2, title: "What to buy", filter: "All"},
     ]
 
-    const action = {
-        type: "REMOVE-TODOLIST",
-        payload: {
-            todolistID: todolistID1,
-        }
-    } as const
-    const endState: TodolistsProps[] = todolistsReducer(initialState, action);
+
+    const endState: TodolistsProps[] = todolistsReducer(initialState, removeTodolistAC(todolistID1));
 
     expect(endState.length).toBe(1);
     expect(endState[0].todolistID).toBe(todolistID2);
