@@ -1,6 +1,9 @@
 import {v1} from "uuid";
 import {TodolistsProps} from "common/types/Todolists/TodolistsProps.ts";
-import {TodolistsActionsProps} from "model/reducersTypes/TodolistsReducer/TodolistsActionsProps.ts";
+import {
+    RemoveTodolistActionProps,
+    TodolistsActionsProps
+} from "model/reducersTypes/TodolistsReducer/TodolistsActionsProps.ts";
 
 // Business Logic Layer (BLL)
 let todolistID1 = v1()
@@ -36,3 +39,6 @@ export const todolistsReducer = (state: TodolistsProps[] = initialState, action:
             throw new Error("Unknown action type")
     }
 }
+
+export const removeTodolistAC = (todolistID: string): RemoveTodolistActionProps =>
+    ({type: "REMOVE-TODOLIST", payload: {todolistID: todolistID}}) as const
