@@ -32,8 +32,11 @@ export const tasksReducer = (state: TasksStateProps, action: TasksActionsProps):
                 [todolistID]: state[todolistID].map(task => task.id === taskID ? {...task, title: title} : task)
             }
         }
+        case "ADD-TODOLIST": {
+            return {[action.payload.todolistID]: [], ...state}
+        }
         default:
-            throw new Error(`Unknown action type ${(action as { type: string }).type}`);
+            throw new Error(`Unknown action type: ${(action as { type: string }).type}`);
     }
 }
 
