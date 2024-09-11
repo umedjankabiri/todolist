@@ -25,6 +25,13 @@ export const tasksReducer = (state: TasksStateProps, action: TasksActionsProps):
                 [todolistID]: state[todolistID].map(task => task.id === taskID ? {...task, isDone: isDone} : task)
             }
         }
+        case "CHANGE-TASK-TITLE": {
+            const {todolistID, taskID, title} = action.payload
+            return {
+                ...state,
+                [todolistID]: state[todolistID].map(task => task.id === taskID ? {...task, title: title} : task)
+            }
+        }
         default:
             throw new Error(`Unknown action type ${(action as { type: string }).type}`);
     }
@@ -36,3 +43,5 @@ export const addTaskAC = (payload: { todolistID: string, title: string }) =>
     ({type: "ADD-TASK", payload}) as const
 export const changeTaskStatusAC = (payload: {todolistID: string, taskID: string, isDone: boolean }) =>
     ({type: "CHANGE-TASK-STATUS", payload}) as const
+export const changeTaskTitleAC = (payload: {todolistID: string, taskID: string, title: string }) =>
+    ({type: "CHANGE-TASK-TITLE", payload}) as const
