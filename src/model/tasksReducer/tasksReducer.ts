@@ -14,5 +14,5 @@ export const tasksReducer = (state: TasksStateProps, action: TasksActionsProps)=
     }
 }
 
-export const removeTaskAC = (todolistID: string, taskID: string) =>
-    ({type: "REMOVE-TASK", payload: {todolistID: todolistID, taskID: taskID}} as const)
+export const removeTaskAC = (payload: {todolistID: string, taskID: string}) =>
+    ({type: "REMOVE-TASK", payload}) as const
