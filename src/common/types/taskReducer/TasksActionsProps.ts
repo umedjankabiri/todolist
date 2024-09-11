@@ -1,4 +1,5 @@
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "model/tasksReducer/tasksReducer";
+import {AddTodolistActionProps} from "common/types/TodolistsReducer/TodolistsActionsProps.ts";
 
 export type RemoveTaskActionProps = ReturnType<typeof removeTaskAC>
 export type AddTaskActionProps = ReturnType<typeof addTaskAC>
@@ -8,3 +9,4 @@ export type TasksActionsProps = RemoveTaskActionProps
     | AddTaskActionProps
     | ChangeTaskStatusProps
     | ChangeTaskTitleProps
+    | AddTodolistActionProps
