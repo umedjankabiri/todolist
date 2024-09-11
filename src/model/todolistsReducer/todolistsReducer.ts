@@ -1,12 +1,7 @@
 import {v1} from "uuid";
 import {TodolistsProps} from "common/types/Todolists/TodolistsProps.ts";
-import {
-    AddTodolistActionProps, ChangeTodolistFilterActionProps,
-    ChangeTodolistTitleActionProps,
-    RemoveTodolistActionProps,
-    TodolistsActionsProps
-} from "model/reducersTypes/TodolistsReducer/TodolistsActionsProps.ts";
 import {FilterValueProps} from "common/types/Tasks/FilterValueProps.ts";
+import {TodolistsActionsProps} from "common/types/TodolistsReducer/TodolistsActionsProps.ts";
 
 // Business Logic Layer (BLL)
 let todolistID1 = v1()
@@ -43,11 +38,11 @@ export const todolistsReducer = (state: TodolistsProps[] = initialState, action:
     }
 }
 
-export const removeTodolistAC = (todolistID: string): RemoveTodolistActionProps =>
+export const removeTodolistAC = (todolistID: string) =>
     ({type: "REMOVE-TODOLIST", payload: {todolistID: todolistID}}) as const
-export const AddTodolistAC = (title: string): AddTodolistActionProps =>
+export const addTodolistAC = (title: string) =>
     ({type: "ADD-TODOLIST", payload: {title: title}}) as const
-export const ChangeTodolistTitleAC = (todolistID: string, title: string): ChangeTodolistTitleActionProps =>
+export const changeTodolistTitleAC = (todolistID: string, title: string) =>
     ({type: "CHANGE-TODOLIST-TITLE", payload: {todolistID: todolistID, title: title}}) as const
-export const ChangeTodolistFilterAC = (todolistID: string, filter: FilterValueProps): ChangeTodolistFilterActionProps =>
+export const changeTodolistFilterAC = (todolistID: string, filter: FilterValueProps) =>
     ({type: "CHANGE-TODOLIST-FILTER", payload: {todolistID: todolistID, filter: filter}}) as const
