@@ -34,7 +34,7 @@ export const todolistsReducer = (state: TodolistsProps[] = initialState, action:
                 : todolist
             )
         default:
-            throw new Error("Unknown action type")
+            throw new Error(`Unknown action type ${(action as { type: string }).type}`);
     }
 }
 
