@@ -23,13 +23,13 @@ import {MenuButton} from "common/components/MenuButtons/MenuButton.tsx";
 import {ThemeMode} from "common/types/ThemeMode/ThemeModeProps.ts";
 
 // Business Logic Layer (BLL)
-let todolistID1 = v1()
-let todolistID2 = v1()
-const todolistsInitialState: TodolistsProps[] = [
+export let todolistID1 = v1()
+export let todolistID2 = v1()
+export const todolistsInitialState: TodolistsProps[] = [
     {todolistID: todolistID1, title: "What to read", filter: "All"},
     {todolistID: todolistID2, title: "What to buy", filter: "All"},
 ]
-const initialState: TasksStateProps = {
+export const tasksInitialState: TasksStateProps = {
     [todolistID1]: [
         {id: v1(), title: 'HTML&CSS', isDone: true},
         {id: v1(), title: 'JS', isDone: true},
@@ -46,7 +46,7 @@ const initialState: TasksStateProps = {
 
 function App() {
     const [todolists, setTodolists] = useState(todolistsInitialState)
-    const [tasks, setTasks] = useState(initialState);
+    const [tasks, setTasks] = useState(tasksInitialState);
     const [themeMode, setThemeMode] = useState<ThemeMode>("light")
 
     const theme = createTheme({
