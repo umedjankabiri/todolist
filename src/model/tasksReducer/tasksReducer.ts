@@ -36,9 +36,11 @@ export const tasksReducer = (state: TasksStateProps, action: TasksActionsProps):
             return {[action.payload.todolistID]: [], ...state}
         }
         case "REMOVE-TODOLIST": {
-            const copyState = {...state};
-            delete copyState[action.payload.todolistID];
-            return copyState
+            // const copyState = {...state};
+            // delete copyState[action.payload.todolistID];
+            // return copyState
+            const {[action.payload.todolistID]: removedTodolist, ...restState} = state
+            return restState
         }
         default:
             throw new Error(`Unknown action type: ${(action as { type: string }).type}`);
