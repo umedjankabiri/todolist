@@ -52,7 +52,7 @@ export const Todolist: FC<TodolistProps> = (props) => {
             </div>
             <AddItemForm addItem={addTaskHandler}/>
             <List>
-                {props.tasks.length > 0 ? mappedTasks : <span>No tasks</span>}
+                {props.tasks.length > 0 ? mappedTasks : <span style={{fontSize: 20, fontWeight: "bold"}}>No tasks</span>}
             </List>
             <Box sx={filterButtonsContainerSX}>
                 <Button
