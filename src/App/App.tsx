@@ -40,27 +40,29 @@ function App() {
         }
     })
 
-    const changeThemeMode = ()=> setThemeMode(themeMode === "light" ? "dark" : "light")
+    // CRUD for todolists
+    const removedTodolist = (todolistID: string) => dispatch(removeTodolistAC(todolistID));
+    const AddTodolist = (title: string) => dispatch(addTodolistAC(title));
+    const changeTodolistTitle = (todolistID: string, title: string) =>
+        dispatch(changeTodolistTitleAC({todolistID: todolistID, title: title}))
+    const changedTodolistFilter = (todolistID: string, filterValue: FilterValueProps) =>
+        dispatch(changeTodolistFilterAC({todolistID: todolistID, filter: filterValue}))
+
+    // CRUD for tasks
     const removedTask = (todolistID: string, taskID: string) =>
         dispatch(removeTaskAC({todolistID: todolistID, taskID: taskID}));
     const addedTask = (todolistID: string, title: string) =>
         dispatch(addTaskAC({todolistID: todolistID, title: title}));
     const changedTaskStatus = (todolistID: string, taskID: string, taskStatus: boolean) =>
         dispatch(changeTaskStatusAC({todolistID: todolistID, taskID: taskID, isDone: taskStatus}));
-    const changedTodolistFilter = (todolistID: string, filterValue: FilterValueProps) =>
-        dispatch(changeTodolistFilterAC(todolistID, filterValue))
-
-    const removedTodolist = (todolistID: string) => dispatch(removeTodolistAC(todolistID));
-    const AddTodolist = (title: string) => {
-        dispatch(addTodolistAC(title));
-    }
-    const changeTaskTitleHandler = (todolistID: string, taskID: string, title: string) =>
+    const changeTaskTitle = (todolistID: string, taskID: string, title: string) =>
         dispatch(changeTaskTitleAC({todolistID: todolistID, taskID: taskID, title: title}));
-    const changeTodolistTitleHandler = (todolistID: string, title: string) =>
-        dispatch(changeTodolistTitleAC(todolistID, title))
 
+    // changing theme of todolist app
+    const changeThemeMode = () => setThemeMode(themeMode === "light" ? "dark" : "light")
     const buttonsBackgroundColor = themeMode === "light" ? theme.palette.primary.light : theme.palette.primary.dark
 
+    // filtered todolists for render
     const filteredTodolists = todolists.map(todolist => {
         let filteredTasks = tasks[todolist.todolistID]
         todolist.filter === "Active" && (filteredTasks = filteredTasks.filter(task => !task.isDone))
@@ -80,46 +82,47 @@ function App() {
                         addTask={addedTask}
                         changeTaskStatus={changedTaskStatus}
                         filter={todolist.filter}
-                        changeTaskTitle={changeTaskTitleHandler}
-                        changeTodolistTitle={changeTodolistTitleHandler}
+                        changeTaskTitle={changeTaskTitle}
+                        changeTodolistTitle={changeTodolistTitle}
                     />
                 </Paper>
             </Grid>
         )
     })
 
+    // layout
     return (
-            <ThemeProvider theme={theme}>
-                <CssBaseline/>
-                <AppBar position={"static"} sx={{mb: "30px"}}>
-                    <Toolbar>
-                        <IconButton color="inherit">
-                            <MenuIcon />
-                        </IconButton>
-                        <Typography variant="h6" component="span" sx={{flexGrow: 1, marginLeft: "10px"}}>
-                            Todolist App
-                        </Typography>
-                        <Typography variant={"h6"}>
-                            {themeMode === "light" ? "to dark: " : "to light: "}
-                        </Typography>
-                        <Switch color={"default"} onChange={changeThemeMode}/>
-                        <MenuButton background={buttonsBackgroundColor}>login</MenuButton>
-                        <MenuButton background={buttonsBackgroundColor}>logout</MenuButton>
-                        <MenuButton background={buttonsBackgroundColor}>faq</MenuButton>
-                    </Toolbar>
-                </AppBar>
-                <Container fixed>
-                    <Grid container sx={{marginBottom: "30px"}}>
-                        <Paper sx={{p: "0 20px 20px 20px", boxShadow: `4px 4px 10px 0.5px ${"#504e4e"}`}}>
-                            <h3>Create new todolist</h3>
-                            <AddItemForm addItem={AddTodolist}/>
-                        </Paper>
-                    </Grid>
-                    <Grid container spacing={4}>
-                        {filteredTodolists}
-                    </Grid>
-                </Container>
-            </ThemeProvider>
+        <ThemeProvider theme={theme}>
+            <CssBaseline/>
+            <AppBar position={"static"} sx={{mb: "30px"}}>
+                <Toolbar>
+                    <IconButton color="inherit">
+                        <MenuIcon/>
+                    </IconButton>
+                    <Typography variant="h6" component="span" sx={{flexGrow: 1, marginLeft: "10px"}}>
+                        Todolist App
+                    </Typography>
+                    <Typography variant={"h6"}>
+                        {themeMode === "light" ? "to dark: " : "to light: "}
+                    </Typography>
+                    <Switch color={"default"} onChange={changeThemeMode}/>
+                    <MenuButton background={buttonsBackgroundColor}>login</MenuButton>
+                    <MenuButton background={buttonsBackgroundColor}>logout</MenuButton>
+                    <MenuButton background={buttonsBackgroundColor}>faq</MenuButton>
+                </Toolbar>
+            </AppBar>
+            <Container fixed>
+                <Grid container sx={{marginBottom: "30px"}}>
+                    <Paper sx={{p: "0 20px 20px 20px", boxShadow: `4px 4px 10px 0.5px ${"#504e4e"}`}}>
+                        <h3>Create new todolist</h3>
+                        <AddItemForm addItem={AddTodolist}/>
+                    </Paper>
+                </Grid>
+                <Grid container spacing={4}>
+                    {filteredTodolists}
+                </Grid>
+            </Container>
+        </ThemeProvider>
     );
 }
 
