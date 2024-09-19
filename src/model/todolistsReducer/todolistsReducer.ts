@@ -3,15 +3,7 @@ import {TodolistsProps} from "common/types/Todolists/TodolistsProps.ts";
 import {FilterValueProps} from "common/types/Tasks/FilterValueProps.ts";
 import {TodolistsActionsProps} from "common/types/TodolistsReducer/TodolistsActionsProps.ts";
 
-// Business Logic Layer (BLL)
-let todolistID1 = v1()
-let todolistID2 = v1()
-const initialState: TodolistsProps[] = [
-    {todolistID: todolistID1, title: "What to read", filter: "All"},
-    {todolistID: todolistID2, title: "What to buy", filter: "All"},
-]
-
-export const todolistsReducer = (state: TodolistsProps[] = initialState, action: TodolistsActionsProps) => {
+export const todolistsReducer = (state: TodolistsProps[], action: TodolistsActionsProps) => {
     switch (action.type) {
         case "REMOVE-TODOLIST":
             return state.filter(todolist => todolist.todolistID !== action.payload.todolistID)
