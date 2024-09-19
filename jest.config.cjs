@@ -10,6 +10,7 @@ module.exports = {
         ]
     },
     moduleNameMapper: {
+        '^App/(.*)$': '<rootDir>/src/App',
         '^common/(.*)$': '<rootDir>/src/common/$1',
         '^model/(.*)$': '<rootDir>/src/model/$1',
     },
