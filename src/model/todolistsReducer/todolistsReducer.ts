@@ -3,7 +3,9 @@ import {TodolistsProps} from "common/types/Todolists/TodolistsProps.ts";
 import {FilterValueProps} from "common/types/Tasks/FilterValueProps.ts";
 import {TodolistsActionsProps} from "common/types/TodolistsReducer/TodolistsActionsProps.ts";
 
-export const todolistsReducer = (state: TodolistsProps[], action: TodolistsActionsProps) => {
+const initialTodolistsState: TodolistsProps[] = []
+
+export const todolistsReducer = (state: TodolistsProps[] = initialTodolistsState, action: TodolistsActionsProps) => {
     switch (action.type) {
         case "REMOVE-TODOLIST":
             return state.filter(todolist => todolist.todolistID !== action.payload.todolistID)
@@ -26,7 +28,7 @@ export const todolistsReducer = (state: TodolistsProps[], action: TodolistsActio
                 : todolist
             )
         default:
-            throw new Error(`Unknown action type ${(action as { type: string }).type}`);
+            return state;
     }
 }
 
