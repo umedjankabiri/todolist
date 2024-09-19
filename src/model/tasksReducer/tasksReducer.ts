@@ -2,7 +2,9 @@ import {TasksStateProps} from "common/types/Tasks/TasksStateProps.ts";
 import {TasksActionsProps} from "common/types/taskReducer/TasksActionsProps.ts";
 import {v1} from "uuid";
 
-export const tasksReducer = (state: TasksStateProps, action: TasksActionsProps): TasksStateProps => {
+const initialTasksState: TasksStateProps = {}
+
+export const tasksReducer = (state: TasksStateProps = initialTasksState, action: TasksActionsProps): TasksStateProps => {
     switch (action.type) {
         case "REMOVE-TASK": {
             const {todolistID, taskID} = action.payload
@@ -43,7 +45,7 @@ export const tasksReducer = (state: TasksStateProps, action: TasksActionsProps):
             return restState
         }
         default:
-            throw new Error(`Unknown action type: ${(action as { type: string }).type}`);
+            return state;
     }
 }
 
