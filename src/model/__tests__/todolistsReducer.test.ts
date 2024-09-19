@@ -11,7 +11,7 @@ let todolistID1: string
 let todolistID2: string
 let initialState: TodolistsProps[]
 
-beforeEach(()=> {
+beforeEach(() => {
     todolistID1 = v1()
     todolistID2 = v1()
     initialState = [
@@ -20,27 +20,33 @@ beforeEach(()=> {
     ]
 })
 
-test("Correct todolist should be removed", ()=> {
+test("Correct todolist should be removed", () => {
     const endState: TodolistsProps[] = todolistsReducer(initialState, removeTodolistAC(todolistID1));
 
     expect(endState.length).toBe(1);
     expect(endState[0].todolistID).toBe(todolistID2);
 })
-test("Correct todolist should be added", ()=> {
+test("Correct todolist should be added", () => {
     const newTitle = "What to learn"
     const endState: TodolistsProps[] = todolistsReducer(initialState, addTodolistAC(newTitle));
 
     expect(endState.length).toBe(3);
     expect(endState[0].title).toBe(newTitle);
 })
-test("Correct todolist should be changed it's title", ()=> {
-    const endState: TodolistsProps[] = todolistsReducer(initialState, changeTodolistTitleAC(todolistID2, "What to learn"));
+test("Correct todolist should be changed it's title", () => {
+    const endState: TodolistsProps[] = todolistsReducer(initialState, changeTodolistTitleAC({
+        todolistID: todolistID2,
+        title: "What to learn"
+    }));
 
     expect(endState[0].title).toBe("What to read");
     expect(endState[1].title).toBe("What to learn");
 })
-test("Correct filter of todolist should be changed", ()=> {
-    const endState: TodolistsProps[] = todolistsReducer(initialState, changeTodolistFilterAC(todolistID2, "Completed"));
+test("Correct filter of todolist should be changed", () => {
+    const endState: TodolistsProps[] = todolistsReducer(initialState, changeTodolistFilterAC({
+        todolistID: todolistID2,
+        filter: "Completed"
+    }));
 
     expect(endState[0].filter).toBe("All");
     expect(endState[1].filter).toBe("Completed");
