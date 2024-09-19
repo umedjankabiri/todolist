@@ -62,14 +62,15 @@ function App() {
     const changeThemeMode = () => setThemeMode(themeMode === "light" ? "dark" : "light")
     const buttonsBackgroundColor = themeMode === "light" ? theme.palette.primary.light : theme.palette.primary.dark
 
-    // filtered todolists for render
+    // mapped todolists for render
     const filteredTodolists = todolists.map(todolist => {
         let filteredTasks = tasks[todolist.todolistID]
         todolist.filter === "Active" && (filteredTasks = filteredTasks.filter(task => !task.isDone))
         todolist.filter === "Completed" && (filteredTasks = filteredTasks.filter(task => task.isDone))
 
+        // layout of todolists
         return (
-            <Grid>
+            <Grid key={todolist.todolistID}>
                 <Paper sx={{p: "0 20px 20px 20px", boxShadow: `4px 4px 10px 0.5px ${"#504e4e"}`}}>
                     <Todolist
                         key={todolist.todolistID}
