@@ -50,15 +50,9 @@ function AppWithRedux() {
     const changedTodolistFilter = (todolistID: string, filterValue: FilterValueProps) =>
         dispatch(changeTodolistFilterAC(todolistID, filterValue))
 
-    const removedTodolist = (todolistID: string) => {
-        const action = removeTodolistAC(todolistID)
-        dispatch(action);
-        dispatch(action)
-    }
+    const removedTodolist = (todolistID: string) => dispatch(removeTodolistAC(todolistID));
     const AddTodolist = (title: string) => {
-        const action = addTodolistAC(title)
-        dispatch(action);
-        dispatch(action)
+        dispatch(addTodolistAC(title));
     }
     const changeTaskTitleHandler = (todolistID: string, taskID: string, title: string) =>
         dispatch(changeTaskTitleAC({todolistID: todolistID, taskID: taskID, title: title}));
