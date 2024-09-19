@@ -1,4 +1,4 @@
-import 'common/components/App/App.css'
+import 'App/App.css'
 import {Todolist} from 'common/components/Todolist/Todolist.tsx';
 import {useReducer, useState} from "react";
 import {FilterValueProps} from "common/types/Tasks/FilterValueProps.ts";
@@ -57,7 +57,7 @@ export const tasksInitialState: TasksStateProps = {
     ]
 }
 
-function AppWithReducers() {
+function AppWithRedux() {
     const [todolists, dispatchTodolists] = useReducer(todolistsReducer, todolistsInitialState)
     const [tasks, dispatchTasks] = useReducer(tasksReducer, tasksInitialState);
     const [themeMode, setThemeMode] = useState<ThemeMode>("light")
@@ -162,4 +162,4 @@ function AppWithReducers() {
     );
 }
 
-export default AppWithReducers
+export default AppWithRedux
