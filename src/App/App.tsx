@@ -1,12 +1,11 @@
 import 'App/App.css'
 import {Todolist} from 'common/components/Todolist/Todolist.tsx';
-import {useState} from "react";
 import {FilterValueProps} from "common/types/Tasks/FilterValueProps.ts";
 import {TodolistsProps} from "common/types/Todolists/TodolistsProps.ts";
 import {TasksStateProps} from "common/types/Tasks/TasksStateProps.ts";
 import {AddItemForm} from "common/components/AddItemForm/AddItemForm.tsx";
 import {AppBar, Container, CssBaseline, Paper, Switch, Toolbar, Typography} from "@mui/material";
-import {createTheme, ThemeProvider} from "@mui/material/styles"
+import {ThemeProvider} from "@mui/material/styles"
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu"
 import Grid from '@mui/material/Grid2'
@@ -21,24 +20,15 @@ import {
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "model/tasksReducer/tasksReducer.ts";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "App/store.ts";
+import {toggleTheme} from "common/utils/toggleTheme.ts";
+import {changeThemeModeAC} from "model/themeReducer/themeReducer.ts";
 
 // Business Logic Layer (BLL)
 function App() {
     const todolists = useSelector<RootState, TodolistsProps[]>(state => state.todolists)
     const tasks = useSelector<RootState, TasksStateProps>(state => state.tasks)
+    const themeMode = useSelector<RootState, ThemeMode>(state => state.themes?.themeMode)
     const dispatch = useDispatch()
-    const [themeMode, setThemeMode] = useState<ThemeMode>("light")
-
-    const theme = createTheme({
-        palette: {
-            mode: themeMode === "light" ? "light" : "dark",
-            primary: {
-                main: "#087EA4",
-                light: "#0993cb",
-                dark: "#033844",
-            }
-        }
-    })
 
     // CRUD for todolists
     const removedTodolist = (todolistID: string) => dispatch(removeTodolistAC(todolistID));
@@ -59,7 +49,8 @@ function App() {
         dispatch(changeTaskTitleAC({todolistID: todolistID, taskID: taskID, title: title}));
 
     // changing theme of todolist app
-    const changeThemeMode = () => setThemeMode(themeMode === "light" ? "dark" : "light")
+    const theme = toggleTheme(themeMode)
+    const changeThemeMode = () => dispatch(changeThemeModeAC(themeMode === "light" ? "dark" : "light"))
     const buttonsBackgroundColor = themeMode === "light" ? theme.palette.primary.light : theme.palette.primary.dark
 
     // mapped todolists for render
