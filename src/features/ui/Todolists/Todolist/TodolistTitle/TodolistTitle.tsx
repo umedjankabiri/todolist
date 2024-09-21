@@ -3,11 +3,11 @@ import {TodolistProps} from "common/types/Todolists/Todolist/TodolistProps.ts";
 import {EditableSpan} from "common/components/EditableSpan/EditableSpan.tsx";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-import {useDispatch} from "react-redux";
+import {useAppDispatch} from "common/hooks/useAppDispatch.ts";
 import {changeTodolistTitleAC, removeTodolistAC} from "features/model/todolistsReducer/todolistsReducer.ts";
 
 export const TodolistTitle: FC<TodolistProps> = ({todolist}) => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const {todolistID, title} = todolist
     const removeTodolistHandler = () => dispatch(removeTodolistAC(todolistID))

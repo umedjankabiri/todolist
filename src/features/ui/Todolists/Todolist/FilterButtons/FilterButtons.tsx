@@ -3,12 +3,12 @@ import {Box} from "@mui/material";
 import {filterButtonsContainerSX} from "common/types/Todolists/Todolist/Todolist.styles.ts";
 import Button from "@mui/material/Button";
 import {FilterValueProps} from "common/types/Tasks/FilterValueProps.ts";
-import {useDispatch} from "react-redux";
+import {useAppDispatch} from "common/hooks/useAppDispatch.ts";
 import {changeTodolistFilterAC} from "features/model/todolistsReducer/todolistsReducer.ts";
 import {TodolistProps} from "common/types/Todolists/Todolist/TodolistProps.ts";
 
 export const FilterButtons: FC<TodolistProps> = ({todolist}) => {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const {todolistID, filter} = todolist
     const changeFilterHandler = (filter: FilterValueProps) =>

@@ -1,4 +1,3 @@
-import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "App/store.ts";
 import {ThemeMode} from "common/types/ThemeMode/ThemeModeProps.ts";
 import {changeThemeModeAC} from "features/model/themeReducer/themeReducer.ts";
@@ -7,10 +6,12 @@ import {AppBar, Switch, Toolbar, Typography} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import {MenuButton} from "common/components/Header/MenuButtons/MenuButton.tsx";
+import {useAppDispatch} from "common/hooks/useAppDispatch.ts";
+import {useAppSelector} from "common/hooks/useAppSelector.ts";
 
 export const Header = () => {
-    const themeMode = useSelector<RootState, ThemeMode>(state => state.themes?.themeMode)
-    const dispatch = useDispatch()
+    const themeMode = useAppSelector<RootState, ThemeMode>(state => state.themes?.themeMode)
+    const dispatch = useAppDispatch()
 
     // changing theme of todolist app
     const theme = toggleTheme(themeMode)

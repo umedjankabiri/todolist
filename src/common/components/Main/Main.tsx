@@ -3,10 +3,10 @@ import Grid from "@mui/material/Grid2";
 import {Container, Paper} from "@mui/material";
 import {AddItemForm} from "common/components/AddItemForm/AddItemForm.tsx";
 import {Todolists} from "features/ui/Todolists/Todolists.tsx";
-import {useDispatch} from "react-redux";
+import {useAppDispatch} from "common/hooks/useAppDispatch.ts";
 
 export const Main = () => {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const AddTodolist = (title: string) => dispatch(addTodolistAC(title));
 
     // layout

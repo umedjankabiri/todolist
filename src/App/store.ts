@@ -10,6 +10,7 @@ const rootReducers = combineReducers({
 })
 export const store = legacy_createStore(rootReducers)
 export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
 
 // @ts-ignore
 window.store = store
