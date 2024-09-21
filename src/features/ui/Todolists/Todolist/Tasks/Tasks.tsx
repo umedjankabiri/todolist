@@ -1,13 +1,12 @@
 import {FC} from "react";
 import {TodolistProps} from "common/types/Todolists/Todolist/TodolistProps.ts";
-import {TasksStateProps} from "common/types/Tasks/TasksStateProps.ts";
-import {RootState} from "App/store.ts";
 import {List} from "@mui/material";
 import {Task} from "features/ui/Todolists/Todolist/Tasks/Task/Task.tsx";
 import {useAppSelector} from "common/hooks/useAppSelector.ts";
+import {selectTasks} from "common/selectors/taskSelectors.ts";
 
 export const Tasks: FC<TodolistProps> = ({todolist}) => {
-    const tasks = useAppSelector<RootState, TasksStateProps>(state => state.tasks)
+    const tasks = useAppSelector(selectTasks)
 
     const {filter} = todolist
 

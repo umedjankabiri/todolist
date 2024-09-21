@@ -1,12 +1,11 @@
 import Grid from "@mui/material/Grid2";
 import {Paper} from "@mui/material";
 import {Todolist} from "features/ui/Todolists/Todolist/Todolist.tsx";
-import {RootState} from "App/store.ts";
-import {TodolistsProps} from "common/types/Todolists/TodolistsProps.ts";
 import {useAppSelector} from "common/hooks/useAppSelector.ts";
+import {selectTodolists} from "common/selectors/TodolistsSelectors.ts";
 
 export const Todolists = () => {
-    const todolists = useAppSelector<RootState, TodolistsProps[]>(state => state.todolists)
+    const todolists = useAppSelector(selectTodolists)
 
     // mapped todolists for render
     const filteredTodolists = todolists.map(todolist => {
