@@ -12,7 +12,7 @@ module.exports = {
     moduleNameMapper: {
         '^App/(.*)$': '<rootDir>/src/App',
         '^common/(.*)$': '<rootDir>/src/common/$1',
-        '^model/(.*)$': '<rootDir>/src/model/$1',
+        '^features/(.*)$': '<rootDir>/src/features/$1',
     },
     setupFilesAfterEnv: ['./src/setupTests.ts']
 }
