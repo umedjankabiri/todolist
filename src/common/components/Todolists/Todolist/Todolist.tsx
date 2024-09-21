@@ -1,4 +1,4 @@
-import {TodolistProps} from "common/types/Todolist/TodolistProps.ts";
+import {TodolistProps} from "common/types/Todolists/Todolist/TodolistProps.ts";
 import {FC} from "react";
 import {AddItemForm} from "common/components/AddItemForm/AddItemForm.tsx";
 import {FilterButtons} from "common/components/Todolists/Tasks/FilterButtons/FilterButtons.tsx";
