@@ -14,6 +14,8 @@ export const Tasks: FC<TodolistProps> = ({todolist}) => {
     const tasks = useSelector<RootState, TasksStateProps>(state => state.tasks)
     const dispatch = useDispatch()
 
+    const {todolistID, filter} = todolist
+
     const removeTaskHandler = (todolistID: string, taskID: string) =>
         dispatch(removeTaskAC({todolistID: todolistID, taskID: taskID}))
     const changeTaskStatusHandler = (todolistID: string, taskID: string, status: boolean) =>
@@ -23,15 +25,15 @@ export const Tasks: FC<TodolistProps> = ({todolist}) => {
 
     let todolistTasks = tasks[todolist.todolistID]
 
-    todolist.filter === "Active" ? todolistTasks = todolistTasks.filter(task => !task.isDone) : todolistTasks
-    todolist.filter === "Completed" ? todolistTasks = todolistTasks.filter(task => task.isDone) : todolistTasks
+    filter === "Active" ? todolistTasks = todolistTasks.filter(task => !task.isDone) : todolistTasks
+    filter === "Completed" ? todolistTasks = todolistTasks.filter(task => task.isDone) : todolistTasks
 
     const mappedTasks = todolistTasks.map(task => {
-        const onClickRemoveTask = () => removeTaskHandler(todolist.todolistID, task.id)
+        const onClickRemoveTask = () => removeTaskHandler(todolistID, task.id)
         const onChangeTaskStatus = (event: ChangeEvent<HTMLInputElement>) =>
-            changeTaskStatusHandler(todolist.todolistID, task.id, event.currentTarget.checked)
+            changeTaskStatusHandler(todolistID, task.id, event.currentTarget.checked)
         const onChangeTaskTitle = (title: string) =>
-            changeTaskTitleHandler(todolist.todolistID, task.id, title)
+            changeTaskTitleHandler(todolistID, task.id, title)
 
         return (
             <ListItem key={task.id} sx={getListItemSx(task.isDone)}>
