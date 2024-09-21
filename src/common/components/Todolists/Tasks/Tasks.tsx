@@ -1,50 +1,26 @@
-import {ChangeEvent, FC} from "react";
-import {TodolistProps} from "common/types/Todolist/TodolistProps.ts";
+import {FC} from "react";
+import {TodolistProps} from "common/types/Todolists/Todolist/TodolistProps.ts";
 import {TasksStateProps} from "common/types/Tasks/TasksStateProps.ts";
 import {RootState} from "App/store.ts";
-import {useDispatch, useSelector} from "react-redux";
-import {changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "model/tasksReducer/tasksReducer.ts";
-import {Checkbox, List, ListItem} from "@mui/material";
-import {getListItemSx} from "common/components/EditableSpan/EditableSpan.styles.ts";
-import {EditableSpan} from "common/components/EditableSpan/EditableSpan.tsx";
-import IconButton from "@mui/material/IconButton";
-import DeleteIcon from "@mui/icons-material/Delete";
+import {useSelector} from "react-redux";
+import {List} from "@mui/material";
+import {Task} from "common/components/Todolists/Tasks/Task/Task.tsx";
 
 export const Tasks: FC<TodolistProps> = ({todolist}) => {
     const tasks = useSelector<RootState, TasksStateProps>(state => state.tasks)
-    const dispatch = useDispatch()
 
-    const {todolistID, filter} = todolist
-
-    const removeTaskHandler = (todolistID: string, taskID: string) =>
-        dispatch(removeTaskAC({todolistID: todolistID, taskID: taskID}))
-    const changeTaskStatusHandler = (todolistID: string, taskID: string, status: boolean) =>
-        dispatch(changeTaskStatusAC({todolistID: todolistID, taskID: taskID, isDone: status}))
-    const changeTaskTitleHandler = (todolistID: string, taskID: string, title: string) =>
-        dispatch(changeTaskTitleAC({todolistID: todolistID, taskID: taskID, title: title}))
+    const {filter} = todolist
 
     let todolistTasks = tasks[todolist.todolistID]
 
-    filter === "Active" ? todolistTasks = todolistTasks.filter(task => !task.isDone) : todolistTasks
-    filter === "Completed" ? todolistTasks = todolistTasks.filter(task => task.isDone) : todolistTasks
+    filter === "Active" && (todolistTasks = todolistTasks.filter(task => !task.isDone))
+    filter === "Completed" && (todolistTasks = todolistTasks.filter(task => task.isDone))
 
     const mappedTasks = todolistTasks.map(task => {
-        const onClickRemoveTask = () => removeTaskHandler(todolistID, task.id)
-        const onChangeTaskStatus = (event: ChangeEvent<HTMLInputElement>) =>
-            changeTaskStatusHandler(todolistID, task.id, event.currentTarget.checked)
-        const onChangeTaskTitle = (title: string) =>
-            changeTaskTitleHandler(todolistID, task.id, title)
-
         return (
-            <ListItem key={task.id} sx={getListItemSx(task.isDone)}>
-                <div>
-                    <Checkbox checked={task.isDone} onChange={onChangeTaskStatus}/>
-                    <EditableSpan title={task.title} onChangeTitle={onChangeTaskTitle}/>
-                </div>
-                <IconButton onClick={onClickRemoveTask}>
-                    <DeleteIcon/>
-                </IconButton>
-            </ListItem>
+            <List>
+                <Task todolist={todolist} task={task}/>
+            </List>
         )
     })
 
