@@ -1,5 +1,5 @@
 export type TaskProps = {
-    id: string
+    taskID: string
     title: string
     isDone: boolean
 }
