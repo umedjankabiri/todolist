@@ -17,7 +17,7 @@ export const tasksReducer = (state: TasksStateProps = initialTasksState, action:
             const {todolistID, title} = action.payload
             return {
                 ...state,
-                [todolistID]: [{id: v1(), title: title, isDone: false}, ...state[todolistID]]
+                [todolistID]: [{taskID: v1(), title: title, isDone: false}, ...state[todolistID]]
             }
         }
         case "CHANGE-TASK-STATUS": {
