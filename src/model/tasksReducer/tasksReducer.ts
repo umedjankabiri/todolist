@@ -10,7 +10,7 @@ export const tasksReducer = (state: TasksStateProps = initialTasksState, action:
             const {todolistID, taskID} = action.payload
             return {
                 ...state,
-                [todolistID]: state[todolistID].filter(task => task.id !== taskID)
+                [todolistID]: state[todolistID].filter(task => task.taskID !== taskID)
             }
         }
         case "ADD-TASK": {
@@ -24,14 +24,14 @@ export const tasksReducer = (state: TasksStateProps = initialTasksState, action:
             const {todolistID, taskID, isDone} = action.payload
             return {
                 ...state,
-                [todolistID]: state[todolistID].map(task => task.id === taskID ? {...task, isDone: isDone} : task)
+                [todolistID]: state[todolistID].map(task => task.taskID === taskID ? {...task, isDone: isDone} : task)
             }
         }
         case "CHANGE-TASK-TITLE": {
             const {todolistID, taskID, title} = action.payload
             return {
                 ...state,
-                [todolistID]: state[todolistID].map(task => task.id === taskID ? {...task, title: title} : task)
+                [todolistID]: state[todolistID].map(task => task.taskID === taskID ? {...task, title: title} : task)
             }
         }
         case "ADD-TODOLIST": {
