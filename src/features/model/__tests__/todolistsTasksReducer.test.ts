@@ -1,7 +1,7 @@
 import {TasksStateProps} from "common/types/Tasks/TasksStateProps.ts";
 import {TodolistsProps} from "common/types/Todolists/TodolistsProps.ts";
-import {addTodolistAC, todolistsReducer} from "model/todolistsReducer/todolistsReducer.ts";
-import {tasksReducer} from "model/tasksReducer/tasksReducer.ts";
+import {addTodolistAC, todolistsReducer} from "features/model/todolistsReducer/todolistsReducer.ts";
+import {tasksReducer} from "features/model/tasksReducer/tasksReducer.ts";
 
 test('ids should be equals', () => {
     const startTasksState: TasksStateProps = {}

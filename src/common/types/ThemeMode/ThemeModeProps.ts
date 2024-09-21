@@ -1,4 +1,4 @@
-import {changeThemeModeAC, initialState} from "model/themeReducer/themeReducer.ts";
+import {changeThemeModeAC, initialState} from "features/model/themeReducer/themeReducer.ts";
 
 export type ThemeMode = "dark" | "light"
 export type InitialState = typeof initialState

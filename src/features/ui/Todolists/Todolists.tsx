@@ -1,6 +1,6 @@
 import Grid from "@mui/material/Grid2";
 import {Paper} from "@mui/material";
-import {Todolist} from "common/components/Todolists/Todolist/Todolist.tsx";
+import {Todolist} from "features/ui/Todolists/Todolist/Todolist.tsx";
 import {useSelector} from "react-redux";
 import {RootState} from "App/store.ts";
 import {TodolistsProps} from "common/types/Todolists/TodolistsProps.ts";

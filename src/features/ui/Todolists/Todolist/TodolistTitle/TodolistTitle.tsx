@@ -4,7 +4,7 @@ import {EditableSpan} from "common/components/EditableSpan/EditableSpan.tsx";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {useDispatch} from "react-redux";
-import {changeTodolistTitleAC, removeTodolistAC} from "model/todolistsReducer/todolistsReducer.ts";
+import {changeTodolistTitleAC, removeTodolistAC} from "features/model/todolistsReducer/todolistsReducer.ts";
 
 export const TodolistTitle: FC<TodolistProps> = ({todolist}) => {
     const dispatch = useDispatch();

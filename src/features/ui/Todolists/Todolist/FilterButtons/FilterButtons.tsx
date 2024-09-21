@@ -4,7 +4,7 @@ import {filterButtonsContainerSX} from "common/types/Todolists/Todolist/Todolist
 import Button from "@mui/material/Button";
 import {FilterValueProps} from "common/types/Tasks/FilterValueProps.ts";
 import {useDispatch} from "react-redux";
-import {changeTodolistFilterAC} from "model/todolistsReducer/todolistsReducer.ts";
+import {changeTodolistFilterAC} from "features/model/todolistsReducer/todolistsReducer.ts";
 import {TodolistProps} from "common/types/Todolists/Todolist/TodolistProps.ts";
 
 export const FilterButtons: FC<TodolistProps> = ({todolist}) => {

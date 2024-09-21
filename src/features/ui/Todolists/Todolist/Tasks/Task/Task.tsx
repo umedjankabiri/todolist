@@ -1,7 +1,7 @@
 import {ChangeEvent, FC} from "react";
 import {useDispatch} from "react-redux";
 import {TodolistTaskProps} from "common/types/TodolistTask/TodolistTaskProps.ts";
-import {changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "model/tasksReducer/tasksReducer.ts";
+import {changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "features/model/tasksReducer/tasksReducer.ts";
 import {Checkbox, ListItem} from "@mui/material";
 import {getListItemSx} from "common/components/EditableSpan/EditableSpan.styles.ts";
 import {EditableSpan} from "common/components/EditableSpan/EditableSpan.tsx";

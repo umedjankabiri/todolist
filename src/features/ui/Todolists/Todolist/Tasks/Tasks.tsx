@@ -4,7 +4,7 @@ import {TasksStateProps} from "common/types/Tasks/TasksStateProps.ts";
 import {RootState} from "App/store.ts";
 import {useSelector} from "react-redux";
 import {List} from "@mui/material";
-import {Task} from "common/components/Todolists/Todolist/Tasks/Task/Task.tsx";
+import {Task} from "features/ui/Todolists/Todolist/Tasks/Task/Task.tsx";
 
 export const Tasks: FC<TodolistProps> = ({todolist}) => {
     const tasks = useSelector<RootState, TasksStateProps>(state => state.tasks)

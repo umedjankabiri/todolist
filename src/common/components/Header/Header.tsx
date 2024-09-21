@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "App/store.ts";
 import {ThemeMode} from "common/types/ThemeMode/ThemeModeProps.ts";
-import {changeThemeModeAC} from "model/themeReducer/themeReducer.ts";
+import {changeThemeModeAC} from "features/model/themeReducer/themeReducer.ts";
 import {toggleTheme} from "common/utils/toggleTheme.ts";
 import {AppBar, Switch, Toolbar, Typography} from "@mui/material";
 import IconButton from "@mui/material/IconButton";

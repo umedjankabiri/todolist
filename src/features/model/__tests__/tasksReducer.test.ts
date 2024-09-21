@@ -5,8 +5,8 @@ import {
     changeTaskTitleAC,
     removeTaskAC,
     tasksReducer
-} from "model/tasksReducer/tasksReducer.ts";
-import {addTodolistAC, removeTodolistAC} from "model/todolistsReducer/todolistsReducer.ts";
+} from "features/model/tasksReducer/tasksReducer.ts";
+import {addTodolistAC, removeTodolistAC} from "features/model/todolistsReducer/todolistsReducer.ts";
 import {v1} from "uuid";
 
 let todolistID1: string
