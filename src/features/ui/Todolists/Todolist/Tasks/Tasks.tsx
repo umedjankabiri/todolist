@@ -18,7 +18,7 @@ export const Tasks: FC<TodolistProps> = ({todolist}) => {
 
     const mappedTasks = todolistTasks.map(task => {
         return (
-            <List>
+            <List key={task.taskID}>
                 <Task todolist={todolist} task={task}/>
             </List>
         )
