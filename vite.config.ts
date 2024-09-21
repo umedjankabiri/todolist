@@ -9,7 +9,7 @@ export default defineConfig({
     alias: {
       App: path.resolve(__dirname, 'src/App/'),
       common: path.resolve(__dirname, 'src/common/'),
-      model: path.resolve(__dirname, 'src/model/')
+      features: path.resolve(__dirname, 'src/features/')
     }
   }
 })
