@@ -6,7 +6,7 @@ import {toggleTheme} from "common/utils/toggleTheme.ts";
 import {AppBar, Switch, Toolbar, Typography} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import {MenuButton} from "common/components/MenuButtons/MenuButton.tsx";
+import {MenuButton} from "common/components/Header/MenuButtons/MenuButton.tsx";
 
 export const Header = () => {
     const themeMode = useSelector<RootState, ThemeMode>(state => state.themes?.themeMode)
