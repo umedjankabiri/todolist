@@ -5,7 +5,7 @@ import {FilterButtons} from "common/components/Tasks/FilterButtons/FilterButtons
 import {useDispatch} from "react-redux";
 import {addTaskAC} from "model/tasksReducer/tasksReducer.ts";
 import {TodolistTitle} from "common/components/Todolists/TodolistTitle/TodolistTitle.tsx";
-import {Tasks} from "common/components/Tasks/Task/Tasks.tsx";
+import {Tasks} from "common/components/Tasks/Tasks.tsx";
 
 export const Todolist: FC<TodolistProps> = ({todolist}) => {
     const dispatch = useDispatch()
