@@ -1,15 +1,8 @@
 import Checkbox from '@mui/material/Checkbox'
-import React, { ChangeEvent, useEffect, useState } from 'react'
-import { AddItemForm } from '../common/components/AddItemForm/AddItemForm'
-import { EditableSpan } from '../common/components/EditableSpan/EditableSpan'
+import React, {ChangeEvent, useEffect, useState} from 'react'
+import {AddItemForm} from '../common/components/AddItemForm/AddItemForm'
+import {EditableSpan} from '../common/components/EditableSpan/EditableSpan'
 import axios from 'axios'
-
-export type Todolist = {
-    todolistID: string
-    title: string
-    addedDate: string
-    order: number
-}
 
 export const AppHttpRequests = () => {
     const [todolists, setTodolists] = useState<any>([])
@@ -21,13 +14,20 @@ export const AppHttpRequests = () => {
                 Authorization: "Bearer ce08439a-a32a-4af0-8da4-627c8240efbc"
             }
         })
-            .then((response)=> {
+            .then((response) => {
                 setTodolists(response.data)
             })
     }, [])
 
     const createTodolistHandler = (title: string) => {
-        // create todolist
+        axios.post("https://social-network.samuraijs.com/api/1.1/todo-lists",
+            {title: title}, {headers: {
+                Authorization: "Bearer ce08439a-a32a-4af0-8da4-627c8240efbc",
+                    "api-key": "60e0596e-352f-4b57-8e3f-8be82fb42652"
+            }})
+            .then((response) => {
+                setTodolists([response.data.data.item, ...todolists])
+            })
     }
 
     const removeTodolistHandler = (id: string) => {
@@ -55,8 +55,8 @@ export const AppHttpRequests = () => {
     }
 
     return (
-        <div style={{ margin: '20px' }}>
-            <AddItemForm addItem={createTodolistHandler} />
+        <div style={{margin: '20px'}}>
+            <AddItemForm addItem={createTodolistHandler}/>
 
             {/* Todolists */}
             {todolists.map((tl: any) => {
@@ -69,7 +69,7 @@ export const AppHttpRequests = () => {
                             />
                             <button onClick={() => removeTodolistHandler(tl.id)}>x</button>
                         </div>
-                        <AddItemForm addItem={title => createTaskHandler(title, tl.id)} />
+                        <AddItemForm addItem={title => createTaskHandler(title, tl.id)}/>
 
                         {/* Tasks */}
                         {!!tasks[tl.id] &&
@@ -104,4 +104,22 @@ const todolist: React.CSSProperties = {
     display: 'flex',
     justifyContent: 'space-between',
     flexDirection: 'column',
+}
+
+// types
+export type Todolist = {
+    todolistID: string
+    title: string
+    addedDate: string
+    order: number
+}
+export type FieldError = {
+    error: string
+    field: string
+}
+export type CreateTodolistResponse = {
+    data: { item: Todolist }
+    fieldsErrors: FieldError[]
+    messages: string[]
+    resultCode: number
 }
