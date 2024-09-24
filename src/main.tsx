@@ -1,14 +1,15 @@
 import {StrictMode} from 'react'
 import {createRoot} from 'react-dom/client'
 import './index.css'
-import {App} from "App/App.tsx";
 import {Provider} from "react-redux";
 import {store} from "App/store.ts";
+import {AppHttpRequests} from "App/AppHttpRequest.tsx";
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
         <Provider store={store}>
-            <App/>
+            {/*<App/>*/}
+            <AppHttpRequests/>
         </Provider>
     </StrictMode>,
 )
