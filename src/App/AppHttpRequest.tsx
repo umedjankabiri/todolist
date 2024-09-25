@@ -6,7 +6,8 @@ import axios from 'axios'
 
 export const AppHttpRequests = () => {
     const [todolists, setTodolists] = useState<Todolist[]>([])
-    const [tasks, setTasks] = useState<any>({})
+    const [tasks, setTasks] = useState<TasksKeyState>({})
+
 
     useEffect(() => {
         axios.get<Todolist[]>("https://social-network.samuraijs.com/api/1.1/todo-lists", {
@@ -16,6 +17,17 @@ export const AppHttpRequests = () => {
         })
             .then((response) => {
                 setTodolists(response.data)
+                todolists.forEach(todo => {
+                    axios.get<GetTasksResponse>(`https://social-network.samuraijs.com/api/1.1/todo-lists/${todo.todolistID}/tasks`, {
+                        headers: {
+                            Authorization: "Bearer ce08439a-a32a-4af0-8da4-627c8240efbc",
+                            "api-key": "60e0596e-352f-4b57-8e3f-8be82fb42652"
+                        }
+                    }).then(response => {
+                        console.log(response.data)
+                        setTasks({...tasks, [todo.todolistID]: response.data.item})
+                    })
+                })
             })
     }, [])
 
@@ -74,8 +86,16 @@ export const AppHttpRequests = () => {
         })
     }
 
-    const createTaskHandler = (title: string, todolistId: string) => {
-        // create task
+    const createTaskHandler = (title: string, todolistID: string) => {
+        axios.post<CreateTasksResponse>(`https://social-network.samuraijs.com/api/1.1/todo-lists/${todolistID}/tasks`, {title: title}, {
+            headers: {
+                Authorization: "Bearer ce08439a-a32a-4af0-8da4-627c8240efbc",
+                "api-key": "60e0596e-352f-4b57-8e3f-8be82fb42652"
+            }
+        }).then((response) => {
+            console.log(response.data.data.item)
+            setTasks({...tasks, [todolistID]: [response.data.data.item, ...tasks[todolistID]]})
+        })
     }
 
     const removeTaskHandler = (taskId: string, todolistId: string) => {
@@ -170,4 +190,30 @@ export type UpdateTodolistResponse = {
     fieldsErrors: FieldError[]
     messages: string[]
     resultCode: number
+}
+export type GetTasksResponse = {
+    error: string | null
+    totalCount: number
+    item: DomainTask[]
+}
+export type DomainTask = {
+    todolistID: string
+    taskID: string
+    title: string
+    description: string
+    status: number
+    priority: number
+    order: number
+    deadline: string
+    stateDate: string
+    addedDate: string
+}
+export type CreateTasksResponse = {
+    data: { item: DomainTask }
+    fieldErrors: string[]
+    messagesErrors: string
+    resultCode: number
+}
+export type TasksKeyState = {
+    [key: string]: DomainTask[]
 }
