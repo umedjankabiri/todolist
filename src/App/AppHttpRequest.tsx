@@ -41,7 +41,7 @@ export const AppHttpRequests = () => {
         }).then((response) => {
             console.log(response.data)
             setTodolists(todolists.filter(todolist => todolist.todolistID !== todolistID))
-        }).then(() => {
+        }).then(()=> {
             axios.get<Todolist[]>("https://social-network.samuraijs.com/api/1.1/todo-lists", {
                 headers: {
                     Authorization: "Bearer ce08439a-a32a-4af0-8da4-627c8240efbc"
@@ -54,7 +54,24 @@ export const AppHttpRequests = () => {
     }
 
     const updateTodolistHandler = (id: string, title: string) => {
-        // update todolist title
+        axios.put<UpdateTodolistResponse>(`https://social-network.samuraijs.com/api/1.1/todo-lists/${id}`, {title: title}, {
+            headers: {
+                Authorization: "Bearer ce08439a-a32a-4af0-8da4-627c8240efbc",
+                "api-key": "60e0596e-352f-4b57-8e3f-8be82fb42652"
+            }
+        }).then((response)=> {
+            console.log(response.data)
+            setTodolists(todolists.map(todolist => todolist.todolistID === id ? {...todolist, title: title} : todolist))
+        }).then(()=> {
+            axios.get<Todolist[]>("https://social-network.samuraijs.com/api/1.1/todo-lists", {
+                headers: {
+                    Authorization: "Bearer ce08439a-a32a-4af0-8da4-627c8240efbc"
+                }
+            })
+                .then((response) => {
+                    setTodolists(response.data)
+                })
+        })
     }
 
     const createTaskHandler = (title: string, todolistId: string) => {
