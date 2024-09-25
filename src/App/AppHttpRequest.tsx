@@ -24,7 +24,7 @@ export const AppHttpRequests = () => {
                             "api-key": "60e0596e-352f-4b57-8e3f-8be82fb42652"
                         }
                     }).then(response => {
-                        setTasks({...tasks, [todolist.id]: response.data.item})
+                        setTasks(prevTask => ({...prevTask, [todolist.id]: response.data.item}))
                     })
                 })
             })
