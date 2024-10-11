@@ -1,9 +1,5 @@
-export type Todolist = {
-    id: string
-    title: string
-    addedDate: string
-    order: number
-}
+import {Todolist} from "common/types/Todolists/TodolistsApiProps.ts";
+
 export type FieldError = {
     error: string
     field: string
