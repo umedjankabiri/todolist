@@ -1,4 +1,9 @@
-import {CreateTasksResponse, GetTasksResponse} from "features/ui/Todolists/types/tasksApi.types.ts";
+import {
+    CreateTasksResponse,
+    DomainTask,
+    GetTasksResponse, UpdateTaskModel,
+    UpdateTaskResponse
+} from "features/ui/Todolists/types/tasksApi.types.ts";
 import {tasksInstance} from "common/instance/tasksInstance.ts";
 
 export const tasksApi = {
@@ -7,5 +12,8 @@ export const tasksApi = {
     },
     createTask(title: string, todolistId: string) {
         return tasksInstance(todolistId).post<CreateTasksResponse>(`tasks`, {title: title})
+    },
+    changeTaskStatus(task: DomainTask, model: UpdateTaskModel) {
+        return tasksInstance(task.todoListId).put<UpdateTaskResponse>(`tasks/${task.id}`, model)
     }
 }
