@@ -1,10 +1,10 @@
-export type TasksKeyState = {
-    [key: string]: DomainTask[]
-}
 export type GetTasksResponse = {
     error: string | null
     totalCount: number
-    items: DomainTask[]
+    item: DomainTask[]
+}
+export type TasksKeyState = {
+    [key: string]: DomainTask[]
 }
 export type DomainTask = {
     todoListId: string
@@ -18,12 +18,6 @@ export type DomainTask = {
     startDate: string
     addedDate: string
 }
-export type CreateTasksResponse = {
-    data: { item: DomainTask }
-    fieldErrors: string[]
-    messagesErrors: string
-    resultCode: number
-}
 export type UpdateTaskModel = {
     title: string
     description: string
@@ -31,13 +25,9 @@ export type UpdateTaskModel = {
     priority: number
     startDate: string
 }
-export type UpdateTaskResponse = {
-    data: { item: DomainTask }
-    messages: string[]
-    resultCode: number
-}
-export type DeleteTaskResponse = {
-    data: {}
+export type TasksResponse<D = {}> = {
+    data: D
+    fieldsErrors: string[]
     messages: string[]
     resultCode: number
 }
