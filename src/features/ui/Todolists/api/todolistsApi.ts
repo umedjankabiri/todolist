@@ -10,9 +10,7 @@ export const todolistsApi = {
   },
   updateTodolist(payload: { id: string; title: string }) {
     const { id, title } = payload;
-    return todolistInstance.put<TodolistsResponse>(`todo-lists/${id}`, {
-      title: title,
-    });
+    return todolistInstance.put<TodolistsResponse>(`todo-lists/${id}`, { title: title });
   },
   deleteTodolist(todolistID: string) {
     return todolistInstance.delete<TodolistsResponse>(`todo-lists/${todolistID}`);
