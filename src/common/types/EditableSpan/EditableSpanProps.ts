@@ -1,4 +1,4 @@
 export type EditableSpanProps = {
-    title: string
-    onChangeTitle: (title: string) => void
-}
+  title: string;
+  onChangeTitle: (title: string) => void;
+};

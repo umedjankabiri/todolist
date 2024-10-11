@@ -1,7 +1,7 @@
-import {FilterValueProps} from "common/types/Tasks/FilterValueProps.ts";
+import { FilterValueProps } from "common/types/Tasks/FilterValueProps.ts";
 
 export type TodolistsProps = {
-    todolistID: string
-    title: string
-    filter: FilterValueProps
-}
+  todolistID: string;
+  title: string;
+  filter: FilterValueProps;
+};

@@ -1,1 +1,1 @@
-export type FilterValueProps = "All" | "Active" | "Completed"
+export type FilterValueProps = "All" | "Active" | "Completed";

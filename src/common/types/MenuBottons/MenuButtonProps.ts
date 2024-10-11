@@ -1,6 +1,6 @@
-import {Theme} from "@mui/material/styles";
+import { Theme } from "@mui/material/styles";
 
 export type MenuButtonProps = {
-    background?: string
-    theme?: Theme
-}
+  background?: string;
+  theme?: Theme;
+};

@@ -1,5 +1,5 @@
-import {TodolistsProps} from "common/types/Todolists/TodolistsProps.ts";
+import { TodolistsProps } from "common/types/Todolists/TodolistsProps.ts";
 
 export type TodolistProps = {
-    todolist: TodolistsProps
-}
+  todolist: TodolistsProps;
+};
