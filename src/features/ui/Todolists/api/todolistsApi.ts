@@ -4,20 +4,20 @@ import {
     Todolist,
     UpdateTodolistResponse
 } from "features/ui/Todolists/types/todolistApi.types.ts";
-import {instance} from "common/instance/instance.ts";
+import {todolistInstance} from "common/instance/todolistInstance.ts";
 
 export const todolistsApi = {
     getTodolists() {
-        return instance.get<Todolist[]>("todo-lists");
+        return todolistInstance.get<Todolist[]>("todo-lists");
     },
     createTodolist(title: string) {
-        return instance.post<CreateDeleteTodolistResponse>(`todo-list`, {title})
+        return todolistInstance.post<CreateDeleteTodolistResponse>(`todo-lists`, {title})
     },
     updateTodolist(payload: { id: string, title: string }) {
         const {id, title} = payload;
-        return instance.put<UpdateTodolistResponse>(`todo-lists/${id}`, {title: title},)
+        return todolistInstance.put<UpdateTodolistResponse>(`todo-lists/${id}`, {title: title},)
     },
     deleteTodolist(todolistID: string) {
-        return instance.delete<DeleteTodolistResponse>(`todo-lists/${todolistID}`)
+        return todolistInstance.delete<DeleteTodolistResponse>(`todo-lists/${todolistID}`)
     }
 }
