@@ -1,5 +1,5 @@
 import {taskInstance} from "common/instance/taskInstance.ts";
-import {DomainTask, GetTasksResponse, TasksResponse, UpdateTaskModel} from "common/types/Tasks/TasksApiProps.ts";
+import {DomainTask, GetTasksResponse, TasksResponse, UpdateTaskModel} from "common/types/Tasks";
 
 export const tasksApi = {
     getTasks(todolistId: string) {
