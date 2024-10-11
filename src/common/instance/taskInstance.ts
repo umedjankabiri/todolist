@@ -4,7 +4,7 @@ export const taskInstance = (todolistId: string) => {
     return axios.create({
         baseURL: `${import.meta.env.VITE_BASE_URL}/${todolistId}/`,
         headers: {
-            Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
+            Authorization: `Bearer ${import.meta.env.VITE_AUTH_TOKEN}`,
             "api-key": import.meta.env.VITE_API_KEY
         }
     })
