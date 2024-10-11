@@ -6,6 +6,7 @@ import {todolistsApi} from "features/ui/Todolists/api/todolistsApi.ts";
 import {tasksApi} from "features/ui/Todolists/api/tasksApi.ts";
 import {Todolist} from "common/types/Todolists/TodolistsApiProps.ts";
 import {DomainTask, TasksKeyState, UpdateTaskModel} from "common/types/Tasks/TasksApiProps.ts";
+import {TaskStatus} from "common/utils/enums/enumTaskStatus.ts";
 
 export const AppHttpRequests = () => {
     const [todolists, setTodolists] = useState<Todolist[]>([])
@@ -64,7 +65,7 @@ export const AppHttpRequests = () => {
     }
 
     const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>, task: DomainTask) => {
-        let status = e.currentTarget.checked ? 2 : 0
+        let status = e.currentTarget.checked ? TaskStatus.Completed : TaskStatus.New
         const model: UpdateTaskModel = {
             status: status,
             title: task.title,
