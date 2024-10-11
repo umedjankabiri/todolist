@@ -1,5 +1,5 @@
 import {
-    CreateTasksResponse,
+    CreateTasksResponse, DeleteTaskResponse,
     DomainTask,
     GetTasksResponse, UpdateTaskModel,
     UpdateTaskResponse
@@ -18,5 +18,8 @@ export const tasksApi = {
     },
     changeTaskTitle(title: string, task: DomainTask) {
         return tasksInstance(task.todoListId).put<UpdateTaskResponse>(`tasks/${task.id}`, {title: title})
+    },
+    deleteTask(taskId: string, todolistId: string) {
+        return tasksInstance(todolistId).delete<DeleteTaskResponse>(`tasks/${taskId}`)
     }
 }
