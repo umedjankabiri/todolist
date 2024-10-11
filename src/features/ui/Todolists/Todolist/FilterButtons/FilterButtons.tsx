@@ -1,6 +1,6 @@
 import {FC} from "react";
 import {Box} from "@mui/material";
-import {filterButtonsContainerSX} from "common/types/Todolists/Todolist/Todolist.styles.ts";
+import {filterButtonsContainerSX} from "features/ui/Todolists/Todolist/FilterButtons/FilterButtons.styles.ts";
 import Button from "@mui/material/Button";
 import {FilterValueProps} from "common/types/Tasks/FilterValueProps.ts";
 import {useAppDispatch} from "common/hooks/useAppDispatch.ts";
