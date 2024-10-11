@@ -2,13 +2,7 @@ import Checkbox from '@mui/material/Checkbox'
 import React, {ChangeEvent, useEffect, useState} from 'react'
 import {AddItemForm} from '../common/components/AddItemForm/AddItemForm'
 import {EditableSpan} from '../common/components/EditableSpan/EditableSpan'
-import axios from 'axios'
-import {
-    DeleteTaskResponse,
-    DomainTask,
-    TasksKeyState,
-    UpdateTaskModel
-} from "features/ui/Todolists/types/tasksApi.types.ts";
+import {DomainTask, TasksKeyState, UpdateTaskModel} from "features/ui/Todolists/types/tasksApi.types.ts";
 import {Todolist} from "features/ui/Todolists/types/todolistApi.types.ts";
 import {todolistsApi} from "features/ui/Todolists/api/todolistsApi.ts";
 import {tasksApi} from "features/ui/Todolists/api/tasksApi.ts";
@@ -60,13 +54,8 @@ export const AppHttpRequests = () => {
         });
     }
 
-    const removeTaskHandler = (taskId: string, todolistId: string) => {
-        axios.delete<DeleteTaskResponse>(`https://social-network.samuraijs.com/api/1.1/todo-lists/${todolistId}/tasks/${taskId}`, {
-            headers: {
-                Authorization: "Bearer ce08439a-a32a-4af0-8da4-627c8240efbc",
-                "api-key": "60e0596e-352f-4b57-8e3f-8be82fb42652"
-            }
-        }).then(() => {
+    const deleteTaskHandler = (taskId: string, todolistId: string) => {
+        tasksApi.deleteTask(taskId, todolistId).then(() => {
             setTasks({
                 ...tasks,
                 [todolistId]: tasks[todolistId] ? tasks[todolistId].filter(task => task.id !== taskId) : []
@@ -137,7 +126,7 @@ export const AppHttpRequests = () => {
                                             title={task.title}
                                             onChangeTitle={title => changeTaskTitleHandler(title, task)}
                                         />
-                                        <button onClick={() => removeTaskHandler(task.id, tl.id)}>x</button>
+                                        <button onClick={() => deleteTaskHandler(task.id, tl.id)}>x</button>
                                     </div>
                                 )
                             })}
