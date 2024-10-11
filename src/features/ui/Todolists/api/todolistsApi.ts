@@ -5,10 +5,11 @@ import {
     Todolist,
     UpdateTodolistResponse
 } from "features/ui/Todolists/types/todolistApi.types.ts";
+import {instance} from "common/instance/instance.ts";
 
 export const todolistsApi = {
     getTodolists() {
-        return axios.get<Todolist[]>(
+        return instance.get<Todolist[]>(
             "https://social-network.samuraijs.com/api/1.1/todo-lists", {
                 headers: {
                     Authorization: "Bearer ce08439a-a32a-4af0-8da4-627c8240efbc",
