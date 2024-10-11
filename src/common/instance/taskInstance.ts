@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const tasksInstance = (todolistId: string) => {
+export const taskInstance = (todolistId: string) => {
     return axios.create({
         baseURL: `${process.env.REACT_APP_BASE_URL}/${todolistId}/`,
         headers: {
