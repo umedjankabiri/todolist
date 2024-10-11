@@ -9,8 +9,8 @@ export type FieldError = {
     field: string
 }
 export type TodolistsResponse<D = {}> = {
-    resultCode: number
-    messages: string[]
-    fieldsErrors: FieldError[]
     data: D
+    fieldsErrors: FieldError[]
+    messages: string[]
+    resultCode: number
 }
