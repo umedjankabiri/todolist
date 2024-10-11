@@ -1,7 +1,7 @@
 import Checkbox from '@mui/material/Checkbox'
 import React, {ChangeEvent, useEffect, useState} from 'react'
-import {AddItemForm} from '../common/components/AddItemForm/AddItemForm'
-import {EditableSpan} from '../common/components/EditableSpan/EditableSpan'
+import {AddItemForm} from 'common/components'
+import {EditableSpan} from 'common/components'
 import {todolistsApi} from "features/ui/Todolists/api/todolistsApi.ts";
 import {tasksApi} from "features/ui/Todolists/api/tasksApi.ts";
 import {Todolist} from "common/types/Todolists/TodolistsApiProps.ts";
