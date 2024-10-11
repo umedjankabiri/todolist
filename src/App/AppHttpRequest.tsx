@@ -84,13 +84,7 @@ export const AppHttpRequests = () => {
             priority: task.priority,
             startDate: task.startDate,
         }
-        axios.put<UpdateTaskResponse>(`https://social-network.samuraijs.com/api/1.1/todo-lists/${task.todoListId}/tasks/${task.id}`,
-            model, {
-                headers: {
-                    Authorization: "Bearer ce08439a-a32a-4af0-8da4-627c8240efbc",
-                    "api-key": "60e0596e-352f-4b57-8e3f-8be82fb42652"
-                }
-            }).then(() => {
+        tasksApi.changeTaskStatus(task, model).then(() => {
             setTasks({
                 ...tasks, [task.todoListId]: tasks[task.todoListId]
                     .map(t => t.id === task.id ? {...t, ...model} : t)
