@@ -14,7 +14,7 @@ import {
 import {
     CreateDeleteTodolistResponse,
     DeleteTodolistResponse,
-    Todolist, UpdateTodolistResponse
+    Todolist
 } from "features/ui/Todolists/types/todolistApi.types.ts";
 import {todolistsApi} from "features/ui/Todolists/api/todolistsApi.ts";
 import {tasksApi} from "features/ui/Todolists/api/tasksApi.ts";
@@ -67,23 +67,12 @@ export const AppHttpRequests = () => {
     }
 
     const updateTodolistHandler = (id: string, title: string) => {
-        axios.put<UpdateTodolistResponse>(`https://social-network.samuraijs.com/api/1.1/todo-lists/${id}`, {title: title}, {
-            headers: {
-                Authorization: "Bearer ce08439a-a32a-4af0-8da4-627c8240efbc",
-                "api-key": "60e0596e-352f-4b57-8e3f-8be82fb42652"
-            }
-        }).then(() => {
+        todolistsApi.updateTodolist({id: id, title: title}).then(() => {
             setTodolists(todolists.map(todolist => todolist.id === id ? {...todolist, title: title} : todolist))
-        }).then(() => {
-            axios.get<Todolist[]>("https://social-network.samuraijs.com/api/1.1/todo-lists", {
-                headers: {
-                    Authorization: "Bearer ce08439a-a32a-4af0-8da4-627c8240efbc"
-                }
-            })
-                .then((response) => {
-                    setTodolists(response.data)
-                })
-        })
+        }).then(() => todolistsApi.getTodolists()
+            .then((response) => {
+                setTodolists(response.data)
+            }))
     }
 
         const createTaskHandler = (title: string, todolistId: string) => {
