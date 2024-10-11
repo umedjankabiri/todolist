@@ -3,9 +3,9 @@ import React, {ChangeEvent, useEffect, useState} from 'react'
 import {AddItemForm} from '../common/components/AddItemForm/AddItemForm'
 import {EditableSpan} from '../common/components/EditableSpan/EditableSpan'
 import {DomainTask, TasksKeyState, UpdateTaskModel} from "features/ui/Todolists/types/tasksApi.types.ts";
-import {Todolist} from "features/ui/Todolists/types/todolistApi.types.ts";
 import {todolistsApi} from "features/ui/Todolists/api/todolistsApi.ts";
 import {tasksApi} from "features/ui/Todolists/api/tasksApi.ts";
+import {Todolist} from "common/types/Todolists/TodolistsApiProps.ts";
 
 export const AppHttpRequests = () => {
     const [todolists, setTodolists] = useState<Todolist[]>([])
