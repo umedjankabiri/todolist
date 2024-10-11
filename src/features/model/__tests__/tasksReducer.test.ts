@@ -6,10 +6,7 @@ import {
   removeTaskAC,
   tasksReducer,
 } from "features/model/tasksReducer/tasksReducer.ts";
-import {
-  addTodolistAC,
-  removeTodolistAC,
-} from "features/model/todolistsReducer/todolistsReducer.ts";
+import { addTodolistAC, removeTodolistAC } from "features/model/todolistsReducer/todolistsReducer.ts";
 import { v1 } from "uuid";
 
 let todolistID1: string;
@@ -34,10 +31,7 @@ beforeEach(() => {
 });
 
 test("correct task should be deleted from correct array", () => {
-  const endState = tasksReducer(
-    initialState,
-    removeTaskAC({ todolistID: todolistID2, taskID: "2" })
-  );
+  const endState = tasksReducer(initialState, removeTaskAC({ todolistID: todolistID2, taskID: "2" }));
 
   expect(endState).toEqual({
     [todolistID1]: [
@@ -52,10 +46,7 @@ test("correct task should be deleted from correct array", () => {
   });
 });
 test("correct task should be added to correct array", () => {
-  const endState = tasksReducer(
-    initialState,
-    addTaskAC({ todolistID: todolistID2, title: "juice" })
-  );
+  const endState = tasksReducer(initialState, addTaskAC({ todolistID: todolistID2, title: "juice" }));
 
   expect(endState[todolistID1].length).toBe(3);
   expect(endState[todolistID2].length).toBe(4);
@@ -84,7 +75,7 @@ test("new array should be added when new todolist is added", () => {
   const endState = tasksReducer(initialState, addTodolistAC("What to read"));
 
   const keys = Object.keys(endState);
-  const newKey = keys.find(k => k !== todolistID1 && k !== todolistID2);
+  const newKey = keys.find((k) => k !== todolistID1 && k !== todolistID2);
   if (!newKey) {
     throw Error("new key should be added");
   }

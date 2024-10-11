@@ -2,7 +2,7 @@ import { ChangeEvent, FC, useState } from "react";
 import { EditableSpanProps } from "common/types/EditableSpan/EditableSpanProps.ts";
 import TextField from "@mui/material/TextField";
 
-export const EditableSpan: FC<EditableSpanProps> = props => {
+export const EditableSpan: FC<EditableSpanProps> = (props) => {
   const [editMode, setEditMode] = useState<boolean>(false);
   const [title, setTitle] = useState<string>(props.title);
 

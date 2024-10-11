@@ -8,7 +8,7 @@ export const Todolists = () => {
   const todolists = useAppSelector(selectTodolists);
 
   // mapped todolists for render
-  const filteredTodolists = todolists.map(todolist => {
+  const filteredTodolists = todolists.map((todolist) => {
     // layout of todolists
     return (
       <Grid key={todolist.todolistID}>

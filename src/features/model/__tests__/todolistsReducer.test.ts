@@ -22,20 +22,14 @@ beforeEach(() => {
 });
 
 test("Correct todolist should be removed", () => {
-  const endState: TodolistsProps[] = todolistsReducer(
-    initialState,
-    removeTodolistAC(todolistID1)
-  );
+  const endState: TodolistsProps[] = todolistsReducer(initialState, removeTodolistAC(todolistID1));
 
   expect(endState.length).toBe(1);
   expect(endState[0].todolistID).toBe(todolistID2);
 });
 test("Correct todolist should be added", () => {
   const newTitle = "What to learn";
-  const endState: TodolistsProps[] = todolistsReducer(
-    initialState,
-    addTodolistAC(newTitle)
-  );
+  const endState: TodolistsProps[] = todolistsReducer(initialState, addTodolistAC(newTitle));
 
   expect(endState.length).toBe(3);
   expect(endState[0].title).toBe(newTitle);

@@ -7,12 +7,8 @@ import {
 
 export type RemoveTodolistActionProps = ReturnType<typeof removeTodolistAC>;
 export type AddTodolistActionProps = ReturnType<typeof addTodolistAC>;
-export type ChangeTodolistStatusActionProps = ReturnType<
-  typeof changeTodolistTitleAC
->;
-export type ChangeTodolistTitleActionProps = ReturnType<
-  typeof changeTodolistFilterAC
->;
+export type ChangeTodolistStatusActionProps = ReturnType<typeof changeTodolistTitleAC>;
+export type ChangeTodolistTitleActionProps = ReturnType<typeof changeTodolistFilterAC>;
 export type TodolistsActionsProps =
   | RemoveTodolistActionProps
   | AddTodolistActionProps

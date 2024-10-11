@@ -4,16 +4,13 @@ import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 
-export const AddItemForm: FC<AddItemFormProps> = props => {
+export const AddItemForm: FC<AddItemFormProps> = (props) => {
   const [taskTitle, setTaskTitle] = useState("");
   const [error, setError] = useState<string | null>(null);
 
-  const onChangeItemHandler = (event: ChangeEvent<HTMLInputElement>) =>
-    setTaskTitle(event.currentTarget.value);
+  const onChangeItemHandler = (event: ChangeEvent<HTMLInputElement>) => setTaskTitle(event.currentTarget.value);
   const addItemHandler = () => {
-    taskTitle.trim() !== ""
-      ? (props.addItem(taskTitle.trim()), setTaskTitle(""))
-      : setError("Title is required");
+    taskTitle.trim() !== "" ? (props.addItem(taskTitle.trim()), setTaskTitle("")) : setError("Title is required");
   };
   const addItemOnKeyUpHandler = (event: KeyboardEvent<HTMLInputElement>) => {
     taskTitle.trim() !== "" && setError(null);

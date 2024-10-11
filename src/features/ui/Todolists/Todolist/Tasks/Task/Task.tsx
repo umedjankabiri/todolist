@@ -1,11 +1,7 @@
 import { ChangeEvent, FC } from "react";
 import { useAppDispatch } from "common/hooks/useAppDispatch.ts";
 import { TodolistTaskProps } from "common/types/TodolistTask/TodolistTaskProps.ts";
-import {
-  changeTaskStatusAC,
-  changeTaskTitleAC,
-  removeTaskAC,
-} from "features/model/tasksReducer/tasksReducer.ts";
+import { changeTaskStatusAC, changeTaskTitleAC, removeTaskAC } from "features/model/tasksReducer/tasksReducer.ts";
 import { Checkbox, ListItem } from "@mui/material";
 import { getListItemSx } from "common/components/EditableSpan/EditableSpan.styles.ts";
 import IconButton from "@mui/material/IconButton";
@@ -18,8 +14,7 @@ export const Task: FC<TodolistTaskProps> = ({ todolist, task }) => {
   const { todolistID } = todolist;
   const { taskID } = task;
 
-  const removeTaskHandler = () =>
-    dispatch(removeTaskAC({ todolistID: todolistID, taskID: taskID }));
+  const removeTaskHandler = () => dispatch(removeTaskAC({ todolistID: todolistID, taskID: taskID }));
   const changeTaskStatusHandler = (event: ChangeEvent<HTMLInputElement>) =>
     dispatch(
       changeTaskStatusAC({
@@ -42,10 +37,7 @@ export const Task: FC<TodolistTaskProps> = ({ todolist, task }) => {
       <ListItem key={task.taskID} sx={getListItemSx(task.isDone)}>
         <div>
           <Checkbox checked={task.isDone} onChange={changeTaskStatusHandler} />
-          <EditableSpan
-            title={task.title}
-            onChangeTitle={changeTaskTitleHandler}
-          />
+          <EditableSpan title={task.title} onChangeTitle={changeTaskTitleHandler} />
         </div>
         <IconButton onClick={removeTaskHandler}>
           <DeleteIcon />

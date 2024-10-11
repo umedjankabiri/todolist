@@ -5,11 +5,7 @@ import { EditableSpan } from "common/components";
 import { todolistsApi } from "features/ui/Todolists/api/todolistsApi.ts";
 import { tasksApi } from "features/ui/Todolists/api/tasksApi.ts";
 import { Todolist } from "common/types/Todolists/TodolistsApiProps.ts";
-import {
-  DomainTask,
-  TasksKeyState,
-  UpdateTaskModel,
-} from "common/types/Tasks/TasksApiProps.ts";
+import { DomainTask, TasksKeyState, UpdateTaskModel } from "common/types/Tasks/TasksApiProps.ts";
 import { TaskStatus } from "common/utils/enums/enumTaskStatus.ts";
 
 export const AppHttpRequests = () => {
@@ -53,11 +49,7 @@ export const AppHttpRequests = () => {
     todolistsApi
       .updateTodolist({ id: id, title: title })
       .then(() => {
-        setTodolists(
-          todolists.map(todolist =>
-            todolist.id === id ? { ...todolist, title: title } : todolist
-          )
-        );
+        setTodolists(todolists.map(todolist => (todolist.id === id ? { ...todolist, title: title } : todolist)));
       })
       .then(() =>
         todolistsApi.getTodolists().then(response => {
@@ -79,20 +71,13 @@ export const AppHttpRequests = () => {
     tasksApi.deleteTask(taskId, todolistId).then(() => {
       setTasks({
         ...tasks,
-        [todolistId]: tasks[todolistId]
-          ? tasks[todolistId].filter(task => task.id !== taskId)
-          : [],
+        [todolistId]: tasks[todolistId] ? tasks[todolistId].filter(task => task.id !== taskId) : [],
       });
     });
   };
 
-  const changeTaskStatusHandler = (
-    e: ChangeEvent<HTMLInputElement>,
-    task: DomainTask
-  ) => {
-    let status = e.currentTarget.checked
-      ? TaskStatus.Completed
-      : TaskStatus.New;
+  const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>, task: DomainTask) => {
+    let status = e.currentTarget.checked ? TaskStatus.Completed : TaskStatus.New;
     const model: UpdateTaskModel = {
       status: status,
       title: task.title,
@@ -103,9 +88,7 @@ export const AppHttpRequests = () => {
     tasksApi.changeTaskStatus(task, model).then(() => {
       setTasks({
         ...tasks,
-        [task.todoListId]: tasks[task.todoListId].map(t =>
-          t.id === task.id ? { ...t, ...model } : t
-        ),
+        [task.todoListId]: tasks[task.todoListId].map(t => (t.id === task.id ? { ...t, ...model } : t)),
       });
     });
   };
@@ -121,9 +104,7 @@ export const AppHttpRequests = () => {
     tasksApi.changeTaskTitle(title, task).then(() => {
       setTasks({
         ...tasks,
-        [task.todoListId]: tasks[task.todoListId].map(t =>
-          t.id === task.id ? { ...t, ...model } : t
-        ),
+        [task.todoListId]: tasks[task.todoListId].map(t => (t.id === task.id ? { ...t, ...model } : t)),
       });
     });
   };
@@ -137,12 +118,7 @@ export const AppHttpRequests = () => {
         return (
           <div key={tl.id} style={todolist}>
             <div>
-              <EditableSpan
-                title={tl.title}
-                onChangeTitle={(title: string) =>
-                  updateTodolistHandler(tl.id, title)
-                }
-              />
+              <EditableSpan title={tl.title} onChangeTitle={(title: string) => updateTodolistHandler(tl.id, title)} />
               <button onClick={() => deleteTodolistHandler(tl.id)}>x</button>
             </div>
             <AddItemForm addItem={title => createTaskHandler(title, tl.id)} />
@@ -152,19 +128,9 @@ export const AppHttpRequests = () => {
               tasks[tl.id].map((task: DomainTask) => {
                 return (
                   <div key={task.id}>
-                    <Checkbox
-                      checked={task.status === 2}
-                      onChange={e => changeTaskStatusHandler(e, task)}
-                    />
-                    <EditableSpan
-                      title={task.title}
-                      onChangeTitle={title =>
-                        changeTaskTitleHandler(title, task)
-                      }
-                    />
-                    <button onClick={() => deleteTaskHandler(task.id, tl.id)}>
-                      x
-                    </button>
+                    <Checkbox checked={task.status === 2} onChange={e => changeTaskStatusHandler(e, task)} />
+                    <EditableSpan title={task.title} onChangeTitle={title => changeTaskTitleHandler(title, task)} />
+                    <button onClick={() => deleteTaskHandler(task.id, tl.id)}>x</button>
                   </div>
                 );
               })}

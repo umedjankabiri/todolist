@@ -10,19 +10,13 @@ import { useAppDispatch } from "common/hooks/useAppDispatch.ts";
 import { useAppSelector } from "common/hooks/useAppSelector.ts";
 
 export const Header = () => {
-  const themeMode = useAppSelector<RootState, ThemeMode>(
-    state => state.themes?.themeMode
-  );
+  const themeMode = useAppSelector<RootState, ThemeMode>((state) => state.themes?.themeMode);
   const dispatch = useAppDispatch();
 
   // changing theme of todolist app
   const theme = toggleTheme(themeMode);
-  const changeThemeMode = () =>
-    dispatch(changeThemeModeAC(themeMode === "light" ? "dark" : "light"));
-  const buttonsBackgroundColor =
-    themeMode === "light"
-      ? theme.palette.primary.light
-      : theme.palette.primary.dark;
+  const changeThemeMode = () => dispatch(changeThemeModeAC(themeMode === "light" ? "dark" : "light"));
+  const buttonsBackgroundColor = themeMode === "light" ? theme.palette.primary.light : theme.palette.primary.dark;
 
   // layout
   return (
@@ -31,16 +25,10 @@ export const Header = () => {
         <IconButton color="inherit">
           <MenuIcon />
         </IconButton>
-        <Typography
-          variant="h6"
-          component="span"
-          sx={{ flexGrow: 1, marginLeft: "10px" }}
-        >
+        <Typography variant="h6" component="span" sx={{ flexGrow: 1, marginLeft: "10px" }}>
           Todolist App
         </Typography>
-        <Typography variant={"h6"}>
-          {themeMode === "light" ? "to dark: " : "to light: "}
-        </Typography>
+        <Typography variant={"h6"}>{themeMode === "light" ? "to dark: " : "to light: "}</Typography>
         <Switch color={"default"} onChange={changeThemeMode} />
         <MenuButton background={buttonsBackgroundColor}>login</MenuButton>
         <MenuButton background={buttonsBackgroundColor}>logout</MenuButton>

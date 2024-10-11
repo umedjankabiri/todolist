@@ -13,35 +13,28 @@ export const tasksReducer = (
       const { todolistID, taskID } = action.payload;
       return {
         ...state,
-        [todolistID]: state[todolistID].filter(task => task.taskID !== taskID),
+        [todolistID]: state[todolistID].filter((task) => task.taskID !== taskID),
       };
     }
     case "ADD-TASK": {
       const { todolistID, title } = action.payload;
       return {
         ...state,
-        [todolistID]: [
-          { taskID: v1(), title: title, isDone: false },
-          ...state[todolistID],
-        ],
+        [todolistID]: [{ taskID: v1(), title: title, isDone: false }, ...state[todolistID]],
       };
     }
     case "CHANGE-TASK-STATUS": {
       const { todolistID, taskID, isDone } = action.payload;
       return {
         ...state,
-        [todolistID]: state[todolistID].map(task =>
-          task.taskID === taskID ? { ...task, isDone: isDone } : task
-        ),
+        [todolistID]: state[todolistID].map((task) => (task.taskID === taskID ? { ...task, isDone: isDone } : task)),
       };
     }
     case "CHANGE-TASK-TITLE": {
       const { todolistID, taskID, title } = action.payload;
       return {
         ...state,
-        [todolistID]: state[todolistID].map(task =>
-          task.taskID === taskID ? { ...task, title: title } : task
-        ),
+        [todolistID]: state[todolistID].map((task) => (task.taskID === taskID ? { ...task, title: title } : task)),
       };
     }
     case "ADD-TODOLIST": {
@@ -51,8 +44,7 @@ export const tasksReducer = (
       // const copyState = {...state};
       // delete copyState[action.payload.todolistID];
       // return copyState
-      const { [action.payload.todolistID]: removedTodolist, ...restState } =
-        state;
+      const { [action.payload.todolistID]: removedTodolist, ...restState } = state;
       return restState;
     }
     default:
@@ -62,15 +54,8 @@ export const tasksReducer = (
 
 export const removeTaskAC = (payload: { todolistID: string; taskID: string }) =>
   ({ type: "REMOVE-TASK", payload }) as const;
-export const addTaskAC = (payload: { todolistID: string; title: string }) =>
-  ({ type: "ADD-TASK", payload }) as const;
-export const changeTaskStatusAC = (payload: {
-  todolistID: string;
-  taskID: string;
-  isDone: boolean;
-}) => ({ type: "CHANGE-TASK-STATUS", payload }) as const;
-export const changeTaskTitleAC = (payload: {
-  todolistID: string;
-  taskID: string;
-  title: string;
-}) => ({ type: "CHANGE-TASK-TITLE", payload }) as const;
+export const addTaskAC = (payload: { todolistID: string; title: string }) => ({ type: "ADD-TASK", payload }) as const;
+export const changeTaskStatusAC = (payload: { todolistID: string; taskID: string; isDone: boolean }) =>
+  ({ type: "CHANGE-TASK-STATUS", payload }) as const;
+export const changeTaskTitleAC = (payload: { todolistID: string; taskID: string; title: string }) =>
+  ({ type: "CHANGE-TASK-TITLE", payload }) as const;

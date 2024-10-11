@@ -12,12 +12,10 @@ export const Tasks: FC<TodolistProps> = ({ todolist }) => {
 
   let todolistTasks = tasks[todolist.todolistID];
 
-  filter === "Active" &&
-    (todolistTasks = todolistTasks.filter(task => !task.isDone));
-  filter === "Completed" &&
-    (todolistTasks = todolistTasks.filter(task => task.isDone));
+  filter === "Active" && (todolistTasks = todolistTasks.filter((task) => !task.isDone));
+  filter === "Completed" && (todolistTasks = todolistTasks.filter((task) => task.isDone));
 
-  const mappedTasks = todolistTasks.map(task => {
+  const mappedTasks = todolistTasks.map((task) => {
     return (
       <List key={task.taskID}>
         <Task todolist={todolist} task={task} />
@@ -27,11 +25,7 @@ export const Tasks: FC<TodolistProps> = ({ todolist }) => {
 
   return (
     <List>
-      {todolistTasks.length > 0 ? (
-        mappedTasks
-      ) : (
-        <span style={{ fontSize: 20, fontWeight: "bold" }}>No tasks</span>
-      )}
+      {todolistTasks.length > 0 ? mappedTasks : <span style={{ fontSize: 20, fontWeight: "bold" }}>No tasks</span>}
     </List>
   );
 };

@@ -10,8 +10,7 @@ import { Tasks } from "features/ui/Todolists/Todolist/Tasks/Tasks.tsx";
 export const Todolist: FC<TodolistProps> = ({ todolist }) => {
   const dispatch = useAppDispatch();
 
-  const addTaskHandler = (title: string) =>
-    dispatch(addTaskAC({ todolistID: todolist.todolistID, title: title }));
+  const addTaskHandler = (title: string) => dispatch(addTaskAC({ todolistID: todolist.todolistID, title: title }));
 
   return (
     <div>

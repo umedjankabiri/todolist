@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import Button from "@mui/material/Button";
 import { MenuButtonProps } from "common/types/MenuBottons/MenuButtonProps.ts";
 
-export const MenuButton = styled(Button)<MenuButtonProps>(props => ({
+export const MenuButton = styled(Button)<MenuButtonProps>((props) => ({
   minWidth: "110px",
   fontWeight: "bold",
   boxShadow: `4px 4px 10px 0.5px ${"#504e4e"}`,
