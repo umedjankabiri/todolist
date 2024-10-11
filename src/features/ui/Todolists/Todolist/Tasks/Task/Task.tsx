@@ -4,9 +4,9 @@ import {TodolistTaskProps} from "common/types/TodolistTask/TodolistTaskProps.ts"
 import {changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "features/model/tasksReducer/tasksReducer.ts";
 import {Checkbox, ListItem} from "@mui/material";
 import {getListItemSx} from "common/components/EditableSpan/EditableSpan.styles.ts";
-import {EditableSpan} from "common/components/EditableSpan/EditableSpan.tsx";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
+import {EditableSpan} from "common/components/EditableSpan";
 
 export const Task: FC<TodolistTaskProps> = ({todolist, task}) => {
     const dispatch = useAppDispatch()
