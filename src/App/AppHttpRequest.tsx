@@ -11,11 +11,7 @@ import {
     UpdateTaskModel,
     UpdateTaskResponse
 } from "features/ui/Todolists/types/tasksApi.types.ts";
-import {
-    CreateDeleteTodolistResponse,
-    DeleteTodolistResponse,
-    Todolist
-} from "features/ui/Todolists/types/todolistApi.types.ts";
+import {Todolist} from "features/ui/Todolists/types/todolistApi.types.ts";
 import {todolistsApi} from "features/ui/Todolists/api/todolistsApi.ts";
 import {tasksApi} from "features/ui/Todolists/api/tasksApi.ts";
 
@@ -35,31 +31,16 @@ export const AppHttpRequests = () => {
     }, [])
 
     const createTodolistHandler = (title: string) => {
-        axios.post<CreateDeleteTodolistResponse>("https://social-network.samuraijs.com/api/1.1/todo-lists",
-            {title: title}, {
-                headers: {
-                    Authorization: "Bearer ce08439a-a32a-4af0-8da4-627c8240efbc",
-                    "api-key": "60e0596e-352f-4b57-8e3f-8be82fb42652"
-                }
-            }).then((response) => {
+        todolistsApi.createTodolist(title).then((response) => {
             setTodolists([response.data.data.item, ...todolists])
         })
     }
 
-    const removeTodolistHandler = (todolistID: string) => {
-        axios.delete<DeleteTodolistResponse>(`https://social-network.samuraijs.com/api/1.1/todo-lists/${todolistID}`, {
-            headers: {
-                Authorization: "Bearer ce08439a-a32a-4af0-8da4-627c8240efbc",
-                "api-key": "60e0596e-352f-4b57-8e3f-8be82fb42652"
-            }
-        }).then(() => {
+    const deleteTodolistHandler = (todolistID: string) => {
+        todolistsApi.deleteTodolist(todolistID).then(() => {
             setTodolists(todolists.filter(todolist => todolist.id !== todolistID))
         }).then(() => {
-            axios.get<Todolist[]>("https://social-network.samuraijs.com/api/1.1/todo-lists", {
-                headers: {
-                    Authorization: "Bearer ce08439a-a32a-4af0-8da4-627c8240efbc"
-                }
-            })
+            todolistsApi.getTodolists()
                 .then((response) => {
                     setTodolists(response.data)
                 })
@@ -158,7 +139,7 @@ export const AppHttpRequests = () => {
                                     title={tl.title}
                                     onChangeTitle={(title: string) => updateTodolistHandler(tl.id, title)}
                                 />
-                                <button onClick={() => removeTodolistHandler(tl.id)}>x</button>
+                                <button onClick={() => deleteTodolistHandler(tl.id)}>x</button>
                             </div>
                             <AddItemForm addItem={title => createTaskHandler(title, tl.id)}/>
 
