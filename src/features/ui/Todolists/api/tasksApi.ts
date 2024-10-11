@@ -15,5 +15,8 @@ export const tasksApi = {
     },
     changeTaskStatus(task: DomainTask, model: UpdateTaskModel) {
         return tasksInstance(task.todoListId).put<UpdateTaskResponse>(`tasks/${task.id}`, model)
+    },
+    changeTaskTitle(title: string, task: DomainTask) {
+        return tasksInstance(task.todoListId).put<UpdateTaskResponse>(`tasks/${task.id}`, {title: title})
     }
 }
