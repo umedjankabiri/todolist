@@ -5,19 +5,16 @@ export const tasksApi = {
   getTasks(todolistId: string) {
     return taskInstance(todolistId).get<GetTasksResponse>(`tasks`);
   },
-  createTask(title: string, todolistId: string) {
+  createTask(payload: { todolistId: string; title: string }) {
+    const { todolistId, title } = payload;
     return taskInstance(todolistId).post<TasksResponse<{ item: DomainTask }>>(`tasks`, { title: title });
   },
-  changeTaskStatus(task: DomainTask, model: UpdateTaskModel) {
-    return taskInstance(task.todoListId).put<TasksResponse<{ item: DomainTask }>>(`tasks/${task.id}`, model);
-  },
-  changeTaskTitle(title: string, task: DomainTask) {
-    return taskInstance(task.todoListId).put<TasksResponse>(`tasks/${task.id}`, { title: title });
-  },
-  updateTask(todolistId: string, taskId: string, model: UpdateTaskModel) {
+  updateTask(payload: { todolistId: string; taskId: string; model: UpdateTaskModel }) {
+    const { todolistId, taskId, model } = payload;
     return taskInstance(todolistId).put<TasksResponse<{ item: DomainTask }>>(`tasks/${taskId}`, model);
   },
-  deleteTask(taskId: string, todolistId: string) {
+  deleteTask(payload: { todolistId: string; taskId: string }) {
+    const { todolistId, taskId } = payload;
     return taskInstance(todolistId).delete<TasksResponse>(`tasks/${taskId}`);
   },
 };
