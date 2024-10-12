@@ -1,7 +1,6 @@
 import Checkbox from "@mui/material/Checkbox";
-import React, { ChangeEvent, useEffect, useState } from "react";
-import { AddItemForm } from "common/components";
-import { EditableSpan } from "common/components";
+import React, { useEffect, useState } from "react";
+import { AddItemForm, EditableSpan } from "common/components";
 import { todolistsApi } from "features/ui/Todolists/api/todolistsApi.ts";
 import { tasksApi } from "features/ui/Todolists/api/tasksApi.ts";
 import { Todolist } from "common/types/Todolists/TodolistsApiProps.ts";
@@ -13,13 +12,13 @@ export const AppHttpRequests = () => {
   const [tasks, setTasks] = useState<TasksKeyState>({});
 
   useEffect(() => {
-    todolistsApi.getTodolists().then(response => {
+    todolistsApi.getTodolists().then((response) => {
       setTodolists(response.data);
-      response.data.forEach(todolist => {
-        tasksApi.getTasks(todolist.id).then(response => {
-          setTasks(prevTask => ({
+      response.data.forEach((todolist) => {
+        tasksApi.getTasks(todolist.id).then((response) => {
+          setTasks((prevTask) => ({
             ...prevTask,
-            [todolist.id]: response.data.item,
+            [todolist.id]: response.data.items,
           }));
         });
       });
@@ -27,39 +26,25 @@ export const AppHttpRequests = () => {
   }, []);
 
   const createTodolistHandler = (title: string) => {
-    todolistsApi.createTodolist(title).then(response => {
+    todolistsApi.createTodolist(title).then((response) => {
       setTodolists([response.data.data.item, ...todolists]);
     });
   };
 
   const deleteTodolistHandler = (todolistID: string) => {
-    todolistsApi
-      .deleteTodolist(todolistID)
-      .then(() => {
-        setTodolists(todolists.filter(todolist => todolist.id !== todolistID));
-      })
-      .then(() => {
-        todolistsApi.getTodolists().then(response => {
-          setTodolists(response.data);
-        });
-      });
+    todolistsApi.deleteTodolist(todolistID).then(() => {
+      setTodolists(todolists.filter((todolist) => todolist.id !== todolistID));
+    });
   };
 
   const updateTodolistHandler = (id: string, title: string) => {
-    todolistsApi
-      .updateTodolist({ id: id, title: title })
-      .then(() => {
-        setTodolists(todolists.map(todolist => (todolist.id === id ? { ...todolist, title: title } : todolist)));
-      })
-      .then(() =>
-        todolistsApi.getTodolists().then(response => {
-          setTodolists(response.data);
-        })
-      );
+    todolistsApi.updateTodolist({ id: id, title: title }).then(() => {
+      setTodolists(todolists.map((todolist) => (todolist.id === id ? { ...todolist, title: title } : todolist)));
+    });
   };
 
   const createTaskHandler = (title: string, todolistId: string) => {
-    tasksApi.createTask(title, todolistId).then(response => {
+    tasksApi.createTask({ todolistId, title }).then((response) => {
       setTasks({
         ...tasks,
         [todolistId]: [response.data.data.item, ...(tasks[todolistId] ?? [])],
@@ -68,44 +53,28 @@ export const AppHttpRequests = () => {
   };
 
   const deleteTaskHandler = (taskId: string, todolistId: string) => {
-    tasksApi.deleteTask(taskId, todolistId).then(() => {
+    tasksApi.deleteTask({ todolistId, taskId }).then(() => {
       setTasks({
         ...tasks,
-        [todolistId]: tasks[todolistId] ? tasks[todolistId].filter(task => task.id !== taskId) : [],
+        [todolistId]: tasks[todolistId] ? tasks[todolistId].filter((task) => task.id !== taskId) : [],
       });
     });
   };
 
-  const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>, task: DomainTask) => {
-    let status = e.currentTarget.checked ? TaskStatus.Completed : TaskStatus.New;
+  const updateTaskHandler = (todolistId: string, taskId: string, task: DomainTask) => {
     const model: UpdateTaskModel = {
-      status: status,
+      status: task.status,
       title: task.title,
       description: task.description,
       priority: task.priority,
       startDate: task.startDate,
     };
-    tasksApi.changeTaskStatus(task, model).then(() => {
-      setTasks({
-        ...tasks,
-        [task.todoListId]: tasks[task.todoListId].map(t => (t.id === task.id ? { ...t, ...model } : t)),
-      });
-    });
-  };
 
-  const changeTaskTitleHandler = (title: string, task: DomainTask) => {
-    const model: UpdateTaskModel = {
-      status: task.status,
-      title: title,
-      description: task.description,
-      priority: task.priority,
-      startDate: task.startDate,
-    };
-    tasksApi.changeTaskTitle(title, task).then(() => {
-      setTasks({
-        ...tasks,
-        [task.todoListId]: tasks[task.todoListId].map(t => (t.id === task.id ? { ...t, ...model } : t)),
-      });
+    tasksApi.updateTask({ todolistId, taskId, model }).then((response) => {
+      setTasks((prevTasks) => ({
+        ...prevTasks,
+        [todolistId]: prevTasks[todolistId].map((task) => (task.id === taskId ? response.data.data.item : task)),
+      }));
     });
   };
 
@@ -121,15 +90,26 @@ export const AppHttpRequests = () => {
               <EditableSpan title={tl.title} onChangeTitle={(title: string) => updateTodolistHandler(tl.id, title)} />
               <button onClick={() => deleteTodolistHandler(tl.id)}>x</button>
             </div>
-            <AddItemForm addItem={title => createTaskHandler(title, tl.id)} />
+            <AddItemForm addItem={(title) => createTaskHandler(title, tl.id)} />
 
             {/* Tasks */}
             {!!tasks[tl.id] &&
               tasks[tl.id].map((task: DomainTask) => {
                 return (
                   <div key={task.id}>
-                    <Checkbox checked={task.status === 2} onChange={e => changeTaskStatusHandler(e, task)} />
-                    <EditableSpan title={task.title} onChangeTitle={title => changeTaskTitleHandler(title, task)} />
+                    <Checkbox
+                      checked={task.status === TaskStatus.Completed}
+                      onChange={(e) =>
+                        updateTaskHandler(tl.id, task.id, {
+                          ...task,
+                          status: e.currentTarget.checked ? TaskStatus.Completed : TaskStatus.New,
+                        })
+                      }
+                    />
+                    <EditableSpan
+                      title={task.title}
+                      onChangeTitle={(title) => updateTaskHandler(tl.id, task.id, { ...task, title: title })}
+                    />
                     <button onClick={() => deleteTaskHandler(task.id, tl.id)}>x</button>
                   </div>
                 );
