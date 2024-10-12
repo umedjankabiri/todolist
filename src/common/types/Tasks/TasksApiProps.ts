@@ -4,7 +4,7 @@ import { TaskPriority } from "common/utils/enums/enumTaskPriority.ts";
 export type GetTasksResponse = {
   error: string | null;
   totalCount: number;
-  item: DomainTask[];
+  items: DomainTask[];
 };
 export type TasksKeyState = {
   [key: string]: DomainTask[];
