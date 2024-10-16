@@ -1,10 +1,4 @@
-import {
-  addTaskAC,
-  changeTaskStatusAC,
-  changeTaskTitleAC,
-  removeTaskAC,
-  setTasksAC,
-} from "features/model/tasksReducer/tasksReducer";
+import { addTaskAC, removeTaskAC, setTasksAC, updateTaskAC } from "features/model/tasksReducer/tasksReducer";
 import {
   AddTodolistActionProps,
   RemoveTodolistActionProps,
@@ -12,14 +6,12 @@ import {
 
 export type RemoveTaskActionProps = ReturnType<typeof removeTaskAC>;
 export type AddTaskActionProps = ReturnType<typeof addTaskAC>;
-export type ChangeTaskStatusProps = ReturnType<typeof changeTaskStatusAC>;
-export type ChangeTaskTitleProps = ReturnType<typeof changeTaskTitleAC>;
 export type SetTasksProps = ReturnType<typeof setTasksAC>;
+export type UpdateTasksProps = ReturnType<typeof updateTaskAC>;
 export type TasksActionsProps =
   | RemoveTaskActionProps
   | AddTaskActionProps
-  | ChangeTaskStatusProps
-  | ChangeTaskTitleProps
   | AddTodolistActionProps
   | RemoveTodolistActionProps
-  | SetTasksProps;
+  | SetTasksProps
+  | UpdateTasksProps;
