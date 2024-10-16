@@ -7,7 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { EditableSpan } from "common/components";
 import { TaskStatus } from "common";
-import { changeTaskStatusTC, changeTaskTitleTC, deleteTaskTC } from "features/model/thunks/tasksThunks.ts";
+import { deleteTaskTC, updateTaskTC } from "features/model/thunks/tasksThunks.ts";
 
 export const Task: FC<TodolistTaskProps> = ({ todolist, task }) => {
   const dispatch = useAppDispatch();
@@ -17,14 +17,14 @@ export const Task: FC<TodolistTaskProps> = ({ todolist, task }) => {
   const removeTaskHandler = () => dispatch(deleteTaskTC({ todolistId: todolist.id, taskId: id }));
   const changeTaskStatusHandler = (event: ChangeEvent<HTMLInputElement>) =>
     dispatch(
-      changeTaskStatusTC({
+      updateTaskTC({
         todolistId: todolist.id,
         taskId: id,
-        status: event.currentTarget.checked ? TaskStatus.Completed : TaskStatus.New,
+        domainModel: { ...task, status: event.currentTarget.checked ? TaskStatus.Completed : TaskStatus.New },
       })
     );
   const changeTaskTitleHandler = (title: string) =>
-    dispatch(changeTaskTitleTC({ todolistId: todolist.id, taskId: id, title: title }));
+    dispatch(updateTaskTC({ todolistId: todolist.id, taskId: id, domainModel: { ...task, title: title } }));
 
   return (
     <>
