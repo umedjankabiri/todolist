@@ -1,7 +1,6 @@
 import { TasksStateProps } from "common/types/Tasks/TasksStateProps.ts";
 import { TasksActionsProps } from "common/types/taskReducer/TasksActionsProps.ts";
-import { DomainTask } from "common/types/Tasks";
-import { TaskStatus } from "common";
+import { DomainTask, UpdateTaskDomainModel } from "common/types/Tasks";
 
 const initialTasksState: TasksStateProps = {};
 
@@ -29,18 +28,11 @@ export const tasksReducer = (
         [task.todoListId]: [task, ...state[task.todoListId]],
       };
     }
-    case "CHANGE-TASK-STATUS": {
-      const { todolistId, taskId, status } = action.payload;
+    case "UPDATE-TASK": {
+      const { todolistId, taskId, domainModel } = action.payload;
       return {
         ...state,
-        [todolistId]: state[todolistId].map((task) => (task.id === taskId ? { ...task, status: status } : task)),
-      };
-    }
-    case "CHANGE-TASK-TITLE": {
-      const { todolistId, taskId, title } = action.payload;
-      return {
-        ...state,
-        [todolistId]: state[todolistId].map((task) => (task.id === taskId ? { ...task, title: title } : task)),
+        [todolistId]: state[todolistId].map((task) => (task.id === taskId ? { ...task, ...domainModel } : task)),
       };
     }
     case "ADD-TODOLIST": {
@@ -63,7 +55,5 @@ export const setTasksAC = (payload: { todolistId: string; tasks: DomainTask[] })
 export const removeTaskAC = (payload: { taskId: string; todolistId: string }) =>
   ({ type: "REMOVE-TASK", payload }) as const;
 export const addTaskAC = (payload: { task: DomainTask }) => ({ type: "ADD-TASK", payload }) as const;
-export const changeTaskStatusAC = (payload: { todolistId: string; taskId: string; status: TaskStatus }) =>
-  ({ type: "CHANGE-TASK-STATUS", payload }) as const;
-export const changeTaskTitleAC = (payload: { todolistId: string; taskId: string; title: string }) =>
-  ({ type: "CHANGE-TASK-TITLE", payload }) as const;
+export const updateTaskAC = (payload: { todolistId: string; taskId: string; domainModel: UpdateTaskDomainModel }) =>
+  ({ type: "UPDATE-TASK", payload }) as const;
