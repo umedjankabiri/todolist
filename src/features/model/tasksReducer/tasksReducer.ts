@@ -17,10 +17,10 @@ export const tasksReducer = (
         [action.payload.todolistID]: action.payload.tasks,
       };
     case "REMOVE-TASK": {
-      const { todolistId, taskID } = action.payload;
+      const { todolistId, taskId } = action.payload;
       return {
         ...state,
-        [todolistId]: state[todolistId].filter((task) => task.id !== taskID),
+        [todolistId]: state[todolistId].filter((task) => task.id !== taskId),
       };
     }
     case "ADD-TASK": {
@@ -75,7 +75,7 @@ export const tasksReducer = (
 
 export const setTasksAC = (payload: { todolistID: string; tasks: DomainTask[] }) =>
   ({ type: "SET-TASKS", payload }) as const;
-export const removeTaskAC = (payload: { todolistId: string; taskID: string }) =>
+export const removeTaskAC = (payload: { taskId: string; todolistId: string }) =>
   ({ type: "REMOVE-TASK", payload }) as const;
 export const addTaskAC = (payload: { todolistId: string; title: string }) => ({ type: "ADD-TASK", payload }) as const;
 export const changeTaskStatusAC = (payload: { todolistId: string; taskID: string; status: TaskStatus }) =>
