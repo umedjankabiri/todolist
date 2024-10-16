@@ -4,6 +4,7 @@ import { List } from "@mui/material";
 import { Task } from "features/ui/Todolists/Todolist/Tasks/Task/Task.tsx";
 import { useAppSelector } from "common/hooks/useAppSelector.ts";
 import { selectTasks } from "common/selectors/taskSelectors.ts";
+import { TaskStatus } from "common";
 
 export const Tasks: FC<TodolistProps> = ({ todolist }) => {
   const tasks = useAppSelector(selectTasks);
@@ -12,12 +13,12 @@ export const Tasks: FC<TodolistProps> = ({ todolist }) => {
 
   let todolistTasks = tasks[todolist.id];
 
-  filter === "Active" && (todolistTasks = todolistTasks.filter((task) => !task.isDone));
-  filter === "Completed" && (todolistTasks = todolistTasks.filter((task) => task.isDone));
+  filter === "Active" && (todolistTasks = todolistTasks.filter((task) => task.status === TaskStatus.New));
+  filter === "Completed" && (todolistTasks = todolistTasks.filter((task) => task.status === TaskStatus.Completed));
 
   const mappedTasks = todolistTasks?.map((task) => {
     return (
-      <List key={task.taskID}>
+      <List key={task.id}>
         <Task todolist={todolist} task={task} />
       </List>
     );
