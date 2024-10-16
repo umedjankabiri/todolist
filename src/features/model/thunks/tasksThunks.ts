@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 import { tasksApi } from "features/ui/Todolists/api/tasksApi.ts";
-import { removeTaskAC, setTasksAC } from "features/model/tasksReducer/tasksReducer.ts";
+import { addTaskAC, removeTaskAC, setTasksAC } from "features/model/tasksReducer/tasksReducer.ts";
 
 export const fetchTasksTC = (todolistID: string) => (dispatch: Dispatch) => {
   tasksApi.getTasks(todolistID).then((response) => {
@@ -11,5 +11,10 @@ export const fetchTasksTC = (todolistID: string) => (dispatch: Dispatch) => {
 export const deleteTaskTC = (args: { taskId: string; todolistId: string }) => (dispatch: Dispatch) => {
   tasksApi.deleteTask(args).then(() => {
     dispatch(removeTaskAC(args));
+  });
+};
+export const addTaskTC = (args: { title: string; todolistId: string }) => (dispatch: Dispatch) => {
+  tasksApi.createTask(args).then(() => {
+    dispatch(addTaskAC(args));
   });
 };
