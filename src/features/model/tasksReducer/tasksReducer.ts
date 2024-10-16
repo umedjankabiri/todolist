@@ -1,6 +1,7 @@
 import { TasksStateProps } from "common/types/Tasks/TasksStateProps.ts";
 import { TasksActionsProps } from "common/types/taskReducer/TasksActionsProps.ts";
 import { v1 } from "uuid";
+import { TaskProps } from "common/types/Tasks/TaskProps.ts";
 
 const initialTasksState: TasksStateProps = {};
 
@@ -9,6 +10,11 @@ export const tasksReducer = (
   action: TasksActionsProps
 ): TasksStateProps => {
   switch (action.type) {
+    case "SET-TASKS":
+      return {
+        ...state,
+        [action.payload.todolistID]: action.payload.tasks,
+      };
     case "REMOVE-TASK": {
       const { todolistID, taskID } = action.payload;
       return {
@@ -52,6 +58,8 @@ export const tasksReducer = (
   }
 };
 
+export const setTasksAC = (payload: { todolistID: string; tasks: TaskProps[] }) =>
+  ({ type: "SET-TASKS", payload }) as const;
 export const removeTaskAC = (payload: { todolistID: string; taskID: string }) =>
   ({ type: "REMOVE-TASK", payload }) as const;
 export const addTaskAC = (payload: { todolistID: string; title: string }) => ({ type: "ADD-TASK", payload }) as const;
