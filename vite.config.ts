@@ -5,6 +5,9 @@ import * as path from "node:path";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  server: {
+    open: true,
+  },
   resolve: {
     alias: {
       App: path.resolve(__dirname, "src/App/"),
