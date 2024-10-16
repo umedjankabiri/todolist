@@ -1,7 +1,7 @@
-import { TaskProps } from "common/types/Tasks/TaskProps.ts";
-import { TodolistsProps } from "common/types/Todolists/TodolistsProps.ts";
+import { DomainTodolist } from "common/types/Todolists/TodolistsApiProps.ts";
+import { DomainTask } from "common/types/Tasks";
 
 export type TodolistTaskProps = {
-  todolist: TodolistsProps;
-  task: TaskProps;
+  todolist: DomainTodolist;
+  task: DomainTask;
 };
