@@ -98,7 +98,7 @@ beforeEach(() => {
 });
 
 test("correct task should be deleted from correct array", () => {
-  const endState = tasksReducer(initialState, removeTaskAC({ todolistID: todolistID2, taskID: "2" }));
+  const endState = tasksReducer(initialState, removeTaskAC({ todolistId: todolistID2, taskId: "2" }));
 
   expect(endState).toEqual({
     [todolistID1]: [
@@ -113,7 +113,7 @@ test("correct task should be deleted from correct array", () => {
   });
 });
 test("correct task should be added to correct array", () => {
-  const endState = tasksReducer(initialState, addTaskAC({ todolistID: todolistID2, title: "juice" }));
+  const endState = tasksReducer(initialState, addTaskAC({ todolistId: todolistID2, title: "juice" }));
 
   expect(endState[todolistID1].length).toBe(3);
   expect(endState[todolistID2].length).toBe(4);
@@ -123,7 +123,7 @@ test("correct task should be added to correct array", () => {
 test("status of specified task should be changed", () => {
   const endState = tasksReducer(
     initialState,
-    changeTaskStatusAC({ todolistID: todolistID2, taskID: "2", status: TaskStatus.New })
+    changeTaskStatusAC({ todolistId: todolistID2, taskId: "2", status: TaskStatus.New })
   );
 
   expect(endState[todolistID1][1].status).toBe(true);
@@ -133,8 +133,8 @@ test("title of specified task should be changed", () => {
   const endState = tasksReducer(
     initialState,
     changeTaskTitleAC({
-      todolistID: todolistID2,
-      taskID: "2",
+      todolistId: todolistID2,
+      taskId: "2",
       title: "coffee",
     })
   );
