@@ -1,45 +1,47 @@
 import { v1 } from "uuid";
-import { TodolistsProps } from "common/types/Todolists/TodolistsProps.ts";
 import { FilterValueProps } from "common/types/Tasks/FilterValueProps.ts";
-import { TodolistsActionsProps } from "common/types/TodolistsReducer/TodolistsActionsProps.ts";
+import { TodolistsActionsProps } from "common/types/Todolists/TodolistsActions/TodolistsActionsProps.ts";
+import { DomainTodolist, Todolist } from "common/types/Todolists/TodolistsApiProps.ts";
 
-const initialTodolistsState: TodolistsProps[] = [];
+const initialTodolistsState: DomainTodolist[] = [];
 
 export const todolistsReducer = (
-  state: TodolistsProps[] = initialTodolistsState,
+  state: DomainTodolist[] = initialTodolistsState,
   action: TodolistsActionsProps
-): TodolistsProps[] => {
+): DomainTodolist[] => {
   switch (action.type) {
+    case "SET-TODOLISTS":
+      return action.todolists.map((todolist) => ({ ...todolist, filter: "All" }));
     case "REMOVE-TODOLIST":
-      return state.filter((todolist) => todolist.todolistID !== action.payload.todolistID);
+      return state.filter((todolist) => todolist.id !== action.payload.todolistID);
     case "ADD-TODOLIST": {
-      const newTodolist: TodolistsProps = {
-        todolistID: action.payload.todolistID,
+      const newTodolist: DomainTodolist = {
+        id: action.payload.id,
         title: action.payload.title,
         filter: "All",
+        addedDate: new Date().toISOString(),
+        order: 0,
       };
       return [newTodolist, ...state];
     }
     case "CHANGE-TODOLIST-TITLE":
       return state.map((todolist) =>
-        todolist.todolistID === action.payload.todolistID ? { ...todolist, title: action.payload.title } : todolist
+        todolist.id === action.payload.todolistID ? { ...todolist, title: action.payload.title } : todolist
       );
     case "CHANGE-TODOLIST-FILTER":
       return state.map((todolist) =>
-        todolist.todolistID === action.payload.todolistID ? { ...todolist, filter: action.payload.filter } : todolist
+        todolist.id === action.payload.todolistID ? { ...todolist, filter: action.payload.filter } : todolist
       );
     default:
       return state;
   }
 };
 
+export const setTodolistsAC = (todolists: Todolist[]) => ({ type: "SET-TODOLISTS", todolists }) as const;
 export const removeTodolistAC = (todolistID: string) =>
   ({ type: "REMOVE-TODOLIST", payload: { todolistID: todolistID } }) as const;
 export const addTodolistAC = (title: string) =>
-  ({
-    type: "ADD-TODOLIST",
-    payload: { title: title, todolistID: v1() },
-  }) as const;
+  ({ type: "ADD-TODOLIST", payload: { title: title, id: v1() } }) as const;
 export const changeTodolistTitleAC = (payload: { todolistID: string; title: string }) =>
   ({ type: "CHANGE-TODOLIST-TITLE", payload }) as const;
 export const changeTodolistFilterAC = (payload: { todolistID: string; filter: FilterValueProps }) =>
