@@ -14,17 +14,17 @@ export const Task: FC<TodolistTaskProps> = ({ todolist, task }) => {
 
   const { id } = task;
 
-  const removeTaskHandler = () => dispatch(removeTaskAC({ todolistID: todolist.id, taskID: id }));
+  const removeTaskHandler = () => dispatch(removeTaskAC({ todolistId: todolist.id, taskId: id }));
   const changeTaskStatusHandler = (event: ChangeEvent<HTMLInputElement>) =>
     dispatch(
       changeTaskStatusAC({
-        todolistID: todolist.id,
-        taskID: id,
+        todolistId: todolist.id,
+        taskId: id,
         status: event.currentTarget.checked ? TaskStatus.Completed : TaskStatus.New,
       })
     );
   const changeTaskTitleHandler = (title: string) =>
-    dispatch(changeTaskTitleAC({ todolistID: todolist.id, taskID: id, title: title }));
+    dispatch(changeTaskTitleAC({ todolistId: todolist.id, taskId: id, title: title }));
 
   return (
     <>
