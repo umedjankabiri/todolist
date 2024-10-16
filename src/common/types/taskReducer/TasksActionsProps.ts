@@ -7,7 +7,7 @@ import {
 import {
   AddTodolistActionProps,
   RemoveTodolistActionProps,
-} from "common/types/TodolistsReducer/TodolistsActionsProps.ts";
+} from "common/types/Todolists/TodolistsActions/TodolistsActionsProps.ts";
 
 export type RemoveTaskActionProps = ReturnType<typeof removeTaskAC>;
 export type AddTaskActionProps = ReturnType<typeof addTaskAC>;
