@@ -9,10 +9,10 @@ import { changeTodolistTitleAC, removeTodolistAC } from "features/model/todolist
 export const TodolistTitle: FC<TodolistProps> = ({ todolist }) => {
   const dispatch = useAppDispatch();
 
-  const { todolistID, title } = todolist;
-  const removeTodolistHandler = () => dispatch(removeTodolistAC(todolistID));
+  const { id, title } = todolist;
+  const removeTodolistHandler = () => dispatch(removeTodolistAC(id));
   const changeTodolistTitleHandler = (title: string) =>
-    dispatch(changeTodolistTitleAC({ todolistID: todolistID, title: title }));
+    dispatch(changeTodolistTitleAC({ todolistID: id, title: title }));
 
   return (
     <div className={"todolist-title-container"}>
