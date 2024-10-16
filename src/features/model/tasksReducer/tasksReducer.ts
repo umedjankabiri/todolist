@@ -14,7 +14,7 @@ export const tasksReducer = (
     case "SET-TASKS":
       return {
         ...state,
-        [action.payload.todolistID]: action.payload.tasks,
+        [action.payload.todolistId]: action.payload.tasks,
       };
     case "REMOVE-TASK": {
       const { todolistId, taskId } = action.payload;
@@ -45,17 +45,17 @@ export const tasksReducer = (
       };
     }
     case "CHANGE-TASK-STATUS": {
-      const { todolistId, taskID, status } = action.payload;
+      const { todolistId, taskId, status } = action.payload;
       return {
         ...state,
-        [todolistId]: state[todolistId].map((task) => (task.id === taskID ? { ...task, status: status } : task)),
+        [todolistId]: state[todolistId].map((task) => (task.id === taskId ? { ...task, status: status } : task)),
       };
     }
     case "CHANGE-TASK-TITLE": {
-      const { todolistId, taskID, title } = action.payload;
+      const { todolistId, taskId, title } = action.payload;
       return {
         ...state,
-        [todolistId]: state[todolistId].map((task) => (task.id === taskID ? { ...task, title: title } : task)),
+        [todolistId]: state[todolistId].map((task) => (task.id === taskId ? { ...task, title: title } : task)),
       };
     }
     case "ADD-TODOLIST": {
@@ -73,12 +73,12 @@ export const tasksReducer = (
   }
 };
 
-export const setTasksAC = (payload: { todolistID: string; tasks: DomainTask[] }) =>
+export const setTasksAC = (payload: { todolistId: string; tasks: DomainTask[] }) =>
   ({ type: "SET-TASKS", payload }) as const;
 export const removeTaskAC = (payload: { taskId: string; todolistId: string }) =>
   ({ type: "REMOVE-TASK", payload }) as const;
 export const addTaskAC = (payload: { todolistId: string; title: string }) => ({ type: "ADD-TASK", payload }) as const;
-export const changeTaskStatusAC = (payload: { todolistId: string; taskID: string; status: TaskStatus }) =>
+export const changeTaskStatusAC = (payload: { todolistId: string; taskId: string; status: TaskStatus }) =>
   ({ type: "CHANGE-TASK-STATUS", payload }) as const;
-export const changeTaskTitleAC = (payload: { todolistId: string; taskID: string; title: string }) =>
+export const changeTaskTitleAC = (payload: { todolistId: string; taskId: string; title: string }) =>
   ({ type: "CHANGE-TASK-TITLE", payload }) as const;
