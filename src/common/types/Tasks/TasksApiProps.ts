@@ -23,11 +23,19 @@ export type DomainTask = {
 };
 export type UpdateTaskModel = {
   title: string;
-  description: string;
   status: number;
+  description: string;
   priority: number;
   startDate: string;
 };
+export type UpdateTaskDomainModel = {
+  title?: string;
+  description?: string;
+  status?: number;
+  priority?: number;
+  startDate?: string;
+};
+
 export type TasksResponse<D = {}> = {
   data: D;
   fieldsErrors: string[];
