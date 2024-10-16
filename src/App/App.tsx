@@ -5,7 +5,7 @@ import { useAppSelector } from "common/hooks/useAppSelector.ts";
 import { selectThemeMode } from "common/selectors/themesSelectors.ts";
 import { Header, Main } from "common/components";
 import { useEffect } from "react";
-import { fetchTodolistsTC } from "features/model/todolistsThunks/todolistsThunks.ts";
+import { fetchTodolistsThunk } from "features/model/thunks/todolistsThunks.ts";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "App/store.ts";
 
@@ -16,7 +16,7 @@ export const App = () => {
   const theme = toggleTheme(themeMode);
 
   useEffect(() => {
-    dispatch(fetchTodolistsTC);
+    dispatch(fetchTodolistsThunk);
   }, []);
 
   // main layout
