@@ -1,3 +1,5 @@
+import { FilterValueProps } from "common/types/Tasks/FilterValueProps.ts";
+
 export type Todolist = {
   id: string;
   title: string;
@@ -13,4 +15,7 @@ export type TodolistsResponse<D = {}> = {
   fieldsErrors: FieldError[];
   messages: string[];
   resultCode: number;
+};
+export type DomainTodolist = Todolist & {
+  filter: FilterValueProps;
 };
