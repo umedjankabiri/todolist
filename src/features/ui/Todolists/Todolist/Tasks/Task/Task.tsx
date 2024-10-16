@@ -7,36 +7,36 @@ import { getListItemSx } from "common/components/EditableSpan/EditableSpan.style
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { EditableSpan } from "common/components";
+import { TaskStatus } from "common";
 
 export const Task: FC<TodolistTaskProps> = ({ todolist, task }) => {
   const dispatch = useAppDispatch();
 
-  const { id } = todolist;
-  const { taskID } = task;
+  const { id } = task;
 
-  const removeTaskHandler = () => dispatch(removeTaskAC({ todolistID: id, taskID: taskID }));
+  const removeTaskHandler = () => dispatch(removeTaskAC({ todolistID: todolist.id, taskID: id }));
   const changeTaskStatusHandler = (event: ChangeEvent<HTMLInputElement>) =>
     dispatch(
       changeTaskStatusAC({
-        todolistID: id,
-        taskID: taskID,
+        todolistID: todolist.id,
+        taskID: id,
         isDone: event.currentTarget.checked,
       })
     );
   const changeTaskTitleHandler = (title: string) =>
     dispatch(
       changeTaskTitleAC({
-        todolistID: id,
-        taskID: taskID,
+        todolistID: todolist.id,
+        taskID: id,
         title: title,
       })
     );
 
   return (
     <>
-      <ListItem key={task.taskID} sx={getListItemSx(task.isDone)}>
+      <ListItem key={task.id} sx={getListItemSx(task.status === TaskStatus.Completed)}>
         <div>
-          <Checkbox checked={task.isDone} onChange={changeTaskStatusHandler} />
+          <Checkbox checked={task.status === TaskStatus.Completed} onChange={changeTaskStatusHandler} />
           <EditableSpan title={task.title} onChangeTitle={changeTaskTitleHandler} />
         </div>
         <IconButton onClick={removeTaskHandler}>
