@@ -1,6 +1,12 @@
 import { Dispatch } from "redux";
 import { tasksApi } from "features/ui/Todolists/api/tasksApi.ts";
-import { addTaskAC, changeTaskStatusAC, removeTaskAC, setTasksAC } from "features/model/tasksReducer/tasksReducer.ts";
+import {
+  addTaskAC,
+  changeTaskStatusAC,
+  changeTaskTitleAC,
+  removeTaskAC,
+  setTasksAC,
+} from "features/model/tasksReducer/tasksReducer.ts";
 import { RootState } from "App/store.ts";
 import { TaskStatus } from "common";
 import { UpdateTaskModel } from "common/types/Tasks";
@@ -39,6 +45,26 @@ export const changeTaskStatusTC =
 
       tasksApi.updateTask({ todolistId, taskId, model }).then(() => {
         dispatch(changeTaskStatusAC(args));
+      });
+    }
+  };
+export const changeTaskTitleTC =
+  (args: { todolistId: string; taskId: string; title: string }) => (dispatch: Dispatch, getState: () => RootState) => {
+    const { todolistId, taskId, title } = args;
+    const stateTasks = getState().tasks;
+    const currentTask = stateTasks[todolistId];
+    const task = currentTask.find((t) => t.id === taskId);
+    if (task) {
+      const model: UpdateTaskModel = {
+        status: task.status,
+        title: title,
+        description: task.description,
+        priority: task.priority,
+        startDate: task.startDate,
+      };
+
+      tasksApi.updateTask({ todolistId, taskId, model }).then(() => {
+        dispatch(changeTaskTitleAC(args));
       });
     }
   };
