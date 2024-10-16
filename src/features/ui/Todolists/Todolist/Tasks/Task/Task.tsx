@@ -20,17 +20,11 @@ export const Task: FC<TodolistTaskProps> = ({ todolist, task }) => {
       changeTaskStatusAC({
         todolistID: todolist.id,
         taskID: id,
-        isDone: event.currentTarget.checked,
+        status: event.currentTarget.checked ? TaskStatus.Completed : TaskStatus.New,
       })
     );
   const changeTaskTitleHandler = (title: string) =>
-    dispatch(
-      changeTaskTitleAC({
-        todolistID: todolist.id,
-        taskID: id,
-        title: title,
-      })
-    );
+    dispatch(changeTaskTitleAC({ todolistID: todolist.id, taskID: id, title: title }));
 
   return (
     <>
