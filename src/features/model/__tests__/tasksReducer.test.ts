@@ -8,7 +8,9 @@ import {
 } from "features/model/tasksReducer/tasksReducer.ts";
 import { addTodolistAC, removeTodolistAC } from "features/model/todolistsReducer/todolistsReducer.ts";
 import { v1 } from "uuid";
-import { TaskPriority, TaskStatus } from "common";
+import { DomainTask } from "common/types/Tasks";
+import { TaskStatus } from "common/utils/enums/enumTaskStatus";
+import { TaskPriority } from "common/utils/enums/enumTaskPriority";
 
 let todolistID1: string;
 let todolistID2: string;
@@ -113,7 +115,19 @@ test("correct task should be deleted from correct array", () => {
   });
 });
 test("correct task should be added to correct array", () => {
-  const endState = tasksReducer(initialState, addTaskAC({ todolistId: todolistID2, title: "juice" }));
+  const task: DomainTask = {
+    todoListId: todolistID2,
+    id: v1(),
+    title: "juice",
+    status: TaskStatus.New,
+    priority: TaskPriority.Low,
+    description: "",
+    deadline: "",
+    startDate: "",
+    addedDate: "",
+    order: 0,
+  };
+  const endState = tasksReducer(initialState, addTaskAC({ task: task }));
 
   expect(endState[todolistID1].length).toBe(3);
   expect(endState[todolistID2].length).toBe(4);
