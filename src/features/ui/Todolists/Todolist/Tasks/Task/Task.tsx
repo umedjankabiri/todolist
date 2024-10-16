@@ -1,6 +1,6 @@
 import { ChangeEvent, FC } from "react";
 import { useAppDispatch } from "common/hooks/useAppDispatch.ts";
-import { TodolistTaskProps } from "common/types/TodolistTask/TodolistTaskProps.ts";
+import { TodolistTaskProps } from "common/types/Todolists/TodolistTask/TodolistTaskProps.ts";
 import { changeTaskStatusAC, changeTaskTitleAC, removeTaskAC } from "features/model/tasksReducer/tasksReducer.ts";
 import { Checkbox, ListItem } from "@mui/material";
 import { getListItemSx } from "common/components/EditableSpan/EditableSpan.styles.ts";
@@ -11,14 +11,14 @@ import { EditableSpan } from "common/components";
 export const Task: FC<TodolistTaskProps> = ({ todolist, task }) => {
   const dispatch = useAppDispatch();
 
-  const { todolistID } = todolist;
+  const { id } = todolist;
   const { taskID } = task;
 
-  const removeTaskHandler = () => dispatch(removeTaskAC({ todolistID: todolistID, taskID: taskID }));
+  const removeTaskHandler = () => dispatch(removeTaskAC({ todolistID: id, taskID: taskID }));
   const changeTaskStatusHandler = (event: ChangeEvent<HTMLInputElement>) =>
     dispatch(
       changeTaskStatusAC({
-        todolistID: todolistID,
+        todolistID: id,
         taskID: taskID,
         isDone: event.currentTarget.checked,
       })
@@ -26,7 +26,7 @@ export const Task: FC<TodolistTaskProps> = ({ todolist, task }) => {
   const changeTaskTitleHandler = (title: string) =>
     dispatch(
       changeTaskTitleAC({
-        todolistID: todolistID,
+        todolistID: id,
         taskID: taskID,
         title: title,
       })
