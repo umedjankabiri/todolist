@@ -1,8 +1,7 @@
 import { TasksStateProps } from "common/types/Tasks/TasksStateProps.ts";
 import { TasksActionsProps } from "common/types/taskReducer/TasksActionsProps.ts";
-import { v1 } from "uuid";
 import { DomainTask } from "common/types/Tasks";
-import { TaskPriority, TaskStatus } from "common";
+import { TaskStatus } from "common";
 
 const initialTasksState: TasksStateProps = {};
 
@@ -24,24 +23,10 @@ export const tasksReducer = (
       };
     }
     case "ADD-TASK": {
-      const { todolistId, title } = action.payload;
+      const { task } = action.payload;
       return {
         ...state,
-        [todolistId]: [
-          {
-            todoListId: todolistId,
-            id: v1(),
-            title: title,
-            status: TaskStatus.New,
-            priority: TaskPriority.Low,
-            description: "",
-            deadline: "",
-            startDate: "",
-            addedDate: "",
-            order: 0,
-          },
-          ...state[todolistId],
-        ],
+        [task.todoListId]: [task, ...state[task.todoListId]],
       };
     }
     case "CHANGE-TASK-STATUS": {
@@ -77,7 +62,7 @@ export const setTasksAC = (payload: { todolistId: string; tasks: DomainTask[] })
   ({ type: "SET-TASKS", payload }) as const;
 export const removeTaskAC = (payload: { taskId: string; todolistId: string }) =>
   ({ type: "REMOVE-TASK", payload }) as const;
-export const addTaskAC = (payload: { todolistId: string; title: string }) => ({ type: "ADD-TASK", payload }) as const;
+export const addTaskAC = (payload: { task: DomainTask }) => ({ type: "ADD-TASK", payload }) as const;
 export const changeTaskStatusAC = (payload: { todolistId: string; taskId: string; status: TaskStatus }) =>
   ({ type: "CHANGE-TASK-STATUS", payload }) as const;
 export const changeTaskTitleAC = (payload: { todolistId: string; taskId: string; title: string }) =>
