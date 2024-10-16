@@ -10,9 +10,9 @@ import { TodolistProps } from "common/types/Todolists/Todolist/TodolistProps.ts"
 export const FilterButtons: FC<TodolistProps> = ({ todolist }) => {
   const dispatch = useAppDispatch();
 
-  const { todolistID, filter } = todolist;
+  const { id, filter } = todolist;
   const changeFilterHandler = (filter: FilterValueProps) =>
-    dispatch(changeTodolistFilterAC({ todolistID: todolistID, filter: filter }));
+    dispatch(changeTodolistFilterAC({ todolistID: id, filter: filter }));
 
   return (
     <Box sx={filterButtonsContainerSX}>
