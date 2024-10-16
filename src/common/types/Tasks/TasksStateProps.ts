@@ -1,5 +1,5 @@
-import { TaskProps } from "common/types/Tasks/TaskProps.ts";
+import { DomainTask } from "common/types/Tasks/TasksApiProps.ts";
 
 export type TasksStateProps = {
-  [key: string]: TaskProps[];
+  [key: string]: DomainTask[];
 };
