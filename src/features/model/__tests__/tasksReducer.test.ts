@@ -1,11 +1,5 @@
 import { TasksStateProps } from "common/types/Tasks/TasksStateProps.ts";
-import {
-  addTaskAC,
-  changeTaskStatusAC,
-  changeTaskTitleAC,
-  removeTaskAC,
-  tasksReducer,
-} from "features/model/tasksReducer/tasksReducer.ts";
+import { addTaskAC, removeTaskAC, tasksReducer, updateTaskAC } from "features/model/tasksReducer/tasksReducer.ts";
 import { addTodolistAC, removeTodolistAC } from "features/model/todolistsReducer/todolistsReducer.ts";
 import { v1 } from "uuid";
 import { DomainTask } from "common/types/Tasks";
@@ -193,7 +187,7 @@ test("correct task should be added to correct array", () => {
 test("status of specified task should be changed", () => {
   const endState = tasksReducer(
     initialState,
-    changeTaskStatusAC({ todolistId: todolistID2, taskId: "2", status: TaskStatus.New })
+    updateTaskAC({ todolistId: todolistID2, taskId: "2", domainModel: { status: TaskStatus.New } })
   );
 
   expect(endState[todolistID1][1].status).toBeTruthy();
@@ -202,11 +196,7 @@ test("status of specified task should be changed", () => {
 test("title of specified task should be changed", () => {
   const endState = tasksReducer(
     initialState,
-    changeTaskTitleAC({
-      todolistId: todolistID2,
-      taskId: "2",
-      title: "coffee",
-    })
+    updateTaskAC({ todolistId: todolistID2, taskId: "2", domainModel: { title: "coffee" } })
   );
 
   expect(endState[todolistID1][1].title).toBe("JS");
