@@ -10,7 +10,7 @@ import { TodolistProps } from "common/types/Todolists/Todolist/TodolistProps.ts"
 export const Todolist: FC<TodolistProps> = ({ todolist }) => {
   const dispatch = useAppDispatch();
 
-  const addTaskHandler = (title: string) => dispatch(addTaskAC({ todolistID: todolist.id, title: title }));
+  const addTaskHandler = (title: string) => dispatch(addTaskAC({ todolistId: todolist.id, title: title }));
 
   return (
     <div>
