@@ -14,7 +14,7 @@ export const deleteTaskTC = (args: { taskId: string; todolistId: string }) => (d
   });
 };
 export const addTaskTC = (args: { title: string; todolistId: string }) => (dispatch: Dispatch) => {
-  tasksApi.createTask(args).then(() => {
-    dispatch(addTaskAC(args));
+  tasksApi.createTask(args).then((response) => {
+    dispatch(addTaskAC({ task: response.data.data.item }));
   });
 };
