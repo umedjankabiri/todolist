@@ -7,17 +7,18 @@ import {
   removeTodolistAC,
   todolistsReducer,
 } from "features/model/todolistsReducer/todolistsReducer.ts";
+import { DomainTodolist } from "common/types/Todolists/TodolistsApiProps.ts";
 
 let todolistID1: string;
 let todolistID2: string;
-let initialState: TodolistsProps[];
+let initialState: DomainTodolist[];
 
 beforeEach(() => {
   todolistID1 = v1();
   todolistID2 = v1();
   initialState = [
-    { todolistID: todolistID1, title: "What to read", filter: "All" },
-    { todolistID: todolistID2, title: "What to buy", filter: "All" },
+    { id: todolistID1, title: "What to read", filter: "All", addedDate: new Date().toISOString(), order: 0 },
+    { id: todolistID2, title: "What to buy", filter: "All", addedDate: new Date().toISOString(), order: 0 },
   ];
 });
 
@@ -25,7 +26,7 @@ test("Correct todolist should be removed", () => {
   const endState: TodolistsProps[] = todolistsReducer(initialState, removeTodolistAC(todolistID1));
 
   expect(endState.length).toBe(1);
-  expect(endState[0].todolistID).toBe(todolistID2);
+  expect(endState[0].id).toBe(todolistID2);
 });
 test("Correct todolist should be added", () => {
   const newTitle = "What to learn";
