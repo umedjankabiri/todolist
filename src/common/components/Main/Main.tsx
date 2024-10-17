@@ -1,13 +1,13 @@
-import { addTodolistAC } from "features/model/todolistsReducer/todolistsReducer.ts";
 import Grid from "@mui/material/Grid2";
 import { Container, Paper } from "@mui/material";
 import { AddItemForm } from "common/components/AddItemForm/AddItemForm.tsx";
 import { Todolists } from "features/ui/Todolists/Todolists.tsx";
 import { useAppDispatch } from "common/hooks/useAppDispatch.ts";
+import { addTodolistTC } from "features/model/thunks/todolistsThunks.ts";
 
 export const Main = () => {
   const dispatch = useAppDispatch();
-  const AddTodolist = (title: string) => dispatch(addTodolistAC(title));
+  const AddTodolist = (title: string) => dispatch(addTodolistTC(title));
 
   // layout
   return (
