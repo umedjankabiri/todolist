@@ -6,8 +6,7 @@ import { UpdateTaskDomainModel, UpdateTaskModel } from "common/types/Tasks";
 
 export const fetchTasksTC = (todolistID: string) => (dispatch: Dispatch) => {
   tasksApi.getTasks(todolistID).then((response) => {
-    const tasks = response.data.items;
-    dispatch(setTasksAC({ todolistId: todolistID, tasks }));
+    dispatch(setTasksAC({ todolistId: todolistID, tasks: response.data.items }));
   });
 };
 export const deleteTaskTC = (args: { taskId: string; todolistId: string }) => (dispatch: Dispatch) => {
