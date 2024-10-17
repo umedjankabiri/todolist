@@ -5,6 +5,7 @@ import { v1 } from "uuid";
 import { DomainTask } from "common/types/Tasks";
 import { TaskStatus } from "common/utils/enums/enumTaskStatus";
 import { TaskPriority } from "common/utils/enums/enumTaskPriority";
+import { Todolist } from "common/types/Todolists/TodolistsApiProps.ts";
 
 let todolistID1: string;
 let todolistID2: string;
@@ -203,7 +204,14 @@ test("title of specified task should be changed", () => {
   expect(endState[todolistID2][1].title).toBe("coffee");
 });
 test("new array should be added when new todolist is added", () => {
-  const endState = tasksReducer(initialState, addTodolistAC("What to read"));
+  const title: string = "What to read";
+  const todolist: Todolist = {
+    id: v1(),
+    title: title,
+    addedDate: new Date().toISOString(),
+    order: 0,
+  };
+  const endState = tasksReducer(initialState, addTodolistAC(todolist));
 
   const keys = Object.keys(endState);
   const newKey = keys.find((k) => k !== todolistID1 && k !== todolistID2);
