@@ -1,4 +1,3 @@
-import { v1 } from "uuid";
 import { FilterValueProps } from "common/types/Tasks/FilterValueProps.ts";
 import { TodolistsActionsProps } from "common/types/Todolists/TodolistsActions/TodolistsActionsProps.ts";
 import { DomainTodolist, Todolist } from "common/types/Todolists/TodolistsApiProps.ts";
@@ -16,8 +15,8 @@ export const todolistsReducer = (
       return state.filter((todolist) => todolist.id !== action.payload.todolistID);
     case "ADD-TODOLIST": {
       const newTodolist: DomainTodolist = {
-        id: action.payload.id,
-        title: action.payload.title,
+        id: action.payload.todolist.id,
+        title: action.payload.todolist.title,
         filter: "All",
         addedDate: new Date().toISOString(),
         order: 0,
@@ -40,8 +39,8 @@ export const todolistsReducer = (
 export const setTodolistsAC = (todolists: Todolist[]) => ({ type: "SET-TODOLISTS", todolists }) as const;
 export const removeTodolistAC = (todolistID: string) =>
   ({ type: "REMOVE-TODOLIST", payload: { todolistID: todolistID } }) as const;
-export const addTodolistAC = (title: string) =>
-  ({ type: "ADD-TODOLIST", payload: { title: title, id: v1() } }) as const;
+export const addTodolistAC = (todolist: Todolist) =>
+  ({ type: "ADD-TODOLIST", payload: { todolist: todolist } }) as const;
 export const changeTodolistTitleAC = (payload: { todolistID: string; title: string }) =>
   ({ type: "CHANGE-TODOLIST-TITLE", payload }) as const;
 export const changeTodolistFilterAC = (payload: { todolistID: string; filter: FilterValueProps }) =>
