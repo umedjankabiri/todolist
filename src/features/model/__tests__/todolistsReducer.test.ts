@@ -1,5 +1,4 @@
 import { v1 } from "uuid";
-import { TodolistsProps } from "common/types/Todolists/TodolistsProps.ts";
 import {
   addTodolistAC,
   changeTodolistFilterAC,
@@ -7,7 +6,7 @@ import {
   removeTodolistAC,
   todolistsReducer,
 } from "features/model/todolistsReducer/todolistsReducer.ts";
-import { DomainTodolist } from "common/types/Todolists/TodolistsApiProps.ts";
+import { DomainTodolist, Todolist } from "common/types/Todolists/TodolistsApiProps.ts";
 
 let todolistID1: string;
 let todolistID2: string;
@@ -23,20 +22,26 @@ beforeEach(() => {
 });
 
 test("Correct todolist should be removed", () => {
-  const endState: TodolistsProps[] = todolistsReducer(initialState, removeTodolistAC(todolistID1));
+  const endState: DomainTodolist[] = todolistsReducer(initialState, removeTodolistAC(todolistID1));
 
   expect(endState.length).toBe(1);
   expect(endState[0].id).toBe(todolistID2);
 });
 test("Correct todolist should be added", () => {
   const newTitle = "What to learn";
-  const endState: TodolistsProps[] = todolistsReducer(initialState, addTodolistAC(newTitle));
+  const todolist: Todolist = {
+    id: todolistID1,
+    title: newTitle,
+    addedDate: new Date().toISOString(),
+    order: 0,
+  };
+  const endState: DomainTodolist[] = todolistsReducer(initialState, addTodolistAC(todolist));
 
   expect(endState.length).toBe(3);
   expect(endState[0].title).toBe(newTitle);
 });
 test("Correct todolist should be changed it's title", () => {
-  const endState: TodolistsProps[] = todolistsReducer(
+  const endState: DomainTodolist[] = todolistsReducer(
     initialState,
     changeTodolistTitleAC({
       todolistID: todolistID2,
@@ -48,7 +53,7 @@ test("Correct todolist should be changed it's title", () => {
   expect(endState[1].title).toBe("What to learn");
 });
 test("Correct filter of todolist should be changed", () => {
-  const endState: TodolistsProps[] = todolistsReducer(
+  const endState: DomainTodolist[] = todolistsReducer(
     initialState,
     changeTodolistFilterAC({
       todolistID: todolistID2,
