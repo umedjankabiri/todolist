@@ -4,15 +4,14 @@ import { EditableSpan } from "common/components/EditableSpan/EditableSpan.tsx";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useAppDispatch } from "common/hooks/useAppDispatch.ts";
-import { changeTodolistTitleAC, removeTodolistAC } from "features/model/todolistsReducer/todolistsReducer.ts";
+import { deleteTodolistTC, updateTodolistTitleTC } from "features/model/thunks/todolistsThunks.ts";
 
 export const TodolistTitle: FC<TodolistProps> = ({ todolist }) => {
   const dispatch = useAppDispatch();
 
   const { id, title } = todolist;
-  const removeTodolistHandler = () => dispatch(removeTodolistAC(id));
-  const changeTodolistTitleHandler = (title: string) =>
-    dispatch(changeTodolistTitleAC({ todolistID: id, title: title }));
+  const removeTodolistHandler = () => dispatch(deleteTodolistTC(id));
+  const changeTodolistTitleHandler = (title: string) => dispatch(updateTodolistTitleTC({ id: id, title: title }));
 
   return (
     <div className={"todolist-title-container"}>
