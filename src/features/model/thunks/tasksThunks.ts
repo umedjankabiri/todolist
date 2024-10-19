@@ -3,7 +3,8 @@ import { tasksApi } from "features/ui/Todolists/api/tasksApi.ts";
 import { addTaskAC, removeTaskAC, setTasksAC, updateTaskAC } from "features/model/reducers/tasksReducer.ts";
 import { RootState } from "App/store.ts";
 import { UpdateTaskDomainModel, UpdateTaskModel } from "common/types/Tasks";
-import { setStatusAC } from "features/model/reducers/statusReducer.ts";
+import { setErrorAC, setStatusAC } from "features/model/reducers/statusReducer.ts";
+import { ResultCode } from "common/utils/enums/enumErrorStatus.ts";
 
 export const fetchTasksTC = (todolistID: string) => (dispatch: Dispatch) => {
   dispatch(setStatusAC("loading"));
@@ -22,8 +23,15 @@ export const deleteTaskTC = (args: { taskId: string; todolistId: string }) => (d
 export const addTaskTC = (args: { title: string; todolistId: string }) => (dispatch: Dispatch) => {
   dispatch(setStatusAC("loading"));
   tasksApi.createTask(args).then((response) => {
-    dispatch(setStatusAC("success"));
-    dispatch(addTaskAC({ task: response.data.data.item }));
+    if (response.data.resultCode === ResultCode.SUCCESS) {
+      dispatch(addTaskAC({ task: response.data.data.item }));
+      dispatch(setStatusAC("success"));
+    } else if (response.data.messages.length) {
+      dispatch(setErrorAC(response.data.messages[0]));
+    } else {
+      dispatch(setErrorAC("Some error occurred"));
+      dispatch(setStatusAC("failed"));
+    }
   });
 };
 export const updateTaskTC =
