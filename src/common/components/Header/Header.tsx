@@ -38,7 +38,7 @@ export const Header = () => {
         <MenuButton background={buttonsBackgroundColor}>logout</MenuButton>
         <MenuButton background={buttonsBackgroundColor}>faq</MenuButton>
       </Toolbar>
-      {status === "Loading" && <LinearProgress />}
+      {status === "loading" && <LinearProgress />}
     </AppBar>
   );
 };
