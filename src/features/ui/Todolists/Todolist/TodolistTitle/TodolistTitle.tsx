@@ -9,7 +9,7 @@ import { deleteTodolistTC, updateTodolistTitleTC } from "features/model/thunks/t
 export const TodolistTitle: FC<TodolistProps> = ({ todolist }) => {
   const dispatch = useAppDispatch();
 
-  const { id, title } = todolist;
+  const { id, title, entityStatus } = todolist;
   const removeTodolistHandler = () => dispatch(deleteTodolistTC(id));
   const changeTodolistTitleHandler = (title: string) => dispatch(updateTodolistTitleTC({ id: id, title: title }));
 
@@ -18,7 +18,7 @@ export const TodolistTitle: FC<TodolistProps> = ({ todolist }) => {
       <h3>
         <EditableSpan title={title} onChangeTitle={changeTodolistTitleHandler} />
       </h3>
-      <IconButton onClick={removeTodolistHandler}>
+      <IconButton disabled={entityStatus === "loading"} onClick={removeTodolistHandler}>
         <DeleteIcon />
       </IconButton>
     </div>
