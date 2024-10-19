@@ -2,6 +2,7 @@ import { Dispatch } from "@reduxjs/toolkit";
 import { todolistsApi } from "features/ui/Todolists/api/todolistsApi.ts";
 import {
   addTodolistAC,
+  changeTodolistEntityStatusAC,
   changeTodolistTitleAC,
   removeTodolistAC,
   setTodolistsAC,
@@ -24,6 +25,7 @@ export const addTodolistTC = (title: string) => (dispatch: Dispatch) => {
 };
 export const deleteTodolistTC = (id: string) => (dispatch: Dispatch) => {
   dispatch(setStatusAC("loading"));
+  dispatch(changeTodolistEntityStatusAC({ id: id, entityStatus: "loading" }));
   todolistsApi.deleteTodolist(id).then(() => {
     dispatch(setStatusAC("success"));
     dispatch(removeTodolistAC(id));
