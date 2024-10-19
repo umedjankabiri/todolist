@@ -1,6 +1,6 @@
 import { ChangeEvent, FC } from "react";
 import { useAppDispatch } from "common/hooks/useAppDispatch.ts";
-import { TodolistTaskProps } from "common/types/Todolists/TodolistTask/TodolistTaskProps.ts";
+import { TodolistTaskProps } from "common/types/Todolists/TodolistTaskProps.ts";
 import { Checkbox, ListItem } from "@mui/material";
 import { getListItemSx } from "common/components/EditableSpan/EditableSpan.styles.ts";
 import IconButton from "@mui/material/IconButton";

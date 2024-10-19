@@ -1,8 +1,5 @@
-import { addTaskAC, removeTaskAC, setTasksAC, updateTaskAC } from "features/model/tasksReducer/tasksReducer";
-import {
-  AddTodolistActionProps,
-  RemoveTodolistActionProps,
-} from "common/types/Todolists/TodolistsActions/TodolistsActionsProps.ts";
+import { addTaskAC, removeTaskAC, setTasksAC, updateTaskAC } from "features/model/reducers/tasksReducer.ts";
+import { AddTodolistActionProps, RemoveTodolistActionProps } from "common/types/Todolists/TodolistsActionsProps.ts";
 
 export type RemoveTaskActionProps = ReturnType<typeof removeTaskAC>;
 export type AddTaskActionProps = ReturnType<typeof addTaskAC>;

@@ -1,5 +1,5 @@
 import { TasksStateProps } from "common/types/Tasks/TasksStateProps.ts";
-import { TasksActionsProps } from "common/types/taskReducer/TasksActionsProps.ts";
+import { TasksActionsProps } from "common/types/Tasks/TasksActionsProps.ts";
 import { DomainTask, UpdateTaskDomainModel } from "common/types/Tasks";
 
 const initialTasksState: TasksStateProps = {};

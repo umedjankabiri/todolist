@@ -1,7 +1,7 @@
 import { TasksStateProps } from "common/types/Tasks/TasksStateProps.ts";
-import { addTodolistAC, todolistsReducer } from "features/model/todolistsReducer/todolistsReducer.ts";
-import { tasksReducer } from "features/model/tasksReducer/tasksReducer.ts";
-import { DomainTodolist } from "common/types/Todolists/TodolistsApiProps.ts";
+import { addTodolistAC, todolistsReducer } from "features/model/reducers/todolistsReducer.ts";
+import { tasksReducer } from "features/model/reducers/tasksReducer.ts";
+import { DomainTodolist } from "common/types/Todolists/TodolistsResponseProps.ts";
 import { v1 } from "uuid";
 
 test("ids should be equals", () => {

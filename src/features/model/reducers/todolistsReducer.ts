@@ -1,6 +1,6 @@
 import { FilterValueProps } from "common/types/Tasks/FilterValueProps.ts";
-import { TodolistsActionsProps } from "common/types/Todolists/TodolistsActions/TodolistsActionsProps.ts";
-import { DomainTodolist, Todolist } from "common/types/Todolists/TodolistsApiProps.ts";
+import { TodolistsActionsProps } from "common/types/Todolists/TodolistsActionsProps.ts";
+import { DomainTodolist, Todolist } from "common/types/Todolists/TodolistsResponseProps.ts";
 
 const initialTodolistsState: DomainTodolist[] = [];
 

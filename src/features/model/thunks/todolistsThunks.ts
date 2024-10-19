@@ -5,7 +5,7 @@ import {
   changeTodolistTitleAC,
   removeTodolistAC,
   setTodolistsAC,
-} from "features/model/todolistsReducer/todolistsReducer.ts";
+} from "features/model/reducers/todolistsReducer.ts";
 
 export const fetchTodolistsTC = () => (dispatch: Dispatch) => {
   todolistsApi.getTodolists().then((response) => {

@@ -4,8 +4,8 @@ import { filterButtonsContainerSX } from "features/ui/Todolists/Todolist/FilterB
 import Button from "@mui/material/Button";
 import { FilterValueProps } from "common/types/Tasks/FilterValueProps.ts";
 import { useAppDispatch } from "common/hooks/useAppDispatch.ts";
-import { changeTodolistFilterAC } from "features/model/todolistsReducer/todolistsReducer.ts";
-import { TodolistProps } from "common/types/Todolists/Todolist/TodolistProps.ts";
+import { changeTodolistFilterAC } from "features/model/reducers/todolistsReducer.ts";
+import { TodolistProps } from "common/types/Todolists/TodolistProps.ts";
 
 export const FilterButtons: FC<TodolistProps> = ({ todolist }) => {
   const dispatch = useAppDispatch();

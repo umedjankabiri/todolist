@@ -4,7 +4,7 @@ import { FilterButtons } from "features/ui/Todolists/Todolist/FilterButtons/Filt
 import { useAppDispatch } from "common/hooks/useAppDispatch.ts";
 import { TodolistTitle } from "features/ui/Todolists/Todolist/TodolistTitle/TodolistTitle.tsx";
 import { Tasks } from "features/ui/Todolists/Todolist/Tasks/Tasks.tsx";
-import { TodolistProps } from "common/types/Todolists/Todolist/TodolistProps.ts";
+import { TodolistProps } from "common/types/Todolists/TodolistProps.ts";
 import { addTaskTC } from "features/model/thunks/tasksThunks.ts";
 
 export const Todolist: FC<TodolistProps> = ({ todolist }) => {

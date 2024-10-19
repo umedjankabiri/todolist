@@ -5,8 +5,8 @@ import {
   changeTodolistTitleAC,
   removeTodolistAC,
   todolistsReducer,
-} from "features/model/todolistsReducer/todolistsReducer.ts";
-import { DomainTodolist, Todolist } from "common/types/Todolists/TodolistsApiProps.ts";
+} from "features/model/reducers/todolistsReducer.ts";
+import { DomainTodolist, Todolist } from "common/types/Todolists/TodolistsResponseProps.ts";
 
 let todolistID1: string;
 let todolistID2: string;

@@ -1,5 +1,5 @@
 import { FC, useEffect } from "react";
-import { TodolistProps } from "common/types/Todolists/Todolist/TodolistProps.ts";
+import { TodolistProps } from "common/types/Todolists/TodolistProps.ts";
 import { List } from "@mui/material";
 import { Task } from "features/ui/Todolists/Todolist/Tasks/Task/Task.tsx";
 import { useAppSelector } from "common/hooks/useAppSelector.ts";

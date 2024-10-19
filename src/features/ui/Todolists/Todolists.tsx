@@ -6,7 +6,7 @@ import { selectTodolists } from "common/selectors/TodolistsSelectors.ts";
 import { useEffect } from "react";
 import { todolistsApi } from "features/ui/Todolists/api/todolistsApi.ts";
 import { useAppDispatch } from "common";
-import { setTodolistsAC } from "features/model/todolistsReducer/todolistsReducer.ts";
+import { setTodolistsAC } from "features/model/reducers/todolistsReducer.ts";
 
 export const Todolists = () => {
   const todolists = useAppSelector(selectTodolists);

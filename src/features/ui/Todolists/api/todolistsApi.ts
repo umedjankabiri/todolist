@@ -1,5 +1,5 @@
 import { todolistInstance } from "common/instance/todolistInstance.ts";
-import { TodolistsResponse, Todolist } from "common/types/Todolists/TodolistsApiProps.ts";
+import { TodolistsResponse, Todolist } from "common/types/Todolists/TodolistsResponseProps.ts";
 
 export const todolistsApi = {
   getTodolists() {

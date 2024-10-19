@@ -1,8 +1,8 @@
 import { RootState } from "App/store.ts";
 import { ThemeMode } from "common/types/ThemeMode/ThemeModeProps.ts";
-import { changeThemeModeAC } from "features/model/themeReducer/themeReducer.ts";
+import { changeThemeModeAC } from "features/model/reducers/themeReducer.ts";
 import { toggleTheme } from "common/utils/toggleTheme.ts";
-import { AppBar, Switch, Toolbar, Typography } from "@mui/material";
+import { AppBar, LinearProgress, Switch, Toolbar, Typography } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { MenuButton } from "common/components/Header/MenuButtons/MenuButton.tsx";
@@ -34,6 +34,7 @@ export const Header = () => {
         <MenuButton background={buttonsBackgroundColor}>logout</MenuButton>
         <MenuButton background={buttonsBackgroundColor}>faq</MenuButton>
       </Toolbar>
+      <LinearProgress />
     </AppBar>
   );
 };

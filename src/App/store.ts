@@ -1,7 +1,7 @@
 import { applyMiddleware, combineReducers, legacy_createStore, UnknownAction } from "redux";
-import { todolistsReducer } from "features/model/todolistsReducer/todolistsReducer.ts";
-import { tasksReducer } from "features/model/tasksReducer/tasksReducer.ts";
-import { themeReducer } from "features/model/themeReducer/themeReducer.ts";
+import { todolistsReducer } from "features/model/reducers/todolistsReducer.ts";
+import { tasksReducer } from "features/model/reducers/tasksReducer.ts";
+import { themeReducer } from "features/model/reducers/themeReducer.ts";
 import { ThunkDispatch, thunk } from "redux-thunk";
 
 const rootReducers = combineReducers({

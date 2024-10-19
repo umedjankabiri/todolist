@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 import { tasksApi } from "features/ui/Todolists/api/tasksApi.ts";
-import { addTaskAC, removeTaskAC, setTasksAC, updateTaskAC } from "features/model/tasksReducer/tasksReducer.ts";
+import { addTaskAC, removeTaskAC, setTasksAC, updateTaskAC } from "features/model/reducers/tasksReducer.ts";
 import { RootState } from "App/store.ts";
 import { UpdateTaskDomainModel, UpdateTaskModel } from "common/types/Tasks";
 

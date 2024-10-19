@@ -1,11 +1,11 @@
 import { TasksStateProps } from "common/types/Tasks/TasksStateProps.ts";
-import { addTaskAC, removeTaskAC, tasksReducer, updateTaskAC } from "features/model/tasksReducer/tasksReducer.ts";
-import { addTodolistAC, removeTodolistAC } from "features/model/todolistsReducer/todolistsReducer.ts";
+import { addTaskAC, removeTaskAC, tasksReducer, updateTaskAC } from "features/model/reducers/tasksReducer.ts";
+import { addTodolistAC, removeTodolistAC } from "features/model/reducers/todolistsReducer.ts";
 import { v1 } from "uuid";
 import { DomainTask } from "common/types/Tasks";
 import { TaskStatus } from "common/utils/enums/enumTaskStatus";
 import { TaskPriority } from "common/utils/enums/enumTaskPriority";
-import { Todolist } from "common/types/Todolists/TodolistsApiProps.ts";
+import { Todolist } from "common/types/Todolists/TodolistsResponseProps.ts";
 
 let todolistID1: string;
 let todolistID2: string;

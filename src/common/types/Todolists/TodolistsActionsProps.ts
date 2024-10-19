@@ -4,7 +4,7 @@ import {
   changeTodolistTitleAC,
   removeTodolistAC,
   setTodolistsAC,
-} from "features/model/todolistsReducer/todolistsReducer.ts";
+} from "features/model/reducers/todolistsReducer.ts";
 
 export type RemoveTodolistActionProps = ReturnType<typeof removeTodolistAC>;
 export type AddTodolistActionProps = ReturnType<typeof addTodolistAC>;
