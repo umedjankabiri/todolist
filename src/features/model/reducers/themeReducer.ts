@@ -1,22 +1,20 @@
-import { ActionProps, InitialState, ThemeMode } from "common/types/ThemeMode/ThemeModeProps.ts";
+import { ActionProps, InitialStateProps, ThemeMode } from "common/types/ThemeMode/ThemeModeProps.ts";
 
-export const initialState = {
-  themeMode: "light" as ThemeMode,
+const initialState: InitialStateProps = {
+  themeMode: "light",
 };
 
-export const themeReducer = (state: InitialState = initialState, action: ActionProps) => {
+export const themeReducer = (state: InitialStateProps = initialState, action: ActionProps): InitialStateProps => {
   switch (action.type) {
     case "CHANGE_THEME":
       return {
         ...state,
-        themeMode: action.themeMode,
+        themeMode: action.payload.themeMode,
       };
     default:
       return state;
   }
 };
 
-export const changeThemeModeAC = (themeMode: ThemeMode) => ({
-  type: "CHANGE_THEME",
-  themeMode: themeMode,
-});
+export const changeThemeModeAC = (themeMode: ThemeMode) =>
+  ({ type: "CHANGE_THEME", payload: { themeMode: themeMode } }) as const;
