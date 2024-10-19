@@ -15,7 +15,7 @@ export const Todolist: FC<TodolistProps> = ({ todolist }) => {
   return (
     <div>
       <TodolistTitle todolist={todolist} />
-      <AddItemForm addItem={addTaskHandler} />
+      <AddItemForm disabled={todolist.entityStatus === "loading"} addItem={addTaskHandler} />
       <Tasks todolist={todolist} />
       <FilterButtons todolist={todolist} />
     </div>
