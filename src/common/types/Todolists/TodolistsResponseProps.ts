@@ -1,4 +1,5 @@
 import { FilterValueProps } from "common/types/Tasks/FilterValueProps.ts";
+import { RequestStatusProps } from "common/types/Status/RequestStatusProps.ts";
 
 export type Todolist = {
   id: string;
@@ -18,4 +19,5 @@ export type TodolistsResponse<D = {}> = {
 };
 export type DomainTodolist = Todolist & {
   filter: FilterValueProps;
+  entityStatus: RequestStatusProps;
 };
