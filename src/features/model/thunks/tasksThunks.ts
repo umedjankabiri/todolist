@@ -20,10 +20,8 @@ export const deleteTaskTC = (args: { taskId: string; todolistId: string }) => (d
       dispatch(setStatusAC("success"));
       dispatch(removeTaskAC(args));
     } else if (response.data.resultCode === ResultCode.ERROR) {
-      dispatch(setErrorAC("Task was deleted before"));
+      dispatch(setErrorAC(response.data.messages[0]));
       dispatch(setStatusAC("failed"));
-    } else {
-      dispatch(setErrorAC(null));
     }
   });
 };
