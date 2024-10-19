@@ -15,9 +15,16 @@ export const fetchTasksTC = (todolistID: string) => (dispatch: Dispatch) => {
 };
 export const deleteTaskTC = (args: { taskId: string; todolistId: string }) => (dispatch: Dispatch) => {
   dispatch(setStatusAC("loading"));
-  tasksApi.deleteTask(args).then(() => {
-    dispatch(setStatusAC("success"));
-    dispatch(removeTaskAC(args));
+  tasksApi.deleteTask(args).then((response) => {
+    if (response.data.resultCode === ResultCode.SUCCESS) {
+      dispatch(setStatusAC("success"));
+      dispatch(removeTaskAC(args));
+    } else if (response.data.resultCode === ResultCode.ERROR) {
+      dispatch(setErrorAC("Task was deleted before"));
+      dispatch(setStatusAC("failed"));
+    } else {
+      dispatch(setErrorAC(null));
+    }
   });
 };
 export const addTaskTC = (args: { title: string; todolistId: string }) => (dispatch: Dispatch) => {
@@ -26,7 +33,7 @@ export const addTaskTC = (args: { title: string; todolistId: string }) => (dispa
     if (response.data.resultCode === ResultCode.SUCCESS) {
       dispatch(addTaskAC({ task: response.data.data.item }));
       dispatch(setStatusAC("success"));
-    } else if (response.data.messages.length) {
+    } else if (response.data.resultCode === ResultCode.ERROR) {
       dispatch(setErrorAC(response.data.messages[0]));
     } else {
       dispatch(setErrorAC("Some error occurred"));
@@ -52,9 +59,16 @@ export const updateTaskTC =
         ...domainModel,
       };
 
-      tasksApi.updateTask({ todolistId, taskId, model }).then(() => {
-        dispatch(setStatusAC("success"));
-        dispatch(updateTaskAC({ todolistId, taskId, domainModel }));
+      tasksApi.updateTask({ todolistId, taskId, model }).then((response) => {
+        if (response.data.resultCode === ResultCode.SUCCESS) {
+          dispatch(updateTaskAC({ todolistId, taskId, domainModel }));
+          dispatch(setStatusAC("success"));
+        } else if (response.data.resultCode === ResultCode.ERROR) {
+          dispatch(setErrorAC(response.data.messages[0]));
+        } else {
+          dispatch(setErrorAC("Some error occurred"));
+          dispatch(setStatusAC("failed"));
+        }
       });
     }
   };
