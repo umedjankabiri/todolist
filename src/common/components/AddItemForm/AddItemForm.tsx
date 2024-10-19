@@ -23,14 +23,14 @@ export const AddItemForm: FC<AddItemFormProps> = (props) => {
         label={!!error ? error : "Enter a title"}
         variant={"outlined"}
         className={error ? "error" : ""}
+        disabled={props.disabled}
         value={taskTitle}
         size={"small"}
         error={!!error}
         onChange={onChangeItemHandler}
         onKeyUp={addItemOnKeyUpHandler}
       />
-      {/*<Button variant={"contained"} onClick={addItemHandler}>+</Button>*/}
-      <IconButton onClick={addItemHandler} color={"primary"}>
+      <IconButton disabled={props.disabled} onClick={addItemHandler} color={"primary"}>
         <AddBoxIcon />
       </IconButton>
     </div>
