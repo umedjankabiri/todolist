@@ -16,8 +16,22 @@ beforeEach(() => {
   todolistID1 = v1();
   todolistID2 = v1();
   initialState = [
-    { id: todolistID1, title: "What to read", filter: "All", addedDate: new Date().toISOString(), order: 0 },
-    { id: todolistID2, title: "What to buy", filter: "All", addedDate: new Date().toISOString(), order: 0 },
+    {
+      id: todolistID1,
+      title: "What to read",
+      filter: "All",
+      addedDate: new Date().toISOString(),
+      order: 0,
+      entityStatus: "idle",
+    },
+    {
+      id: todolistID2,
+      title: "What to buy",
+      filter: "All",
+      addedDate: new Date().toISOString(),
+      order: 0,
+      entityStatus: "idle",
+    },
   ];
 });
 
