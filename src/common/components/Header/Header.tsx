@@ -8,9 +8,13 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { MenuButton } from "common/components/Header/MenuButtons/MenuButton.tsx";
 import { useAppDispatch } from "common/hooks/useAppDispatch.ts";
 import { useAppSelector } from "common/hooks/useAppSelector.ts";
+import { StatusProps } from "common/types/Status/StatusProps.ts";
+import { selectStatus } from "common/selectors/statusSelector.ts";
+import { selectThemeMode } from "common/selectors/themesSelectors.ts";
 
 export const Header = () => {
-  const themeMode = useAppSelector<RootState, ThemeMode>((state) => state.themes?.themeMode);
+  const themeMode = useAppSelector<RootState, ThemeMode>(selectThemeMode);
+  const { status } = useAppSelector<RootState, StatusProps>(selectStatus);
   const dispatch = useAppDispatch();
 
   // changing theme of todolist app
@@ -34,7 +38,7 @@ export const Header = () => {
         <MenuButton background={buttonsBackgroundColor}>logout</MenuButton>
         <MenuButton background={buttonsBackgroundColor}>faq</MenuButton>
       </Toolbar>
-      <LinearProgress />
+      {status === "Loading" && <LinearProgress />}
     </AppBar>
   );
 };
