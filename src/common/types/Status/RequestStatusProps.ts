@@ -1,1 +1,1 @@
-export type RequestStatusProps = "idle" | "Loading" | "success" | "failed";
+export type RequestStatusProps = "idle" | "loading" | "success" | "failed";
