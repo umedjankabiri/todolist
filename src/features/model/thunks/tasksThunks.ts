@@ -11,16 +11,16 @@ import { handleServerError } from "common/utils/handleServerError.ts";
 export const fetchTasksTC = (todolistID: string) => (dispatch: Dispatch) => {
   dispatch(setStatusAC("loading"));
   tasksApi.getTasks(todolistID).then((response) => {
-    dispatch(setStatusAC("success"));
     dispatch(setTasksAC({ todolistId: todolistID, tasks: response.data.items }));
+    dispatch(setStatusAC("success"));
   });
 };
 export const deleteTaskTC = (args: { taskId: string; todolistId: string }) => (dispatch: Dispatch) => {
   dispatch(setStatusAC("loading"));
   tasksApi.deleteTask(args).then((response) => {
     if (response.data.resultCode === ResultCode.SUCCESS) {
-      dispatch(setStatusAC("success"));
       dispatch(removeTaskAC(args));
+      dispatch(setStatusAC("success"));
     } else if (response.data.resultCode === ResultCode.ERROR) {
       handleServerError(response.data, dispatch);
     }
