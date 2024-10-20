@@ -7,13 +7,13 @@ export type Todolist = {
   addedDate: string;
   order: number;
 };
-export type FieldError = {
+export type TodolistFieldsErrors = {
   error: string;
   field: string;
 };
 export type TodolistsResponse<D = {}> = {
   data: D;
-  fieldsErrors: FieldError[];
+  fieldsErrors: TodolistFieldsErrors[];
   messages: string[];
   resultCode: number;
 };
