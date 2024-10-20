@@ -5,6 +5,8 @@ import { RootState } from "App/store.ts";
 import { UpdateTaskDomainModel, UpdateTaskModel } from "common/types/Tasks";
 import { setErrorAC, setStatusAC } from "features/model/reducers/statusReducer.ts";
 import { ResultCode } from "common/utils/enums/enumErrorStatus.ts";
+import { handleServerNetworkError } from "common/utils/handleServerNetworkError.ts";
+import { handleServerError } from "common/utils/handleServerError.ts";
 
 export const fetchTasksTC = (todolistID: string) => (dispatch: Dispatch) => {
   dispatch(setStatusAC("loading"));
@@ -36,13 +38,11 @@ export const addTaskTC = (args: { title: string; todolistId: string }) => (dispa
       } else if (response.data.resultCode === ResultCode.ERROR) {
         dispatch(setErrorAC(response.data.messages[0]));
       } else {
-        dispatch(setErrorAC("Some error occurred"));
-        dispatch(setStatusAC("failed"));
+        handleServerError(response.data, dispatch);
       }
     })
     .catch((error) => {
-      dispatch(setErrorAC(error.message));
-      dispatch(setStatusAC("failed"));
+      handleServerNetworkError(error, dispatch);
     });
 };
 export const updateTaskTC =
@@ -72,13 +72,11 @@ export const updateTaskTC =
           } else if (response.data.resultCode === ResultCode.ERROR) {
             dispatch(setErrorAC(response.data.messages[0]));
           } else {
-            dispatch(setErrorAC("Some error occurred"));
-            dispatch(setStatusAC("failed"));
+            handleServerError(response.data, dispatch);
           }
         })
         .catch((error) => {
-          dispatch(setErrorAC(error.message));
-          dispatch(setStatusAC("failed"));
+          handleServerNetworkError(error, dispatch);
         });
     }
   };
