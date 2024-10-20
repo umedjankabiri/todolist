@@ -9,7 +9,7 @@ const initialStatusState: StatusProps = {
 
 export const statusReducer = (state = initialStatusState, action: StatusActions): StatusProps => {
   switch (action.type) {
-    case "SET-STATUS":
+    case "SET-TODOLIST-STATUS":
       return {
         ...state,
         status: action.payload.status,
@@ -24,6 +24,6 @@ export const statusReducer = (state = initialStatusState, action: StatusActions)
   }
 };
 
-export const setStatusAC = (status: RequestStatusProps) =>
-  ({ type: "SET-STATUS", payload: { status: status } }) as const;
+export const setTodolistStatusAC = (status: RequestStatusProps) =>
+  ({ type: "SET-TODOLIST-STATUS", payload: { status: status } }) as const;
 export const setErrorAC = (error: null | string) => ({ type: "SET-ERROR", payload: { error: error } }) as const;
