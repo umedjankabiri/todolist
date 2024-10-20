@@ -17,14 +17,19 @@ export const fetchTasksTC = (todolistID: string) => (dispatch: Dispatch) => {
 };
 export const deleteTaskTC = (args: { taskId: string; todolistId: string }) => (dispatch: Dispatch) => {
   dispatch(setStatusAC("loading"));
-  tasksApi.deleteTask(args).then((response) => {
-    if (response.data.resultCode === ResultCode.SUCCESS) {
-      dispatch(removeTaskAC(args));
-      dispatch(setStatusAC("success"));
-    } else if (response.data.resultCode === ResultCode.ERROR) {
-      handleServerError(response.data, dispatch);
-    }
-  });
+  tasksApi
+    .deleteTask(args)
+    .then((response) => {
+      if (response.data.resultCode === ResultCode.SUCCESS) {
+        dispatch(removeTaskAC(args));
+        dispatch(setStatusAC("success"));
+      } else if (response.data.resultCode === ResultCode.ERROR) {
+        dispatch(setErrorAC(response.data.messages[0]));
+      } else handleServerError(response.data, dispatch);
+    })
+    .catch((error) => {
+      handleServerNetworkError(error, dispatch);
+    });
 };
 export const addTaskTC = (args: { title: string; todolistId: string }) => (dispatch: Dispatch) => {
   dispatch(setStatusAC("loading"));
@@ -36,9 +41,7 @@ export const addTaskTC = (args: { title: string; todolistId: string }) => (dispa
         dispatch(setStatusAC("success"));
       } else if (response.data.resultCode === ResultCode.ERROR) {
         dispatch(setErrorAC(response.data.messages[0]));
-      } else {
-        handleServerError(response.data, dispatch);
-      }
+      } else handleServerError(response.data, dispatch);
     })
     .catch((error) => {
       handleServerNetworkError(error, dispatch);
@@ -70,9 +73,7 @@ export const updateTaskTC =
             dispatch(setStatusAC("success"));
           } else if (response.data.resultCode === ResultCode.ERROR) {
             dispatch(setErrorAC(response.data.messages[0]));
-          } else {
-            handleServerError(response.data, dispatch);
-          }
+          } else handleServerError(response.data, dispatch);
         })
         .catch((error) => {
           handleServerNetworkError(error, dispatch);
