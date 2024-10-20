@@ -3,26 +3,26 @@ import { tasksApi } from "features/ui/Todolists/api/tasksApi.ts";
 import { addTaskAC, removeTaskAC, setTasksAC, updateTaskAC } from "features/model/reducers/tasksReducer.ts";
 import { RootState } from "App/store.ts";
 import { UpdateTaskDomainModel, UpdateTaskModel } from "common/types/Tasks";
-import { setErrorAC, setStatusAC } from "features/model/reducers/statusReducer.ts";
+import { setErrorAC, setTodolistStatusAC } from "features/model/reducers/statusReducer.ts";
 import { ResultCode } from "common/utils/enums/enumErrorStatus.ts";
 import { handleServerNetworkError } from "common/utils/handleServerNetworkError.ts";
 import { handleServerError } from "common/utils/handleServerError.ts";
 
 export const fetchTasksTC = (todolistID: string) => (dispatch: Dispatch) => {
-  dispatch(setStatusAC("loading"));
+  dispatch(setTodolistStatusAC("loading"));
   tasksApi.getTasks(todolistID).then((response) => {
     dispatch(setTasksAC({ todolistId: todolistID, tasks: response.data.items }));
-    dispatch(setStatusAC("success"));
+    dispatch(setTodolistStatusAC("success"));
   });
 };
 export const deleteTaskTC = (args: { taskId: string; todolistId: string }) => (dispatch: Dispatch) => {
-  dispatch(setStatusAC("loading"));
+  dispatch(setTodolistStatusAC("loading"));
   tasksApi
     .deleteTask(args)
     .then((response) => {
       if (response.data.resultCode === ResultCode.SUCCESS) {
         dispatch(removeTaskAC(args));
-        dispatch(setStatusAC("success"));
+        dispatch(setTodolistStatusAC("success"));
       } else if (response.data.resultCode === ResultCode.ERROR) {
         dispatch(setErrorAC(response.data.messages[0]));
       } else handleServerError(response.data, dispatch);
@@ -32,13 +32,13 @@ export const deleteTaskTC = (args: { taskId: string; todolistId: string }) => (d
     });
 };
 export const addTaskTC = (args: { title: string; todolistId: string }) => (dispatch: Dispatch) => {
-  dispatch(setStatusAC("loading"));
+  dispatch(setTodolistStatusAC("loading"));
   tasksApi
     .createTask(args)
     .then((response) => {
       if (response.data.resultCode === ResultCode.SUCCESS) {
         dispatch(addTaskAC({ task: response.data.data.item }));
-        dispatch(setStatusAC("success"));
+        dispatch(setTodolistStatusAC("success"));
       } else if (response.data.resultCode === ResultCode.ERROR) {
         dispatch(setErrorAC(response.data.messages[0]));
       } else handleServerError(response.data, dispatch);
@@ -50,7 +50,7 @@ export const addTaskTC = (args: { title: string; todolistId: string }) => (dispa
 export const updateTaskTC =
   (args: { todolistId: string; taskId: string; domainModel: UpdateTaskDomainModel }) =>
   (dispatch: Dispatch, getState: () => RootState) => {
-    dispatch(setStatusAC("loading"));
+    dispatch(setTodolistStatusAC("loading"));
     const { todolistId, taskId, domainModel } = args;
     const stateTasks = getState().tasks;
     const currentTask = stateTasks[todolistId];
@@ -70,7 +70,7 @@ export const updateTaskTC =
         .then((response) => {
           if (response.data.resultCode === ResultCode.SUCCESS) {
             dispatch(updateTaskAC({ todolistId, taskId, domainModel }));
-            dispatch(setStatusAC("success"));
+            dispatch(setTodolistStatusAC("success"));
           } else if (response.data.resultCode === ResultCode.ERROR) {
             dispatch(setErrorAC(response.data.messages[0]));
           } else handleServerError(response.data, dispatch);
