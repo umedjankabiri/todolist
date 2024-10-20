@@ -16,7 +16,7 @@ export const TodolistTitle: FC<TodolistProps> = ({ todolist }) => {
   return (
     <div className={"todolist-title-container"}>
       <h3>
-        <EditableSpan title={title} onChangeTitle={changeTodolistTitleHandler} />
+        <EditableSpan disabled={entityStatus === "loading"} title={title} onChangeTitle={changeTodolistTitleHandler} />
       </h3>
       <IconButton disabled={entityStatus === "loading"} onClick={removeTodolistHandler}>
         <DeleteIcon />
