@@ -30,10 +30,18 @@ export const Task: FC<TodolistTaskProps> = ({ todolist, task }) => {
     <>
       <ListItem key={task.id} sx={getListItemSx(task.status === TaskStatus.Completed)}>
         <div>
-          <Checkbox checked={task.status === TaskStatus.Completed} onChange={changeTaskStatusHandler} />
-          <EditableSpan title={task.title} onChangeTitle={changeTaskTitleHandler} />
+          <Checkbox
+            disabled={todolist.entityStatus === "loading"}
+            checked={task.status === TaskStatus.Completed}
+            onChange={changeTaskStatusHandler}
+          />
+          <EditableSpan
+            disabled={todolist.entityStatus === "loading"}
+            title={task.title}
+            onChangeTitle={changeTaskTitleHandler}
+          />
         </div>
-        <IconButton onClick={removeTaskHandler}>
+        <IconButton disabled={todolist.entityStatus === "loading"} onClick={removeTaskHandler}>
           <DeleteIcon />
         </IconButton>
       </ListItem>
