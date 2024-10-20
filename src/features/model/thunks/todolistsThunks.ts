@@ -7,7 +7,10 @@ import {
   removeTodolistAC,
   setTodolistsAC,
 } from "features/model/reducers/todolistsReducer.ts";
-import { setStatusAC } from "features/model/reducers/statusReducer.ts";
+import { setErrorAC, setStatusAC } from "features/model/reducers/statusReducer.ts";
+import { ResultCode } from "common/utils/enums/enumErrorStatus.ts";
+import { handleServerError } from "common/utils/handleServerError.ts";
+import { handleServerNetworkError } from "common/utils/handleServerNetworkError.ts";
 
 export const fetchTodolistsTC = () => (dispatch: Dispatch) => {
   dispatch(setStatusAC("loading"));
@@ -18,10 +21,19 @@ export const fetchTodolistsTC = () => (dispatch: Dispatch) => {
 };
 export const addTodolistTC = (title: string) => (dispatch: Dispatch) => {
   dispatch(setStatusAC("loading"));
-  todolistsApi.createTodolist(title).then((response) => {
-    dispatch(setStatusAC("success"));
-    dispatch(addTodolistAC(response.data.data.item));
-  });
+  todolistsApi
+    .createTodolist(title)
+    .then((response) => {
+      if (response.data.resultCode === ResultCode.SUCCESS) {
+        dispatch(addTodolistAC(response.data.data.item));
+        dispatch(setStatusAC("success"));
+      } else if (response.data.resultCode === ResultCode.ERROR) {
+        dispatch(setErrorAC(response.data.messages[0]));
+      } else handleServerError(response.data, dispatch);
+    })
+    .catch((error) => {
+      handleServerNetworkError(error, dispatch);
+    });
 };
 export const deleteTodolistTC = (id: string) => (dispatch: Dispatch) => {
   dispatch(setStatusAC("loading"));
