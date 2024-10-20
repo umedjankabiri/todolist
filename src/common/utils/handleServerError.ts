@@ -1,8 +1,8 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import { setErrorAC, setStatusAC } from "features/model/reducers/statusReducer.ts";
-import { TasksResponse } from "common/types/Tasks";
+import { TodolistsResponse } from "common/types/Todolists/TodolistsResponseProps.ts";
 
-export const handleServerError = <T>(data: TasksResponse<T>, dispatch: Dispatch) => {
+export const handleServerError = <T>(data: TodolistsResponse<T>, dispatch: Dispatch) => {
   if (data.messages.length) {
     dispatch(setErrorAC(data.messages[0]));
   } else dispatch(setErrorAC("Some error occurred"));
