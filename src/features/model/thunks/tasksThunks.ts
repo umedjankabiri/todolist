@@ -22,8 +22,7 @@ export const deleteTaskTC = (args: { taskId: string; todolistId: string }) => (d
       dispatch(setStatusAC("success"));
       dispatch(removeTaskAC(args));
     } else if (response.data.resultCode === ResultCode.ERROR) {
-      dispatch(setErrorAC(response.data.messages[0]));
-      dispatch(setStatusAC("failed"));
+      handleServerError(response.data, dispatch);
     }
   });
 };
