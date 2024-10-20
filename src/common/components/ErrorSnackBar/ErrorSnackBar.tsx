@@ -1,15 +1,19 @@
 import { Alert, Snackbar } from "@mui/material";
-import { SyntheticEvent, useState } from "react";
+import { SyntheticEvent } from "react";
 import { useAppSelector } from "common/hooks/useAppSelector.ts";
 import { selectStatus } from "common/selectors/statusSelector.ts";
+import { useAppDispatch } from "common/hooks/useAppDispatch.ts";
+import { setErrorAC, setStatusAC } from "features/model/reducers/statusReducer.ts";
 
 export const ErrorSnackBar = () => {
   const { error } = useAppSelector(selectStatus);
-  const [_open, setOpen] = useState(true);
+  const dispatch = useAppDispatch();
 
   const onClickCloseHandler = (_event: SyntheticEvent | Event, reason?: string) => {
     if (reason === "clickaway") return;
-    setOpen(false);
+
+    dispatch(setErrorAC(null));
+    dispatch(setStatusAC("idle"));
   };
 
   return (
