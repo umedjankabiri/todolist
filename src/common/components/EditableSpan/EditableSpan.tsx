@@ -21,6 +21,7 @@ export const EditableSpan: FC<EditableSpanProps> = (props) => {
     <TextField
       variant={"outlined"}
       value={title}
+      disabled={props.disabled}
       size={"small"}
       onBlur={deactivateEditModeHandler}
       onChange={changeTitleHandler}
