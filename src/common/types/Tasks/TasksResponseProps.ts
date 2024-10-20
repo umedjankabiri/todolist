@@ -35,10 +35,13 @@ export type UpdateTaskDomainModel = {
   priority?: number;
   startDate?: string;
 };
-
+export type TasksFieldsErrors = {
+  error: string;
+  field: string;
+};
 export type TasksResponse<D = {}> = {
   data: D;
-  fieldsErrors: string[];
+  fieldsErrors: TasksFieldsErrors[];
   messages: string[];
   resultCode: number;
 };
