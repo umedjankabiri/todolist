@@ -27,17 +27,23 @@ export const deleteTaskTC = (args: { taskId: string; todolistId: string }) => (d
 };
 export const addTaskTC = (args: { title: string; todolistId: string }) => (dispatch: Dispatch) => {
   dispatch(setStatusAC("loading"));
-  tasksApi.createTask(args).then((response) => {
-    if (response.data.resultCode === ResultCode.SUCCESS) {
-      dispatch(addTaskAC({ task: response.data.data.item }));
-      dispatch(setStatusAC("success"));
-    } else if (response.data.resultCode === ResultCode.ERROR) {
-      dispatch(setErrorAC(response.data.messages[0]));
-    } else {
-      dispatch(setErrorAC("Some error occurred"));
+  tasksApi
+    .createTask(args)
+    .then((response) => {
+      if (response.data.resultCode === ResultCode.SUCCESS) {
+        dispatch(addTaskAC({ task: response.data.data.item }));
+        dispatch(setStatusAC("success"));
+      } else if (response.data.resultCode === ResultCode.ERROR) {
+        dispatch(setErrorAC(response.data.messages[0]));
+      } else {
+        dispatch(setErrorAC("Some error occurred"));
+        dispatch(setStatusAC("failed"));
+      }
+    })
+    .catch((error) => {
+      dispatch(setErrorAC(error.message));
       dispatch(setStatusAC("failed"));
-    }
-  });
+    });
 };
 export const updateTaskTC =
   (args: { todolistId: string; taskId: string; domainModel: UpdateTaskDomainModel }) =>
@@ -57,16 +63,22 @@ export const updateTaskTC =
         ...domainModel,
       };
 
-      tasksApi.updateTask({ todolistId, taskId, model }).then((response) => {
-        if (response.data.resultCode === ResultCode.SUCCESS) {
-          dispatch(updateTaskAC({ todolistId, taskId, domainModel }));
-          dispatch(setStatusAC("success"));
-        } else if (response.data.resultCode === ResultCode.ERROR) {
-          dispatch(setErrorAC(response.data.messages[0]));
-        } else {
-          dispatch(setErrorAC("Some error occurred"));
+      tasksApi
+        .updateTask({ todolistId, taskId, model })
+        .then((response) => {
+          if (response.data.resultCode === ResultCode.SUCCESS) {
+            dispatch(updateTaskAC({ todolistId, taskId, domainModel }));
+            dispatch(setStatusAC("success"));
+          } else if (response.data.resultCode === ResultCode.ERROR) {
+            dispatch(setErrorAC(response.data.messages[0]));
+          } else {
+            dispatch(setErrorAC("Some error occurred"));
+            dispatch(setStatusAC("failed"));
+          }
+        })
+        .catch((error) => {
+          dispatch(setErrorAC(error.message));
           dispatch(setStatusAC("failed"));
-        }
-      });
+        });
     }
   };
