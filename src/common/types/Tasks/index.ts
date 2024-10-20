@@ -1,1 +1,1 @@
-export type * from "./TasksApiProps";
+export type * from "common/types/Tasks/TasksResponseProps.ts";
