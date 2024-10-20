@@ -10,3 +10,4 @@ export {
   todolistsReducer,
 } from "./reducers/todolistsReducer.ts";
 export { setTasksAC, addTaskAC, updateTaskAC, removeTaskAC, tasksReducer } from "./reducers/tasksReducer.ts";
+export { setTodolistStatusAC, setErrorAC, statusReducer } from "./reducers/statusReducer.ts";
