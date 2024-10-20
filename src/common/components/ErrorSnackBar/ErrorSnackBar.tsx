@@ -3,7 +3,7 @@ import { SyntheticEvent } from "react";
 import { useAppSelector } from "common/hooks/useAppSelector.ts";
 import { selectStatus } from "common/selectors/statusSelector.ts";
 import { useAppDispatch } from "common/hooks/useAppDispatch.ts";
-import { setErrorAC, setStatusAC } from "features/model/reducers/statusReducer.ts";
+import { setErrorAC, setTodolistStatusAC } from "features/model/reducers/statusReducer.ts";
 
 export const ErrorSnackBar = () => {
   const { error } = useAppSelector(selectStatus);
@@ -13,7 +13,7 @@ export const ErrorSnackBar = () => {
     if (reason === "clickaway") return;
 
     dispatch(setErrorAC(null));
-    dispatch(setStatusAC("idle"));
+    dispatch(setTodolistStatusAC("idle"));
   };
 
   return (
