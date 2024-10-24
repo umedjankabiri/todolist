@@ -19,7 +19,7 @@ export const router = createBrowserRouter([
         element: <Login />,
       },
       {
-        path: Path.Error404,
+        path: "*",
         element: <Error404 />,
       },
     ],
