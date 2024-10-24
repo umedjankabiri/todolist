@@ -7,5 +7,7 @@ export { selectTodolists } from "./selectors/TodolistsSelectors.ts";
 export { selectTasks } from "./selectors/taskSelectors.ts";
 export { selectStatus } from "./selectors/statusSelector.ts";
 export { toggleTheme } from "./utils/toggleTheme.ts";
+export { Path } from "./utils/RouterPath.ts";
+export { router } from "./router/Router.tsx";
 export { TaskStatus } from "./utils/enums/enumTaskStatus.ts";
 export { TaskPriority } from "./utils/enums/enumTaskPriority.ts";
