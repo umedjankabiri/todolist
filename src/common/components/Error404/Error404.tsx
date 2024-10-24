@@ -1,10 +1,34 @@
-import stl from "./Error404.module.css";
+import { useAppSelector } from "common/hooks/useAppSelector.ts";
+import { selectThemeMode } from "common/selectors/themesSelectors.ts";
+import { Typography } from "@mui/material";
 
 export const Error404 = () => {
+  const themeMode = useAppSelector(selectThemeMode);
+
   return (
     <div>
-      <h1 className={stl.errorTitle}>404</h1>
-      <h2 className={stl.errorSubTitle}>page not found</h2>
+      <Typography
+        variant="h1"
+        sx={{
+          textAlign: "center",
+          fontSize: "250px",
+          margin: 0,
+          color: `${themeMode === "light" ? "#0993cb" : "#033844"}`,
+        }}
+      >
+        404
+      </Typography>
+      <Typography
+        variant="h2"
+        sx={{
+          textAlign: "center",
+          fontSize: "50px",
+          margin: 0,
+          color: `${themeMode === "light" ? "#0993cb" : "#033844"}`,
+        }}
+      >
+        page not found
+      </Typography>
     </div>
   );
 };
